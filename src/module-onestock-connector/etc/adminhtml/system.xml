@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <tab id="smile_onestock" translate="label" sortOrder="210">
+            <label>Onestock</label>
+        </tab>
+
+        <section id="smile_onestock" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>smile_onestock</tab>
+            <resource>Smile_Onestock::base_settings</resource>
+
+
+            <group id="adyen_getting_started" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Documentation & Support]]></label>
+                <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+                <comment><![CDATA[
+                                    <p>If you have any further questions, please visit the <a target="_blank" href="https://www.onestock-retail.com/en/">onestock-retail.com</a> website.</p>
+                                    ]]></comment>
+            </group>
+
+            <group id="base_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Base Settings</label>
+                <field id="site_id" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Site ID</label>
+                </field>
+                <field id="sales_channel" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Sales Channel</label>
+                </field>
+                <field id="rulesets_map" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Mapping JSON</label>
+                </field>
+            </group>
+
+
+            <group id="api" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>API</label>
+                <field id="user_id" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>User ID API</label>
+                </field>
+                <field id="password" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Mot de passe API</label>
+                </field>
+                <field id="order_retry_count" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Nombre de tentatives d’export par commande</label>
+                    <comment>Utile pour réessayer en cas d'échec</comment>
+                </field>
+            </group>
+       
+            <group id="ftp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>FTP</label>
+                <field id="folder" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Path du dossier</label>
+                </field>
+                <field id="us_full_pattern" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Unified Stock : Pattern des fichiers FULL</label>
+                </field>
+                <field id="us_diff_pattern" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Unified Stock : Pattern des fichiers DIFF</label>
+                </field>
+            </group>
+            <group id="dp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Delivery Promise</label>
+                <field id="dp_enabled" translate="label comment" type="select" sortOrder="52" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Activée</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="guest_postcode" translate="label comment" type="text" sortOrder="56" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Guest postcode</label>
+                    <depends>
+                        <field id="dp_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="stock" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Stock</label>
+                <field id="msi" translate="label" type="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Magento Inventory Management</label>
+                    <frontend_model>\Smile\Onestock\Block\Adminhtml\System\Config\Field\Msi</frontend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
