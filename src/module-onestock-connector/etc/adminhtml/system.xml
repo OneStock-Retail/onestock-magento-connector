@@ -13,16 +13,14 @@
             <resource>Smile_Onestock::base_settings</resource>
 
 
-            <group id="adyen_getting_started" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="getting_started" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label><![CDATA[Documentation & Support]]></label>
                 <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
-                <comment><![CDATA[
-                                    <p>If you have any further questions, please visit the <a target="_blank" href="https://www.onestock-retail.com/en/">onestock-retail.com</a> website.</p>
-                                    ]]></comment>
+                <comment><![CDATA[If you have any further questions, please visit the <a target="_blank" href="https://www.onestock-retail.com/en/">onestock-retail.com</a> website.]]></comment>
             </group>
 
-            <group id="base_settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Base Settings</label>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
                 <field id="site_id" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Site ID</label>
                 </field>
@@ -30,7 +28,7 @@
                     <label>Sales Channel</label>
                 </field>
                 <field id="rulesets_map" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Mapping JSON</label>
+                    <label>Orchestration mapping</label>
                 </field>
             </group>
 
@@ -38,37 +36,39 @@
             <group id="api" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>API</label>
                 <field id="user_id" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>User ID API</label>
+                    <label>API User ID</label>
                 </field>
                 <field id="password" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Mot de passe API</label>
+                    <label>API Password</label>
                 </field>
                 <field id="order_retry_count" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Nombre de tentatives d’export par commande</label>
-                    <comment>Utile pour réessayer en cas d'échec</comment>
+                    <label>Retry count per order</label>
+                    <comment>Usefull if export fails</comment>
                 </field>
             </group>
        
             <group id="ftp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>FTP</label>
                 <field id="folder" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Path du dossier</label>
+                    <label>Import/export folder path</label>
                 </field>
-                <field id="us_full_pattern" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Unified Stock : Pattern des fichiers FULL</label>
+                <field id="us_full_pattern" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Unifed Stock : file pattern for FULL</label>
+                    <comment>Wildcard (*) will match date and time</comment>
                 </field>
                 <field id="us_diff_pattern" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Unified Stock : Pattern des fichiers DIFF</label>
+                    <label>Unifed Stock : file pattern for DIFF</label>
+                    <comment>Wildcard (*) will match date and time</comment>
                 </field>
             </group>
             <group id="dp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Delivery Promise</label>
                 <field id="dp_enabled" translate="label comment" type="select" sortOrder="52" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
-                    <label>Activée</label>
+                    <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="guest_postcode" translate="label comment" type="text" sortOrder="56" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
-                    <label>Guest postcode</label>
+                    <label>Postcode for guest</label>
                     <depends>
                         <field id="dp_enabled">1</field>
                     </depends>

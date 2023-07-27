@@ -34,6 +34,6 @@ class Msi extends \Magento\Config\Block\System\Config\Form\Field
      */
     protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
     {
-        return $this->moduleManager->isEnabled('Magento_Inventory') ? 'Yes' : 'No';
+        return $this->moduleManager->isEnabled('Magento_Inventory') ? __('Yes') : __('No');
     }
 }

@@ -1,0 +1,23 @@
+Onestock,Onestock
+Configuration,Configuration
+"Documentation & Support","Documentation et Support"
+General,Général
+"Site ID","Site ID"
+"Sales Channel","Sales Channel"
+"Orchestration mapping","Jeux de règles d’orchestration"
+API,API
+"API User ID","ID utilisateur API"
+"API Password","Mot de passe API"
+"Retry count per order","Nombre de tentatives d’export par commande"
+"Usefull if export fails","Utile pour réessayer en cas d'échec"
+FTP,FTP
+"Import/export folder path","Chemin du dossier d’import export"
+"Unifed Stock : file pattern for FULL","Stock unifié : nommage des fichiers FULL"
+"Unifed Stock : file pattern for DIFF","Stock unifié : nommage des fichiers DIFF"
+"Wildcard (*) will match date and time","L’étoile sera remplacée par une date et heure"
+"Delivery Promise","Promesse de livraison"
+Enabled,Activée
+"Postcode for guest","Code postal par défaut pour les invités"
+Stock,Stock
+"Magento Inventory Management","Magento Inventory Management"
+"If you have any further questions, please visit the <a target=""_blank"" href=""https://www.onestock-retail.com/en/"">onestock-retail.com</a> website.","Pour toute question, vous pouvez visiter le site <a target=""_blank"" href=""https://www.onestock-retail.com/en/"">onestock-retail.com</a>."
