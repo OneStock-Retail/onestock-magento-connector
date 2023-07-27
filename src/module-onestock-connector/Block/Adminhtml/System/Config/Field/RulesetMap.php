@@ -1,11 +1,30 @@
 <?php
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\Onestock
+ * @author    Pascal Noisette <pascal.noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
 namespace Smile\Onestock\Block\Adminhtml\System\Config\Field;
 
 use \Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use \Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\BlockInterface;
-
+/**
+ * Block to configure ruleset within a nice UI selector
+ * @see https://developer.adobe.com/commerce/php/tutorials/admin/create-dynamic-row-configuration/
+ *
+ * @category Smile
+ * @package  Smile\Onestock
+ * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ */
 class RulesetMap extends AbstractFieldArray
 {
     
@@ -16,6 +35,7 @@ class RulesetMap extends AbstractFieldArray
     private $optionRenderer;
     
     /**
+     * Return selector of shipping method
      * 
      * @return BlockInterface 
      * @throws LocalizedException 
@@ -34,6 +54,7 @@ class RulesetMap extends AbstractFieldArray
     }
     
     /**
+     * Build two column since ruleset consist of method and ruleset code.
      * 
      * @return void 
      * @throws LocalizedException 
@@ -48,8 +69,7 @@ class RulesetMap extends AbstractFieldArray
     
     
     /**
-    * Prepare existing row data object
-    * @see https://developer.adobe.com/commerce/php/tutorials/admin/create-dynamic-row-configuration/
+    * Reload existing value if any
     *
     * @param DataObject $row
     * @return void
