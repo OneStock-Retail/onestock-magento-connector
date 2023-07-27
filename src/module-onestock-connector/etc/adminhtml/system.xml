@@ -8,42 +8,84 @@
  * Do not edit or add to this file if you wish to upgrade to newer
  * versions in the future.
  *
- * @category  Smile
  * @package   Smile\Onestock
  * @author    Pascal Noisette <pascal.noisette@smile.fr>
  * @copyright 2023 Smile
  * @license   Open Software License ("OSL") v. 3.0
  */
  -->
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
 
-        <tab id="smile_onestock" translate="label" sortOrder="210">
+        <tab id="smile_onestock"
+             translate="label"
+             sortOrder="210">
             <label>Onestock</label>
         </tab>
 
-        <section id="smile_onestock" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+        <section id="smile_onestock"
+                 translate="label"
+                 type="text"
+                 sortOrder="40"
+                 showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
             <class>separator-top</class>
             <label>Configuration</label>
             <tab>smile_onestock</tab>
             <resource>Smile_Onestock::base_settings</resource>
 
 
-            <group id="getting_started" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="getting_started"
+                   translate="label comment"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
                 <label><![CDATA[Documentation & Support]]></label>
                 <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
-                <comment><![CDATA[If you have any further questions, please visit the <a target="_blank" href="https://www.onestock-retail.com/en/">onestock-retail.com</a> website.]]></comment>
+                <comment><![CDATA[If you have any further questions, please visit the <a target="_blank"
+ href="https://www.onestock-retail.com/en/">onestock-retail.com</a> website.]]></comment>
             </group>
 
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="general"
+                   translate="label"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
                 <label>General</label>
-                <field id="site_id" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="site_id"
+                       translate="label"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Site ID</label>
                 </field>
-                <field id="sales_channel" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                <field id="sales_channel"
+                       translate="label"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Sales Channel</label>
                 </field>
-                <field id="rulesets_map" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="rulesets_map"
+                       translate="label"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Orchestration mapping</label>
                     <frontend_model>\Smile\Onestock\Block\Adminhtml\System\Config\Field\RulesetMap</frontend_model>
                     <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
@@ -51,41 +93,115 @@
             </group>
 
 
-            <group id="api" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="api"
+                   translate="label"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
                 <label>API</label>
-                <field id="user_id" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="user_id"
+                       translate="label"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>API User ID</label>
                 </field>
-                <field id="password" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="password"
+                       translate="label"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>API Password</label>
                 </field>
-                <field id="order_retry_count" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="order_retry_count"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Retry count per order</label>
                     <comment>Usefull if export fails</comment>
                 </field>
             </group>
        
-            <group id="ftp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="ftp"
+                   translate="label"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
                 <label>FTP</label>
-                <field id="folder" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="folder"
+                       translate="label"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Import/export folder path</label>
                 </field>
-                <field id="us_full_pattern" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="us_full_pattern"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Unifed Stock : file pattern for FULL</label>
                     <comment>Wildcard (*) will match date and time</comment>
                 </field>
-                <field id="us_diff_pattern" translate="label comment" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="us_diff_pattern"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Unifed Stock : file pattern for DIFF</label>
                     <comment>Wildcard (*) will match date and time</comment>
                 </field>
             </group>
-            <group id="dp" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="dp"
+                   translate="label"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
                 <label>Delivery Promise</label>
-                <field id="dp_enabled" translate="label comment" type="select" sortOrder="52" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                <field id="dp_enabled"
+                       translate="label comment"
+                       type="select"
+                       sortOrder="52"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Enabled</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="guest_postcode" translate="label comment" type="text" sortOrder="56" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                <field id="guest_postcode"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="56"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="0"
+                       canRestore="1">
                     <label>Postcode for guest</label>
                     <depends>
                         <field id="dp_enabled">1</field>
@@ -93,9 +209,21 @@
                 </field>
             </group>
 
-            <group id="stock" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="stock"
+                   translate="label"
+                   type="text"
+                   sortOrder="10"
+                   showInDefault="1"
+                   showInWebsite="1"
+                   showInStore="1">
                 <label>Stock</label>
-                <field id="msi" translate="label" type="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="msi"
+                       translate="label"
+                       type="label"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
                     <label>Magento Inventory Management</label>
                     <frontend_model>\Smile\Onestock\Block\Adminhtml\System\Config\Field\Msi</frontend_model>
                 </field>
