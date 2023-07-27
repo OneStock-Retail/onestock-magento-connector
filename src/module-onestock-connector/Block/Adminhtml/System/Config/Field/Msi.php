@@ -9,11 +9,6 @@ class Msi extends \Magento\Config\Block\System\Config\Form\Field
      */
     private $moduleManager;
 
-    /**
-     * @var array
-     */
-    private $translate;
-
     public function __construct(
         \Magento\Framework\Module\Manager $moduleManager,
         \Magento\Config\Model\Config\Source\Yesno $yesno,

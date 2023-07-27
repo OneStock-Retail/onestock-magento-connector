@@ -29,6 +29,8 @@
                 </field>
                 <field id="rulesets_map" translate="label" type="text" sortOrder="51" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
                     <label>Orchestration mapping</label>
+                    <frontend_model>\Smile\Onestock\Block\Adminhtml\System\Config\Field\RulesetMap</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
                 </field>
             </group>
 
