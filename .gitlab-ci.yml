@@ -13,18 +13,36 @@ before_script:
   - mkdir -p app/code/Smile/Onestock
   - mv ../* app/code/Smile/Onestock
 
-
-quality:
+phpcs:
   stage: test
   script:
     - vendor/bin/phpcs --report=junit --report-file=../phpcs.xml --standard=Magento2 app/code/Smile/Onestock/
-    - vendor/bin/phpunit --log-junit ../phpunit.xml app/code/Smile/Onestock/
-    - vendor/bin/phpstan analyse app/code/Smile/Onestock/ --error-format=junit --no-progress > ../phpstan.xml
   tags:
     - galaxy-docker-shared
   artifacts:
     reports:
       junit:
         - phpcs.xml
-        - phpstan.xml
+
+phpunit:
+  stage: test
+  script:
+    - vendor/bin/phpunit --log-junit ../phpunit.xml app/code/Smile/Onestock/
+  tags:
+    - galaxy-docker-shared
+  artifacts:
+    reports:
+      junit:
         - phpunit.xml
+
+
+phpstan:
+  stage: test
+  script:
+    - vendor/bin/phpstan analyse app/code/Smile/Onestock/ --error-format=junit --no-progress > ../phpstan.xml
+  tags:
+    - galaxy-docker-shared
+  artifacts:
+    reports:
+      junit:
+        - phpstan.xml
