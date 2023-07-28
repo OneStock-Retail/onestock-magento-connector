@@ -12,6 +12,7 @@ before_script:
   - stat composer.json || composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
   - mkdir -p app/code/Smile/Onestock
   - mv ../* app/code/Smile/Onestock
+  - apt-get update -qq && apt-get install -y -qq xsltproc
 
 phpcs:
   stage: test
@@ -35,7 +36,6 @@ phpunit:
       junit:
         - phpunit.xml
 
-
 phpstan:
   stage: test
   script:
@@ -46,3 +46,14 @@ phpstan:
     reports:
       junit:
         - phpstan.xml
+
+phpmd:
+  stage: test
+  script:
+    - vendor/bin/phpmd  app/code/Smile/Onestock/ xml cleancode,codesize,controversial,design,naming,unusedcode | xsltproc ../.phpunit.xslt - > ../phpmd.xml
+  tags:
+    - galaxy-docker-shared
+  artifacts:
+    reports:
+      junit:
+        - phpmd.xml
