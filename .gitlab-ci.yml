@@ -15,10 +15,21 @@ before_script:
   - mv ../* app/code/Smile/Onestock
   - apt-get update -qq && apt-get install -y -qq xsltproc
 
+magentoeqp:
+  stage: test
+  script:
+    - vendor/bin/phpcs --report=junit --report-file=../eqp.xml --standard=Magento2 --severity=9  app/code/Smile/Onestock/
+  tags:
+    - galaxy-docker-shared
+  artifacts:
+    reports:
+      junit:
+        - eqp.xml
+
 phpcs:
   stage: test
   script:
-    - vendor/bin/phpcs --report=junit --report-file=../phpcs.xml --standard=SmileLab app/code/Smile/Onestock/
+    - vendor/bin/phpcs --report=junit --report-file=../phpcs.xml --standard=SmileLab  --extensions=php  app/code/Smile/Onestock/
   tags:
     - galaxy-docker-shared
   artifacts:
