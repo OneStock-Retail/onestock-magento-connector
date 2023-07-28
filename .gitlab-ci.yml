@@ -1,0 +1,30 @@
+
+image: magento/magento-cloud-docker-php:8.1-cli-1.3.4
+
+cache:
+  paths:
+    - .magento
+
+before_script:
+  - mkdir -p .magento
+  - cd .magento
+  - rm -rf app/code/Smile/Onestock
+  - stat composer.json || composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
+  - mkdir -p app/code/Smile/Onestock
+  - mv ../* app/code/Smile/Onestock
+
+
+quality:
+  stage: test
+  script:
+    - vendor/bin/phpcs --report=junit --report-file=../phpcs.xml --standard=Magento2 app/code/Smile/Onestock/
+    - vendor/bin/phpunit --log-junit ../phpunit.xml app/code/Smile/Onestock/
+    - vendor/bin/phpstan analyse app/code/Smile/Onestock/ --error-format=junit --no-progress > ../phpstan.xml
+  tags:
+    - galaxy-docker-shared
+  artifacts:
+    reports:
+      junit:
+        - phpcs.xml
+        - phpstan.xml
+        - phpunit.xml
