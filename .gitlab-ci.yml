@@ -10,6 +10,7 @@ before_script:
   - cd .magento
   - rm -rf app/code/Smile/Onestock
   - stat composer.json || composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
+  - composer require --dev smile/magento2-smilelab-quality-suite
   - mkdir -p app/code/Smile/Onestock
   - mv ../* app/code/Smile/Onestock
   - apt-get update -qq && apt-get install -y -qq xsltproc
@@ -17,7 +18,7 @@ before_script:
 phpcs:
   stage: test
   script:
-    - vendor/bin/phpcs --report=junit --report-file=../phpcs.xml --standard=Magento2 app/code/Smile/Onestock/
+    - vendor/bin/phpcs --report=junit --report-file=../phpcs.xml --standard=SmileLab app/code/Smile/Onestock/
   tags:
     - galaxy-docker-shared
   artifacts:
@@ -50,7 +51,7 @@ phpstan:
 phpmd:
   stage: test
   script:
-    - vendor/bin/phpmd  app/code/Smile/Onestock/ xml cleancode,codesize,design,naming,unusedcode,dev/tests/static/testsuite/Magento/Test/Php/_files/phpmd/ruleset.xml | xsltproc ../.phpunit.xslt - > ../phpmd.xml
+    - vendor/bin/phpmd  app/code/Smile/Onestock/ xml vendor/smile/magento2-smilelab-phpmd/ruleset.xml | xsltproc ../.phpunit.xslt - > ../phpmd.xml
   tags:
     - galaxy-docker-shared
   artifacts:
