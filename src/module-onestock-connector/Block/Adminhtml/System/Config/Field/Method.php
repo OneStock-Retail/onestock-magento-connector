@@ -42,7 +42,7 @@ class Method extends Select
         array $data = []
     ) {
         $this->carrierMethods = $carrierMethods;
-        return parent::__construct($context, $data);
+        parent::__construct($context, $data);
     }
 
     /**

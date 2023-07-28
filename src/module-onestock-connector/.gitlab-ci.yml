@@ -50,7 +50,7 @@ phpstan:
 phpmd:
   stage: test
   script:
-    - vendor/bin/phpmd  app/code/Smile/Onestock/ xml cleancode,codesize,controversial,design,naming,unusedcode | xsltproc ../.phpunit.xslt - > ../phpmd.xml
+    - vendor/bin/phpmd  app/code/Smile/Onestock/ xml cleancode,codesize,design,naming,unusedcode,dev/tests/static/testsuite/Magento/Test/Php/_files/phpmd/ruleset.xml | xsltproc ../.phpunit.xslt - > ../phpmd.xml
   tags:
     - galaxy-docker-shared
   artifacts:
