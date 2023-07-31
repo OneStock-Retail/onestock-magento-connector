@@ -101,6 +101,15 @@
                    showInWebsite="1"
                    showInStore="1">
                 <label>API</label>
+                <field id="host"
+                       translate="label"
+                       type="text"
+                       sortOrder="2"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Host</label>
+                </field>
                 <field id="user_id"
                        translate="label"
                        type="text"
@@ -131,6 +140,16 @@
                        canRestore="1">
                     <label>Retry count per order</label>
                     <comment>Usefull if export fails</comment>
+                </field>
+                <field id="timeout"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
+                    <label>Timeout</label>
                 </field>
             </group>
        

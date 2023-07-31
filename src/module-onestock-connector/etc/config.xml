@@ -21,6 +21,7 @@
         <smile_onestock>
             <api>
                 <order_retry_count>2</order_retry_count>
+                <timeout>10</timeout>
             </api>
             <ftp>
                 <folder>var/importexport/onestock</folder>

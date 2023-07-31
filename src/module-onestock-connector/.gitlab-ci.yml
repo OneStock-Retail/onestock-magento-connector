@@ -40,7 +40,7 @@ phpcs:
 phpunit:
   stage: test
   script:
-    - vendor/bin/phpunit --log-junit ../phpunit.xml app/code/Smile/Onestock/
+    - vendor/bin/phpunit -c app/code/Smile/Onestock/phpunit.xml --log-junit ../phpunit.xml app/code/Smile/Onestock/
   tags:
     - galaxy-docker-shared
   artifacts:
