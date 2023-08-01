@@ -20,11 +20,8 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use InvalidArgumentException;
-use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Webapi\ServiceInputProcessor;
 use Magento\Framework\Webapi\ServiceOutputProcessor;
-use ReflectionException;
 use RuntimeException;
 use Smile\Onestock\Api\Data\Authentication\CredentialInterface;
 use Smile\Onestock\Api\Data\Authentication\TokenInterface;
@@ -70,31 +67,30 @@ class Authentication
 
     /**
      * Operation login
-     *
-     * @throws InvalidArgumentException
-     * @throws ReflectionException
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws GuzzleException
-     * @throws LocalizedException
+     * 
+     * @param ConfigInterface $server 
+     * @param CredentialInterface $credential 
+     * @return TokenInterface 
+     * @throws RuntimeException 
+     * @throws Exception 
+     * @throws GuzzleException 
      */
     public function login(ConfigInterface $server, CredentialInterface $credential): TokenInterface
     {
-        $request = new Request(
-            'POST',
-            $server->getHost() . '/login',
-            [
-                'Content-Type' => 'application/json',
-            ],
-            json_encode(
-                $this->toArrayProcessor->convertValue(
-                    $credential,
-                    CredentialInterface::class
-                )
-            )
-        );
-
         try {
+            $request = new Request(
+                'POST',
+                $server->getHost() . '/login',
+                [
+                    'Content-Type' => 'application/json',
+                ],
+                json_encode(
+                    $this->toArrayProcessor->convertValue(
+                        $credential,
+                        CredentialInterface::class
+                    )
+                )
+            );
             $response = $this->httpClient->send($request, $server->getOptions());
             if ($response->getStatusCode() != 200) {
                 throw new RequestException(
@@ -103,17 +99,19 @@ class Authentication
                     $response
                 );
             }
+            return $this->toClassProcessor->convertValue(
+                json_decode($response->getBody()->getContents(), true),
+                Token::class
+            );
         } catch (RequestException $e) {
             throw new Exception(
                 $e->getResponse() ? $e->getResponse()->getBody()->getContents() : '',
                 $e->getCode(),
                 $e
             );
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $this->toClassProcessor->convertValue(
-            json_decode($response->getBody()->getContents(), true),
-            Token::class
-        );
+        
     }
 }
