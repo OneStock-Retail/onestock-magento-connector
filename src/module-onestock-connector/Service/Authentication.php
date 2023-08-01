@@ -67,13 +67,13 @@ class Authentication
 
     /**
      * Operation login
-     * 
-     * @param ConfigInterface $server 
-     * @param CredentialInterface $credential 
-     * @return TokenInterface 
-     * @throws RuntimeException 
-     * @throws Exception 
-     * @throws GuzzleException 
+     *
+     * @param ConfigInterface $server dynamic url
+     * @param CredentialInterface $credential dynamic credentials
+     * @return TokenInterface session bearer
+     * @throws RuntimeException
+     * @throws Exception
+     * @throws GuzzleException
      */
     public function login(ConfigInterface $server, CredentialInterface $credential): TokenInterface
     {
@@ -112,6 +112,5 @@ class Authentication
         } catch (Exception $e) {
             throw $e;
         }
-        
     }
 }
