@@ -16,4 +16,5 @@
  -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/publisher.xsd">
     <publisher topic="smile.onestock.order.export"/>
+    <publisher topic="smile.onestock.shipment.import"/>
 </config>
