@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile_Onestock default configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @package   Smile\Onestock
+ * @author    Pascal Noisette <pascal.noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <virtualType name="Smile\Onestock\Model\Import\StockFull" type="Smile\Onestock\Model\Import">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="configure" xsi:type="object">\Smile\Onestock\Model\Import\Stock\Configure</item>
+                <item name="file_exists" xsi:type="object">\Smile\Onestock\Model\Import\Stock\FileExists</item>
+                <item name="drop_tmp_table" xsi:type="object">\Smile\Onestock\Model\Import\Stock\DropTable</item>
+                <item name="create_table" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CreateTable</item>
+                <item name="read_file" xsi:type="object">\Smile\Onestock\Model\Import\Stock\ReadFile</item>
+                <item name="find_product_ids" xsi:type="object">\Smile\Onestock\Model\Import\Stock\FindProductIds</item>
+                <item name="multi_inventory_import" xsi:type="object">\Smile\Onestock\Model\Import\Stock\MultiInventoryImport</item>
+                <item name="catalog_inventory_import" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CatalogInventoryImport</item>
+                <item name="default_to_zero_msi" xsi:type="object">\Smile\Onestock\Model\Import\Stock\DefaultToZeroMsi</item>
+                <item name="default_to_zero_cii" xsi:type="object">\Smile\Onestock\Model\Import\Stock\DefaultToZeroCii</item>
+                <item name="log_unknown_product" xsi:type="object">\Smile\Onestock\Model\Import\Stock\LogUnknownProduct</item>
+                <item name="reindex" xsi:type="object">\Smile\Onestock\Model\Import\Stock\Reindex</item>
+                <item name="cache_clean" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CacheClean</item>
+                <item name="archive" xsi:type="object">\Smile\Onestock\Model\Import\Stock\Archive</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Smile\Onestock\Model\CustomLoggerHandler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/onestock.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Smile\Onestock\Model\CustomLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Smile\Onestock\Model\CustomLoggerHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Smile\Onestock\Model\Import\Stock\LogUnknownProduct">
+        <arguments>
+            <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
+        </arguments>
+    </type>
+</config>
