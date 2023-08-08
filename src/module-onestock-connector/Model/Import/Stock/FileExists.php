@@ -57,7 +57,7 @@ class FileExists implements HandlerInterface
     {
         $this->driverFile->createDirectory($res['folder'] . "/in/unified_stock");
         $paths = $this->driverFile->readDirectory($res['folder'] . "/in/unified_stock");
-        $paths = preg_grep('/' . str_replace('*', '.*', $res['us_full_pattern']) . '/', $paths);
+        $paths = preg_grep('/' . str_replace('*', '.*', $res['pattern']) . '/', $paths);
 
         $res->setData('files', $paths);
         return $res;

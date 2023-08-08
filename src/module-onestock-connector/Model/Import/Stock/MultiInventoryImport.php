@@ -85,7 +85,7 @@ class MultiInventoryImport implements HandlerInterface
                    ['f' => $inventory],
                    $extraColumns
                )
-               ->where('quantity>0 and entity_id is not NULL');
+               ->where('entity_id is not NULL');
 
         $this->connection->query(
             $select->insertFromSelect(

@@ -89,25 +89,6 @@ class CreateTable implements HandlerInterface
             null,
             [],
             'Quantity'
-        )->addColumn(
-            'status',
-            Table::TYPE_BOOLEAN,
-            null,
-            ['nullable' => false, 'default' => 0],
-            'Status'
-        )
-        ->addColumn(
-            'error',
-            Table::TYPE_BOOLEAN,
-            null,
-            ['nullable' => false, 'default' => 0],
-            'Error'
-        )->addColumn(
-            'source',
-            Table::TYPE_TEXT,
-            255,
-            [],
-            'Source'
         )->addIndex(
             $this->connection->getIndexName($tableName, ['entity_id']),
             ['entity_id']

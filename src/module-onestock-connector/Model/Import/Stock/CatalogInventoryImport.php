@@ -67,8 +67,8 @@ class CatalogInventoryImport implements HandlerInterface
         $mainColumns = [
             'product_id' => 'entity_id',
             'qty' => 'quantity',
-            'is_in_stock' => new Zend_Db_Expr('IF(quantity>0, 1, 0)'),
         ];
+        $isInStock = new Zend_Db_Expr('IF(quantity>0, 1, 0)');
         $extraColumns = [
             'stock_id' => 'stock_id' ,
             'website_id' => 'website_id',
@@ -77,17 +77,25 @@ class CatalogInventoryImport implements HandlerInterface
         $select = $this->connection->select();
         $select->from(['main_table' => $tableName])
                ->reset(Select::COLUMNS)
-               ->columns($mainColumns)
+               ->columns($mainColumns + ['is_in_stock' => $isInStock])
                ->joinCross(
                    ['f' => $this->connection->getTableName('cataloginventory_stock')],
                    $extraColumns
                )
-               ->where('quantity>0 and entity_id is not NULL');
+               ->where('entity_id is not NULL');
 
         $this->connection->query(
             $select->insertFromSelect(
                 $this->connection->getTableName('cataloginventory_stock_item'),
-                array_keys($mainColumns + $extraColumns),
+                array_keys($mainColumns + ['is_in_stock' => $isInStock] + $extraColumns),
+                AdapterInterface::INSERT_ON_DUPLICATE
+            )
+        );
+
+        $this->connection->query(
+            $select->insertFromSelect(
+                $this->connection->getTableName('cataloginventory_stock_status'),
+                array_keys($mainColumns + ['stock_status' => $isInStock] + $extraColumns),
                 AdapterInterface::INSERT_ON_DUPLICATE
             )
         );

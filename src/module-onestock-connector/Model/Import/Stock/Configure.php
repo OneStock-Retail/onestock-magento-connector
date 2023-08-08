@@ -39,7 +39,8 @@ class Configure implements HandlerInterface
      * @return void
      */
     public function __construct(
-        protected ScopeConfigInterface $scopeConfig
+        protected ScopeConfigInterface $scopeConfig,
+        protected string $configPattern = self::CONFIG_PATTERN
     ) {
     }
 
@@ -65,11 +66,11 @@ class Configure implements HandlerInterface
             ScopeInterface::SCOPE_STORE
         );
         $pattern = $this->scopeConfig->getValue(
-            self::CONFIG_PATTERN,
+            $this->configPattern,
             ScopeInterface::SCOPE_STORE
         );
         return new DataObject([
-            "us_full_pattern" => $pattern,
+            "pattern" => $pattern,
             "folder" => $folder,
             "table" => self::TABLE,
         ]);

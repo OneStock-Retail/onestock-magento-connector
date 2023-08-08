@@ -18,6 +18,7 @@ namespace Smile\Onestock\Model\Import\Stock;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DataObject;
 use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\DB\Select;
 use Smile\Onestock\Api\Import\HandlerInterface;
 use Zend_Db_Expr;
 use Zend_Db_Select_Exception;
@@ -29,9 +30,9 @@ use Zend_Db_Select_Exception;
  */
 class DefaultToZeroCii implements HandlerInterface
 {
-        /**
-         * This variable contains a ResourceConnection
-         */
+    /**
+     * This variable contains a ResourceConnection
+     */
     protected AdapterInterface $connection;
 
     /**
@@ -80,6 +81,17 @@ class DefaultToZeroCii implements HandlerInterface
 
         $this->connection->query(
             $this->connection->updateFromSelect($query, ['p' => $stockTable])
+        );
+
+        $statusTable = $this->connection->getTableName('cataloginventory_stock_status');
+        $query->reset(Select::COLUMNS)->columns(
+            [
+                'qty' => new Zend_Db_Expr(0),
+                'stock_status' => new Zend_Db_Expr(0),
+            ]
+        );
+        $this->connection->query(
+            $this->connection->updateFromSelect($query, ['p' => $statusTable])
         );
         return $res;
     }

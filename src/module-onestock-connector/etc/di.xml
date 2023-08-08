@@ -30,10 +30,38 @@
                 <item name="default_to_zero_msi" xsi:type="object">\Smile\Onestock\Model\Import\Stock\DefaultToZeroMsi</item>
                 <item name="default_to_zero_cii" xsi:type="object">\Smile\Onestock\Model\Import\Stock\DefaultToZeroCii</item>
                 <item name="log_unknown_product" xsi:type="object">\Smile\Onestock\Model\Import\Stock\LogUnknownProduct</item>
-                <item name="reindex" xsi:type="object">\Smile\Onestock\Model\Import\Stock\Reindex</item>
+                <item name="reindex_cii" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CatalogInventoryReindex</item>
+                <item name="reindex_msi" xsi:type="object">\Smile\Onestock\Model\Import\Stock\MultiInventoryReindex</item>
                 <item name="cache_clean" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CacheClean</item>
                 <item name="archive" xsi:type="object">\Smile\Onestock\Model\Import\Stock\Archive</item>
             </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Smile\Onestock\Model\Import\StockDiff" type="Smile\Onestock\Model\Import">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="configure_for_differencial" xsi:type="object">\Smile\Onestock\Model\Import\Stock\ConfigureDiff</item>
+                <item name="file_exists" xsi:type="object">\Smile\Onestock\Model\Import\Stock\FileExists</item>
+                <item name="drop_tmp_table" xsi:type="object">\Smile\Onestock\Model\Import\Stock\DropTable</item>
+                <item name="create_table" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CreateTable</item>
+                <item name="read_file" xsi:type="object">\Smile\Onestock\Model\Import\Stock\ReadFile</item>
+                <item name="find_product_ids" xsi:type="object">\Smile\Onestock\Model\Import\Stock\FindProductIds</item>
+                <item name="multi_inventory_import" xsi:type="object">\Smile\Onestock\Model\Import\Stock\MultiInventoryImport</item>
+                <item name="catalog_inventory_import" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CatalogInventoryImport</item>
+                <item name="log_unknown_product" xsi:type="object">\Smile\Onestock\Model\Import\Stock\LogUnknownProduct</item>
+                <item name="find_diff_ids" xsi:type="object">\Smile\Onestock\Model\Import\Stock\FindDiffIds</item>
+                <item name="reindex_msi" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CatalogInventoryReindexIds</item>
+                <item name="reindex_cii" xsi:type="object">\Smile\Onestock\Model\Import\Stock\MultiInventoryReindexIds</item>
+                <item name="cache_clean" xsi:type="object">\Smile\Onestock\Model\Import\Stock\CacheCleanIds</item>
+                <item name="archive" xsi:type="object">\Smile\Onestock\Model\Import\Stock\Archive</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Smile\Onestock\Model\Import\Stock\ConfigureDiff" type="Smile\Onestock\Model\Import\Stock\Configure">
+        <arguments>
+            <argument name="configPattern" xsi:type="string">smile_onestock/ftp/us_diff_pattern</argument>
         </arguments>
     </virtualType>
 

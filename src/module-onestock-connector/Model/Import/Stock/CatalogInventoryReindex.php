@@ -17,10 +17,10 @@ namespace Smile\Onestock\Model\Import\Stock;
 
 use Exception;
 use Magento\CatalogInventory\Model\Indexer\Stock\Processor as StockProcessor;
+use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DataObject;
+use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\Indexer\IndexerRegistry;
-use Magento\Framework\Module\Manager;
-use Magento\InventoryIndexer\Indexer\InventoryIndexer;
 use Smile\Onestock\Api\Import\HandlerInterface;
 
 /**
@@ -28,15 +28,21 @@ use Smile\Onestock\Api\Import\HandlerInterface;
  *
  * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
-class Reindex implements HandlerInterface
+class CatalogInventoryReindex implements HandlerInterface
 {
+    /**
+     * This variable contains a ResourceConnection
+     */
+    protected AdapterInterface $connection;
     /**
      * @return void
      */
     public function __construct(
-        protected Manager $moduleManager,
         protected IndexerRegistry $indexerRegistry,
+        protected StockProcessor $stockProcessor,
+        ResourceConnection $connection,
     ) {
+        $this->connection = $connection->getConnection();
     }
 
     /**
@@ -57,15 +63,11 @@ class Reindex implements HandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-        $indexName = StockProcessor::INDEXER_ID;
-        if ($this->moduleManager->isEnabled('Magento_Inventory')) {
-            $indexName = InventoryIndexer::INDEXER_ID;
+        $index = $this->indexerRegistry->get(StockProcessor::INDEXER_ID);
+        if (!$index->isScheduled() && isset($res['ids'])) {
+            $this->stockProcessor->reindexAll();
         }
-        $index = $this->indexerRegistry->get($indexName);
-        if (!$index->isScheduled()) {
-            $index->reindexAll();
-        }
-        
+
         return $res;
     }
 }
