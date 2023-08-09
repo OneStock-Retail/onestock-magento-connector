@@ -17,7 +17,3 @@ export USER_ID=some_user_id
 export SITE_ID=some_site_id
 export PASSWORD=some_password
 ./vendor/phpunit/phpunit/phpunit -c app/code/Smile/Onestock/phpunit.xml
-
-== Run local test to debug ==
-
-vendor/bin/phpunit -c app/code/Smile/Onestock/phpunit.xml --bootstrap "app/bootstrap.php" app/code/Smile/Onestock/Test/Local

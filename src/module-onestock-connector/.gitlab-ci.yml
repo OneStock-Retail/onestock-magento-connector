@@ -42,7 +42,7 @@ phpunit:
   script:
     - bin/magento module:enable --all
     - bin/magento setup:di:compile
-    - vendor/bin/phpunit -c app/code/Smile/Onestock/phpunit.xml --bootstrap "dev/tests/unit/framework/bootstrap.php" --log-junit ../phpunit.xml app/code/Smile/Onestock/Test/Integration
+    - vendor/bin/phpunit -c app/code/Smile/Onestock/phpunit.xml --log-junit ../phpunit.xml app/code/Smile/Onestock/
   tags:
     - galaxy-docker-shared
   artifacts:
