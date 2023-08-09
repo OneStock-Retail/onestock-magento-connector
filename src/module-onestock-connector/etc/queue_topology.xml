@@ -17,6 +17,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
     <exchange name="magento">
         <binding id="smile.onestock.order.export" topic="smile.onestock.order.export" destination="smile.onestock.order.export"/>
-        <binding id="smile.onestock.shipment.import" topic="smile.onestock.shipment.import" destination="smile.onestock.shipment.import"/>
     </exchange>
 </config>
