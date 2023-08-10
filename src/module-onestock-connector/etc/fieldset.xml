@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile_Onestock default configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @package   Smile\Onestock
+ * @author    Pascal Noisette <pascal.noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="onestock_order_mapping">
+            <field name="increment_id">
+                <aspect name="to_onestock_order" targetField="id"/>
+            </field>
+            <field name="created_at">
+                <aspect name="to_onestock_order" targetField="date"/>
+            </field>
+            <!--
+                dynamic values in events.xml
+                <event name="core_copy_fieldset_onestock_order_mapping_to_onestock_order">
+            -->
+        </fieldset>
+        <fieldset id="onestock_address_mapping">
+            <field name="prefix">
+                <aspect name="to_onestock_contact" targetField="title"/>
+            </field>
+            <field name="firstname">
+                <aspect name="to_onestock_contact" targetField="first_name"/>
+            </field>
+            <field name="lastname">
+                <aspect name="to_onestock_contact" targetField="last_name"/>
+            </field>
+            <field name="company">
+                <aspect name="to_onestock_contact" targetField="company_name"/>
+            </field>
+            <field name="telephone">
+                <aspect name="to_onestock_contact" targetField="phone_number"/>
+            </field>
+            <field name="email">
+                <aspect name="to_onestock_contact" targetField="email"/>
+            </field>
+        </fieldset>
+        <fieldset id="onestock_item_mapping">
+            <field name="item_id">
+                <aspect name="to_onestock_item" targetField="id"/>
+            </field>
+            <field name="sku">
+                <aspect name="to_onestock_item" targetField="item_id"/>
+            </field>
+            <field name="lastname">
+                <aspect name="to_onestock_item" targetField="last_name"/>
+            </field>
+            <field name="qty_ordered">
+                <aspect name="to_onestock_item" targetField="quantity"/>
+            </field>
+            <field name="telephone">
+                <aspect name="to_onestock_item" targetField="phone_number"/>
+            </field>
+        </fieldset>
+    </scope>
+</config>

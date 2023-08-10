@@ -3,4 +3,11 @@
     <event name="sales_order_place_after">
         <observer name="onestock_export_order" instance="Smile\Onestock\Observer\ExportOrder"/>
     </event>
+    <event name="core_copy_fieldset_onestock_order_mapping_to_onestock_order">
+        <observer name="onestock_export_order_all_config" instance="Smile\Onestock\Observer\Mapping\Order\Config"/>
+        <observer name="onestock_export_order_delivery" instance="Smile\Onestock\Observer\Mapping\Order\Delivery"/>
+        <observer name="onestock_export_order_customer" instance="Smile\Onestock\Observer\Mapping\Order\Customer"/>
+        <observer name="onestock_export_order_price" instance="Smile\Onestock\Observer\Mapping\Order\Price"/>
+        <observer name="onestock_export_order_items" instance="Smile\Onestock\Observer\Mapping\Order\Items"/>
+    </event>
 </config>
