@@ -50,6 +50,6 @@ class Msi extends Field
      */
     protected function _getElementHtml(AbstractElement $element): string
     {
-        return $this->moduleManager->isEnabled('Magento_Inventory') ? __('Yes') : __('No');
+        return $this->moduleManager->isEnabled('Magento_Inventory') ? __('Yes')->getText() : __('No')->getText();
     }
 }

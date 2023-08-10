@@ -28,8 +28,6 @@ use Magento\Framework\View\Element\BlockInterface;
  */
 class RulesetMap extends AbstractFieldArray
 {
-    private BlockInterface $optionRenderer;
-    
     /**
      * Return selector of shipping method
      *
@@ -38,14 +36,11 @@ class RulesetMap extends AbstractFieldArray
     private function getOptionRenderer(): BlockInterface
     {
         
-        if (!$this->optionRenderer) {
-            $this->optionRenderer = $this->getLayout()->createBlock(
-                Method::class,
-                '',
-                ['data' => ['is_render_to_js_template' => true]]
-            );
-        }
-        return $this->optionRenderer;
+        return $this->getLayout()->createBlock(
+            Method::class,
+            '',
+            ['data' => ['is_render_to_js_template' => true]]
+        );
     }
     
     /**
