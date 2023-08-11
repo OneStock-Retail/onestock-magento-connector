@@ -85,4 +85,12 @@
             <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
         </arguments>
     </type>
+    <type name="Smile\Onestock\Model\Sales\ShipmentImport">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="parcel" xsi:type="object">\Smile\Onestock\Model\Sales\ShipmentImport\Parcel</item>
+                <item name="removed" xsi:type="object">\Smile\Onestock\Model\Sales\ShipmentImport\Remove</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
