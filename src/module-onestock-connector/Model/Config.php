@@ -35,7 +35,7 @@ class Config implements ConfigInterface
 
     public const PASSWORD = 'smile_onestock/api/password';
 
-    public const SITE_ID = 'smile_onestock/api/site_id';
+    public const SITE_ID = 'smile_onestock/general/site_id';
 
     /**
      * Constructor

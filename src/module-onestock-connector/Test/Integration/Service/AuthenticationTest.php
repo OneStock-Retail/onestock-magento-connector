@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Model\Authentication\Credential;
-use Smile\Onestock\Service\Authentication;
+use Smile\Onestock\Service\Onestock\Authentication;
 
 /**
  * Test service to login

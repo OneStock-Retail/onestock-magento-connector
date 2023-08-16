@@ -66,7 +66,7 @@ class ImportTest extends TestCase
     {
         
         $output = null;
-        $input = 4;
+        $input = 5;
         $this->applicationState
             ->emulateAreaCode(
                 Area::AREA_CRONTAB,

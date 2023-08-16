@@ -43,4 +43,23 @@ class Token extends DataObject implements TokenInterface
     {
         return $this->setData("token", $token);
     }
+
+    /**
+     * Gets site_id
+     */
+    public function getSiteId(): string
+    {
+        return $this->getData("site_id");
+    }
+
+    /**
+     * Sets site_id
+     *
+     * @param string $site_id Your Site ID, as provided by your OneStock contact
+     * @return $this
+     */
+    public function setSiteId(string $site_id)
+    {
+        return $this->setData("site_id", $site_id);
+    }
 }

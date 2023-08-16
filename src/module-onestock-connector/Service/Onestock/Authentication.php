@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace Smile\Onestock\Service;
+namespace Smile\Onestock\Service\Onestock;
 
 use Exception;
 use GuzzleHttp\Client;
@@ -100,6 +100,7 @@ class Authentication
                 );
             }
             return $this->toClassProcessor->convertValue(
+                ['site_id' => $credential->getSiteId()] +
                 json_decode($response->getBody()->getContents(), true),
                 Token::class
             );

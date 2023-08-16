@@ -36,4 +36,19 @@ interface TokenInterface
      * @return $this
      */
     public function setToken(string $token);
+
+    /**
+     * Gets site_id
+     *
+     * @return string
+     */
+    public function getSiteId();
+
+    /**
+     * Sets site_id
+     *
+     * @param string $site_id Your Site ID, as provided by your OneStock contact
+     * @return $this
+     */
+    public function setSiteId(string $site_id);
 }
