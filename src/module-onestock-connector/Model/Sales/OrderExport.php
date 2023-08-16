@@ -18,6 +18,8 @@ namespace Smile\Onestock\Model\Sales;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\Sales\OrderExportInterface;
+use Smile\Onestock\Model\Mapping\Order as Mapping;
+use Smile\Onestock\Service\Orders;
 
 /**
  * Export order to onestock
@@ -28,7 +30,9 @@ class OrderExport implements OrderExportInterface
 {
     public function __construct(
         protected OrderRepositoryInterface $orderRepository,
-        protected LoggerInterface $logger
+        protected LoggerInterface $logger,
+        protected Orders $service,
+        protected Mapping $mapping
     ) {
     }
 
@@ -38,8 +42,7 @@ class OrderExport implements OrderExportInterface
     public function export(
         int $orderId
     ): void {
-        $this->logger->debug("************************* ");
-        $this->logger->debug("OrderExport " . $orderId);
-        $this->orderRepository->get($orderId);
+        $order = $this->orderRepository->get($orderId);
+        $this->service->post($this->mapping->map($order));
     }
 }

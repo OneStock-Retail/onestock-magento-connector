@@ -109,4 +109,50 @@ class Orders
             throw $e;
         }
     }
+
+    /**
+     * Operation login
+     *
+     * @param ConfigInterface $server dynamic url
+     * @param CredentialInterface $credential dynamic credentials
+     * @return TokenInterface session bearer
+     * @throws RuntimeException
+     * @throws Exception
+     * @throws GuzzleException
+     */
+    public function post(ConfigInterface $server, TokenInterface $token, array $onestockOrder): array
+    {
+        try {
+            $request = new Request(
+                'POST',
+                $server->getHost() . '/v3/orders',
+                [
+                    'Content-Type' => 'application/json',
+                ],
+                json_encode(
+                    $this->toArrayProcessor->convertValue(
+                        $token,
+                        TokenInterface::class
+                    ) + ['orders' => $onestockOrder]
+                )
+            );
+            $response = $this->httpClient->send($request, $server->getOptions());
+            if ($response->getStatusCode() != 201) {
+                throw new RequestException(
+                    $response->getBody()->getContents(),
+                    $request,
+                    $response
+                );
+            }
+            return json_decode($response->getBody()->getContents(), true);
+        } catch (RequestException $e) {
+            throw new Exception(
+                $e->getResponse() ? $e->getResponse()->getBody()->getContents() : '',
+                $e->getCode(),
+                $e
+            );
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }

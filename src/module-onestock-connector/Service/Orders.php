@@ -16,12 +16,9 @@ declare(strict_types=1);
 namespace Smile\Onestock\Service;
 
 use Exception;
-use Magento\Framework\App\CacheInterface;
-use Magento\Framework\App\Config as CacheConfig;
-use Smile\Onestock\Model\Authentication\Credential;
-use Smile\Onestock\Model\Authentication\Token;
-use Smile\Onestock\Model\Config as OnestockConfig;
-use Smile\Onestock\Service\Onestock\Authentication as AuthenticationApi;
+use GuzzleHttp\Exception\GuzzleException;
+use RuntimeException;
+use Smile\Onestock\Helper\CacheToken;
 use Smile\Onestock\Service\Onestock\Orders as OrdersApi;
 
 /**
@@ -31,20 +28,14 @@ use Smile\Onestock\Service\Onestock\Orders as OrdersApi;
  */
 class Orders
 {
-    public const TOKEN_CACHE_IDENTIFIER = "token_cache_identifier";
-
-    public const TOKEN_LIFETIME = 86400;
-
     /**
      * Constructor
      *
      * @return void
      */
     public function __construct(
-        protected OnestockConfig $config,
-        protected AuthenticationApi $authentication,
         protected OrdersApi $orders,
-        protected CacheInterface $cache
+        protected CacheToken $tokenHelper,
     ) {
     }
 
@@ -52,32 +43,29 @@ class Orders
      * Return order from onestock
      *
      * @return array
+     * @throws Exception
+     * @throws RuntimeException
+     * @throws GuzzleException
      */
     public function get(int $orderId): array
     {
-        $credential = new Credential($this->config->getCredentials());
-        try {
-            $cached = $this->cache->load(self::TOKEN_CACHE_IDENTIFIER);
-            if ($cached) {
-                $token = new Token([
-                    "site_id" => $credential->getSiteId(),
-                    "token" => $cached,
-                ]);
-                return $this->orders->get($this->config, $token, $orderId);
-            }
-        } catch (Exception $e) {
-            if ($e->getCode() != 401) {
-                throw $e;
-            }
-        }
+        return $this->tokenHelper->call(function ($config, $token) use ($orderId): array {
+            return $this->orders->get($config, $token, $orderId);
+        });
+    }
 
-        $token = $this->authentication->login($this->config, $credential);
-        $this->cache->save(
-            $token->getToken(),
-            self::TOKEN_CACHE_IDENTIFIER,
-            [CacheConfig::CACHE_TAG],
-            self::TOKEN_LIFETIME
-        );
-        return $this->orders->get($this->config, $token, $orderId);
+    /**
+     * Post new order to onestock
+     *
+     * @return array
+     * @throws Exception
+     * @throws RuntimeException
+     * @throws GuzzleException
+     */
+    public function post(mixed $onestockOrder): array
+    {
+        return $this->tokenHelper->call(function ($config, $token) use ($onestockOrder) {
+            return $this->orders->post($config, $token, $onestockOrder);
+        });
     }
 }

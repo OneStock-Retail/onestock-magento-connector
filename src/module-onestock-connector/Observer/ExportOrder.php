@@ -50,7 +50,7 @@ class ExportOrder implements ObserverInterface
                 self::TOPIC_NAME,
                 [
                     [
-                        $orderId,
+                        intval($orderId),
                     ],
                 ]
             );
