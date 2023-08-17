@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile_Onestock default configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @package   Smile\Onestock
+ * @author    Pascal Noisette <pascal.noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Flat Order">
+        <column xsi:type="smallint" name="order_retry_count" unsigned="true" nullable="false" default="0" identity="false"
+                comment="Onestock Retry Count"/>
+        <column xsi:type="smallint" name="onestock_exported" unsigned="true" nullable="false" default="0" identity="false"
+                comment="Is Exported To Onestock"/>
+        <index referenceId="SALES_ORDER_ONESTOCK_RETRY_COUNT" indexType="btree">
+            <column name="order_retry_count"/>
+        </index>
+        <index referenceId="SALES_ORDER_ONESTOCK_EXPORTED" indexType="btree">
+            <column name="onestock_exported"/>
+        </index>
+    </table>
+    <table name="sales_shipment" resource="sales" engine="innodb" comment="Sales Flat Shipment">
+        <column xsi:type="varchar" name="onestock_id" nullable="true" length="32" comment="Onestock ID"/>
+        <index referenceId="SALES_SHIPMENT_ONESTOCK_ID" indexType="btree">
+            <column name="onestock_id"/>
+        </index>
+    </table>
+    <table name="sales_creditmemo" resource="sales" engine="innodb" comment="Sales Flat Creditmemo">
+        <column xsi:type="varchar" name="onestock_id" nullable="true" length="32" comment="Onestock ID"/>
+        <index referenceId="SALES_CREDITMEMO_ONESTOCK_ID" indexType="btree">
+            <column name="onestock_id"/>
+        </index>
+    </table>
+    
+</schema>

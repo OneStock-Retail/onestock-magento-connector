@@ -19,21 +19,23 @@ use Exception;
 use Magento\Framework\App\Bootstrap;
 use Magento\Framework\App\Http;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\DataObject;
+use Magento\Framework\Event\Observer;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Model\Sales\OrderExport;
+use Smile\Onestock\Observer\ExportOrder;
 
 /**
  * Test order publication in queue
  *
  * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
  */
-class ExportTest extends TestCase
+class PublishTest extends TestCase
 {
     /**
      * Object to test
      */
-    protected OrderExport $service;
+    protected ExportOrder $observer;
 
     /**
      * Instanciate object to test
@@ -46,19 +48,19 @@ class ExportTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->service = ObjectManager::getInstance()->create("Smile\Onestock\Model\Sales\OrderExport");
+            $this->observer = ObjectManager::getInstance()->create("Smile\Onestock\Observer\ExportOrder");
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }
     }
 
     /**
-     * Test export
+     * Trigger a publication
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */
-    public function testExport(): void
+    public function testPipeline(): void
     {
-        $this->service->export(2);
+        $this->observer->execute(new Observer(["order" => new DataObject(["id" => 1])]));
     }
 }

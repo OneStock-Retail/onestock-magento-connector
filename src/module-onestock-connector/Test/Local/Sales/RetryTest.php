@@ -21,19 +21,19 @@ use Magento\Framework\App\Http;
 use Magento\Framework\App\ObjectManager;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Model\Sales\OrderExport;
+use Smile\Onestock\Cron\RetryOrderExport;
 
 /**
  * Test order publication in queue
  *
  * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
  */
-class ExportTest extends TestCase
+class RetryTest extends TestCase
 {
     /**
      * Object to test
      */
-    protected OrderExport $service;
+    protected RetryOrderExport $cron;
 
     /**
      * Instanciate object to test
@@ -46,19 +46,19 @@ class ExportTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->service = ObjectManager::getInstance()->create("Smile\Onestock\Model\Sales\OrderExport");
+            $this->cron = ObjectManager::getInstance()->create("Smile\Onestock\Cron\RetryOrderExport");
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }
     }
 
     /**
-     * Test export
+     * Trigger a publication
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */
-    public function testExport(): void
+    public function testMapping(): void
     {
-        $this->service->export(2);
+        $this->cron->start();
     }
 }

@@ -1,10 +1,19 @@
 <?xml version="1.0"?>
 <!--
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * Smile_Onestock default configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @package   Smile\Onestock
+ * @author    Pascal Noisette <pascal.noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
  */
--->
+ -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
     <group id="onestock">
         <job name="onestock_full_stock_import" instance="Smile\Onestock\Model\Import\StockFull" method="start">
@@ -12,6 +21,9 @@
         </job>
         <job name="onestock_diff_stock_import" instance="Smile\Onestock\Model\Import\StockDiff" method="start">
             <schedule>*/15 6-20 * * *</schedule>
+        </job>
+        <job name="onestock_retry_order_export" instance="Smile\Onestock\Cron\RetryOrderExport" method="start">
+            <schedule>*/30 * * * *</schedule>
         </job>
     </group>
 </config>

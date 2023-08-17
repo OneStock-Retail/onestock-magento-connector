@@ -37,6 +37,8 @@ class Config implements ConfigInterface
 
     public const SITE_ID = 'smile_onestock/general/site_id';
 
+    public const ORDER_RETRY_COUNT = 'smile_onestock/api/order_retry_count';
+
     /**
      * Constructor
      *
@@ -103,5 +105,22 @@ class Config implements ConfigInterface
                 ScopeInterface::SCOPE_STORE
             ),
         ];
+    }
+
+    /**
+     * Return max value
+     *
+     * @param mixed $method
+     * @param mixed $resourcePath
+     * @param mixed $body
+     * @throws InvalidArgumentException
+     */
+    public function getOrderRetryCount(): string
+    {
+        $max = $this->scopeConfig->getValue(
+            self::ORDER_RETRY_COUNT,
+            ScopeInterface::SCOPE_STORE
+        );
+        return $max;
     }
 }
