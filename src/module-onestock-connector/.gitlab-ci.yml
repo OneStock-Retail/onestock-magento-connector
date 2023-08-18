@@ -14,6 +14,8 @@ before_script:
   - mkdir -p app/code/Smile/Onestock
   - mv ../* app/code/Smile/Onestock
   - apt-get update -qq && apt-get install -y -qq xsltproc
+  - bin/magento module:enable --all
+  - bin/magento setup:di:compile
 
 magentoeqp:
   stage: test
@@ -40,8 +42,6 @@ phpcs:
 phpunit:
   stage: test
   script:
-    - bin/magento module:enable --all
-    - bin/magento setup:di:compile
     - vendor/bin/phpunit -c app/code/Smile/Onestock/phpunit.xml --bootstrap "dev/tests/unit/framework/bootstrap.php" --log-junit ../phpunit.xml app/code/Smile/Onestock/Test/Integration
   tags:
     - galaxy-docker-shared
