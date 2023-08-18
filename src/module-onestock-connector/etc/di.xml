@@ -93,4 +93,7 @@
             </argument>
         </arguments>
     </type>
+    <type name="Smile\Onestock\Model\Handler\Shipment\Parcel">
+        <plugin name="add_tracking_link_to_shipment" type="Smile\Onestock\Plugin\AddTrackingLink"/>
+    </type>
 </config>

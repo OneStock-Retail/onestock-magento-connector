@@ -62,10 +62,12 @@ class ShipmentImport implements ShipmentImportInterface
                 $order->addRelatedObject($lineGroupHandler->update($order, $onestockOrder, $group));
             }
         }
-        foreach ($onestockOrder['parcels'] as $parcel) {
-            $lineGroupHandler = $this->data['parcel'];
-            if (!$lineGroupHandler->alreadyProcessed($parcel['id'])) {
-                $order->addRelatedObject($lineGroupHandler->update($order, $onestockOrder, $parcel));
+        if (isset($onestockOrder['parcels'])) {
+            foreach ($onestockOrder['parcels'] as $parcel) {
+                $lineGroupHandler = $this->data['parcel'];
+                if (!$lineGroupHandler->alreadyProcessed($parcel['id'])) {
+                    $order->addRelatedObject($lineGroupHandler->update($order, $onestockOrder, $parcel));
+                }
             }
         }
         

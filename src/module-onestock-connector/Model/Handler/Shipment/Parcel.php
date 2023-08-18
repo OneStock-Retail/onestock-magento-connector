@@ -17,6 +17,7 @@ namespace Smile\Onestock\Model\Handler\Shipment;
 
 use InvalidArgumentException;
 use LogicException;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\DataObject\Copy;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
@@ -24,10 +25,8 @@ use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Api\ShipmentRepositoryInterface;
 use Magento\Sales\Model\Convert\Order as ConvertOrder;
 use Magento\Sales\Model\Order;
-use Magento\Sales\Model\Order\Item;
 use Magento\Sales\Model\Order\Shipment;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Psr\Log\LoggerInterface;
+use Smile\Onestock\Helper\OrderItem;
 
 /**
  * Import shipment from onestock
@@ -43,11 +42,11 @@ class Parcel
      * @return void
      */
     public function __construct(
-        protected LoggerInterface $logger,
         protected ConvertOrder $convertOrder,
         protected ShipmentRepositoryInterface $shipmentRepository,
         protected SearchCriteriaBuilder $searchCriteriaBuilder,
         protected Copy $objectCopyService,
+        protected OrderItem $orderItemHelper,
         protected array $data = [],
     ) {
     }
@@ -107,7 +106,7 @@ class Parcel
             $shipmentItemQty = 0;
             /** @var Item $orderItem */
             if ($group['state'] == "fulfilled" && isset($group['parcel_id']) && $group['parcel_id'] == $parcel['id']) {
-                foreach ($this->getItemBySku($order, $group['item_id']) as $orderItem) {
+                foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
                     $qtyShipped = min($orderItem->getQtyToShip(), $group['quantity'] - $shipmentItemQty);
                     $shipmentItemQty += $qtyShipped;
                     $shipmentItem = $this->convertOrder->itemToShipmentItem($orderItem)->setQty($qtyShipped);
@@ -123,17 +122,5 @@ class Parcel
         $shipment->addComment(__("Create shipment from onestock"));
         $shipment->register();
         return  $shipment;
-    }
-
-    /**
-     * Loop for item by sku
-     *
-     * @return Item[]
-     */
-    public function getItemBySku(Order $order, string $sku): array
-    {
-        return array_filter($order->getItems(), function ($item) use ($sku) {
-            return $sku == $item->getSku() && !$item->getParentItem();
-        });
     }
 }

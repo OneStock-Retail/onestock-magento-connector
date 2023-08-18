@@ -34,7 +34,7 @@ class Remove
     public function alreadyProcessed(string $groupId): bool
     {
         //TODO check if already exists
-        return false;
+        return true;
     }
 
     /**
