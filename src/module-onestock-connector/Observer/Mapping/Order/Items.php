@@ -42,14 +42,17 @@ class Items implements ObserverInterface
             function ($item) {
                 $princingDetail = [
                     'pricing_details' => [
-                        'price' => $item->getRowTotalInclTax(),
+                        'price' => floatval($item->getRowTotalInclTax()),
                     ],
+                ];
+                $staticFields = [
+                    'quantity' => intval($item->getQtyOrdered()),
                 ];
                 return $princingDetail + $this->objectCopyService->getDataFromFieldset(
                     'onestock_item_mapping',
                     'to_onestock_item',
                     $item
-                );
+                ) + $staticFields;
             },
             $order->getAllItems()
         );

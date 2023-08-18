@@ -56,6 +56,7 @@ class OrderExport implements OrderExportInterface
             });
             $order->setOnestockExported(self::EXPORTED);
         } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
             $order->setOnestockExported(self::ERROR);
             $order->setOrderRetryCount($order->getOrderRetryCount() + 1);
         }

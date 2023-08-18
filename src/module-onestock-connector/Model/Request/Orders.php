@@ -133,7 +133,7 @@ class Orders
                     $this->toArrayProcessor->convertValue(
                         $token,
                         TokenInterface::class
-                    ) + ['orders' => $onestockOrder]
+                    ) + ['order' => $onestockOrder]
                 )
             );
             $response = $this->httpClient->send($request, $server->getOptions());

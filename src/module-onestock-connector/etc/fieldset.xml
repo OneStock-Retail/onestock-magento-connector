@@ -21,9 +21,6 @@
             <field name="increment_id">
                 <aspect name="to_onestock_order" targetField="id"/>
             </field>
-            <field name="created_at">
-                <aspect name="to_onestock_order" targetField="date"/>
-            </field>
             <!--
                 dynamic values in events.xml
                 <event name="core_copy_fieldset_onestock_order_mapping_to_onestock_order">
@@ -58,9 +55,6 @@
             </field>
             <field name="lastname">
                 <aspect name="to_onestock_item" targetField="last_name"/>
-            </field>
-            <field name="qty_ordered">
-                <aspect name="to_onestock_item" targetField="quantity"/>
             </field>
             <field name="telephone">
                 <aspect name="to_onestock_item" targetField="phone_number"/>

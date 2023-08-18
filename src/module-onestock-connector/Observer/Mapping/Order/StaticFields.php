@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 namespace Smile\Onestock\Observer\Mapping\Order;
 
-use Magento\Framework\DataObject\Copy;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
@@ -24,30 +23,16 @@ use Magento\Framework\Event\ObserverInterface;
  *
  * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
-class Price implements ObserverInterface
+class StaticFields implements ObserverInterface
 {
-    public function __construct(
-        protected Copy $objectCopyService,
-    ) {
-    }
-
     /**
      * Add order to export queue
      */
     public function execute(Observer $observer): void
     {
         $order = $observer->getSource();
-        $target = $observer->getTarget();
-        $target['pricing_details'] = [
-            'currency' => $order->getOrderCurrencyCode(),
-            'address' => array_filter(
-                $this->objectCopyService->getDataFromFieldset(
-                    'onestock_address_mapping',
-                    'to_onestock_contact',
-                    $order->getBillingAddress(),
-                )
-            ),
-            'price' => floatval($order->getGrandTotal()),
-        ];
+        $onestockOrder = $observer->getTarget();
+        
+        $onestockOrder['date'] = strtotime($order->getCreatedAt());
     }
 }

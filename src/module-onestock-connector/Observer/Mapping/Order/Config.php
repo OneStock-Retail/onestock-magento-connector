@@ -68,7 +68,7 @@ class Config implements ObserverInterface
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
         }
-        $onestockOrder['type'] = self::TYPE_FFS;
+        $onestockOrder['types'] = [self::TYPE_FFS] ;
         $onestockOrder['sales_channel'] = $this->scopeConfig->getValue(
             self::CONFIG_SALES_CHANNEL,
             ScopeInterface::SCOPE_STORE
