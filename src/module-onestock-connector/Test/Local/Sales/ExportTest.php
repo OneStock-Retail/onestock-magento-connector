@@ -21,7 +21,7 @@ use Magento\Framework\App\Http;
 use Magento\Framework\App\ObjectManager;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Model\Sales\OrderExport;
+use Smile\Onestock\Service\OrderExport;
 
 /**
  * Test order publication in queue
@@ -46,7 +46,7 @@ class ExportTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->service = ObjectManager::getInstance()->create("Smile\Onestock\Model\Sales\OrderExport");
+            $this->service = ObjectManager::getInstance()->create("Smile\Onestock\Service\OrderExport");
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

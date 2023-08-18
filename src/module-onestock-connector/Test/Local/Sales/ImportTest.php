@@ -23,7 +23,7 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\State;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Model\Sales\ShipmentImport;
+use Smile\Onestock\Service\ShipmentImport;
 
 /**
  * Test shipment import
@@ -50,7 +50,7 @@ class ImportTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Model\Sales\ShipmentImport");
+            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Service\ShipmentImport");
             $this->applicationState = ObjectManager::getInstance()->get(State::class);
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);

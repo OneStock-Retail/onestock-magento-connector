@@ -21,7 +21,7 @@ use Magento\Framework\App\Http;
 use Magento\Framework\App\ObjectManager;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Model\Import;
+use Smile\Onestock\Cron\Import;
 
 /**
  * Test order publication in queue
@@ -46,7 +46,7 @@ class StockTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Model\Import\StockFull");
+            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Cron\StockFull");
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

@@ -22,7 +22,7 @@ use Magento\Framework\App\ObjectManager;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Model\Mapping\Order as Mapping;
+use Smile\Onestock\Helper\Mapping;
 
 /**
  * Test order publication in queue
@@ -52,7 +52,7 @@ class MappingTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->mapping = ObjectManager::getInstance()->create("Smile\Onestock\Model\Mapping\Order");
+            $this->mapping = ObjectManager::getInstance()->create("Smile\Onestock\Helper\Mapping");
             $this->repository = ObjectManager::getInstance()->create("Magento\Sales\Api\OrderRepositoryInterface");
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
@@ -67,8 +67,7 @@ class MappingTest extends TestCase
     public function testMapping(): void
     {
         $input = $this->repository->get(1);
-        $res = $this->mapping->map($input);
-        var_dump($res);
+        $res = $this->mapping->convertOrder($input);
         $this->assertEquals($input->getIncrementId(), $res['id']);
     }
 }

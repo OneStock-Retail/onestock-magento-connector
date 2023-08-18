@@ -13,46 +13,46 @@
 
 declare(strict_types=1);
 
-namespace Smile\Onestock\Cron;
+namespace Smile\Onestock\Observer;
 
 use Magento\AsynchronousOperations\Model\MassSchedule;
+use Magento\Framework\Event\Observer;
+use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\BulkException;
-use Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface;
 use Psr\Log\LoggerInterface;
-use Smile\Onestock\Helper\Config as OnestockConfig;
-use Smile\Onestock\Observer\AddOrderToExportQueue as RegularPublisher;
-use Smile\Onestock\Service\OrderExport;
 
 /**
  * Observer to export order placed
  *
  * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
-class RetryOrderExport
+class AddOrderToExportQueue implements ObserverInterface
 {
+    public const TOPIC_NAME = 'async.smile.onestock.api.orderexportinterface.export.post';
+
     /**
      * @param CustomerAddress $customerAddressHelper
      */
     public function __construct(
         protected MassSchedule $asyncBulkPublisher,
         protected LoggerInterface $logger,
-        protected CollectionFactoryInterface $orderCollectionFactory,
-        protected OnestockConfig $config,
     ) {
     }
 
     /**
      * Add order to export queue
      */
-    public function start(): void
+    public function execute(Observer $observer): void
     {
-        $orderCollection = $this->orderCollectionFactory->create();
-        $orderCollection->addFieldToFilter("order_retry_count", ['lteq' => $this->config->getOrderRetryCount()]);
-        $orderCollection->addFilter("onestock_exported", OrderExport::ERROR);
+        $orderId = $observer->getOrder()->getId();
         try {
             $this->asyncBulkPublisher->publishMass(
-                RegularPublisher::TOPIC_NAME,
-                array_map('intval', $orderCollection->getAllIds()),
+                self::TOPIC_NAME,
+                [
+                    [
+                        intval($orderId),
+                    ],
+                ]
             );
         } catch (BulkException $bulkException) {
             $this->logger->error($bulkException->getLogMessage());

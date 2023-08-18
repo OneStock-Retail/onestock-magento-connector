@@ -18,14 +18,14 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
 
     <route url="/V1/order/:orderId/onestock_export" method="POST">
-        <service class="Smile\Onestock\Api\Sales\OrderExportInterface" method="export"/>
+        <service class="Smile\Onestock\Api\OrderExportInterface" method="export"/>
         <resources>
             <resource ref="anonymous" />
         </resources>
     </route>
 
     <route url="/V1/order/:orderId/onestock_updates" method="POST">
-        <service class="Smile\Onestock\Api\Sales\ShipmentImportInterface" method="requestUpdate"/>
+        <service class="Smile\Onestock\Api\ShipmentImportInterface" method="requestUpdate"/>
         <resources>
             <resource ref="anonymous" />
         </resources>

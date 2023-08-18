@@ -23,7 +23,7 @@ use Magento\Framework\DataObject;
 use Magento\Framework\Event\Observer;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use Smile\Onestock\Observer\ExportOrder;
+use Smile\Onestock\Observer\AddOrderToExportQueue;
 
 /**
  * Test order publication in queue
@@ -35,7 +35,7 @@ class PublishTest extends TestCase
     /**
      * Object to test
      */
-    protected ExportOrder $observer;
+    protected AddOrderToExportQueue $observer;
 
     /**
      * Instanciate object to test
@@ -48,7 +48,7 @@ class PublishTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->observer = ObjectManager::getInstance()->create("Smile\Onestock\Observer\ExportOrder");
+            $this->observer = ObjectManager::getInstance()->create("Smile\Onestock\Observer\AddOrderToExportQueue");
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

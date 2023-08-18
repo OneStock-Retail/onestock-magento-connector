@@ -22,8 +22,8 @@ use Magento\Framework\App\ObjectManager;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Smile\Onestock\Api\Data\ConfigInterface;
-use Smile\Onestock\Model\Authentication\Credential;
-use Smile\Onestock\Service\Onestock\Authentication;
+use Smile\Onestock\Model\Data\Authentication\Credential;
+use Smile\Onestock\Model\Request\Authentication;
 
 /**
  * Test service to login
@@ -35,7 +35,7 @@ class AuthenticationTest extends TestCase
     /**
      * Object to test
      */
-    protected mixed $authentication;
+    protected Authentication $authentication;
 
     /**
      * Instanciate object to test
@@ -62,7 +62,7 @@ class AuthenticationTest extends TestCase
      */
     public function testLogin(): void
     {
-        /** @var \Smile\Onestock\Model\Config */
+        /** @var \Smile\Onestock\Helper\Config */
         $config = $this->getMockBuilder(ConfigInterface::class)
             ->setMethods(['getHost', 'getCredentials', 'getOptions'])
             ->disableOriginalConstructor()
@@ -81,7 +81,7 @@ class AuthenticationTest extends TestCase
         /**@var \Smile\Onestock\Model\Authentication\Credential */
         $credential = new Credential($config->getCredentials());
 
-        /** @var \Smile\Onestock\Api\Data\Authentication\Token */
+        /** @var \Smile\Onestock\Api\Data\Authentication\TokenInterface */
         $token = $this->authentication->login($config, $credential);
 
         $this->assertNotEmpty($token->getToken());
