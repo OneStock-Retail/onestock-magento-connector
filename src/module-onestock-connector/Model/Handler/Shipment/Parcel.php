@@ -26,6 +26,7 @@ use Magento\Sales\Model\Convert\Order as ConvertOrder;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Item;
 use Magento\Sales\Model\Order\Shipment;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -45,6 +46,7 @@ class Parcel
         protected LoggerInterface $logger,
         protected ConvertOrder $convertOrder,
         protected ShipmentRepositoryInterface $shipmentRepository,
+        protected SearchCriteriaBuilder $searchCriteriaBuilder,
         protected Copy $objectCopyService,
         protected array $data = [],
     ) {
@@ -81,8 +83,10 @@ class Parcel
      */
     public function alreadyProcessed(string $groupId): bool
     {
-        //TODO check if already exists
-        return false;
+        $withThisParcelId = $this->searchCriteriaBuilder
+            ->addFilter("onestock_id", $groupId)
+            ->create();
+        return $this->shipmentRepository->getList($withThisParcelId)->getTotalCount() > 0;
     }
 
     /**
