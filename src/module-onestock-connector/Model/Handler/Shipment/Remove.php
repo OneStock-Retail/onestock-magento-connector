@@ -17,9 +17,13 @@ namespace Smile\Onestock\Model\Handler\Shipment;
 
 use InvalidArgumentException;
 use LogicException;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Model\AbstractModel;
+use Magento\Sales\Api\CreditmemoManagementInterface;
 use Magento\Sales\Model\Order;
+use Magento\Sales\Model\Order\CreditmemoFactory;
+use Magento\Sales\Model\Order\CreditmemoRepository;
+use Smile\Onestock\Helper\OrderItem;
 
 /**
  * Import creditmemo from onestock
@@ -29,12 +33,29 @@ use Magento\Sales\Model\Order;
 class Remove
 {
     /**
-     * Check if shipment already exists for this group
+     * Constructor
+     *
+     * @param array $data
+     * @return void
+     */
+    public function __construct(
+        protected OrderItem $orderItemHelper,
+        protected CreditmemoFactory $creditMemoFactory,
+        protected SearchCriteriaBuilder $searchCriteriaBuilder,
+        protected CreditmemoRepository $creditmemoRepository,
+        protected CreditmemoManagementInterface $creditmemoManagement,
+    ) {
+    }
+
+    /**
+     * Check if creditmemo already exists for this group
      */
     public function alreadyProcessed(string $groupId): bool
     {
-        //TODO check if already exists
-        return true;
+        $withThisParcelId = $this->searchCriteriaBuilder
+            ->addFilter("onestock_id", $groupId)
+            ->create();
+        return $this->creditmemoRepository->getList($withThisParcelId)->getTotalCount() > 0;
     }
 
     /**
@@ -46,8 +67,29 @@ class Remove
      * @throws InvalidArgumentException
      * @throws LocalizedException
      */
-    public function update(Order $order, array $onestockOrder, array $group): AbstractModel
+    public function update(Order $order, array $onestockOrder, array $group): mixed
     {
-        return null;
+        
+        $qtys = [];
+        $leftToRefund = $group['quantity'];
+        foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
+            $qtys[$orderItem->getId()] = min($leftToRefund, $orderItem->getQtyToRefund());
+            $leftToRefund -= $qtys[$orderItem->getId()];
+        }
+
+        $message = __("Create refund from onestock");
+        $toRefund = [
+            'qtys' => $qtys,
+            'reasons' => array_fill_keys(array_keys($qtys), $message),
+        ];
+
+        $creditmemo = $this->creditMemoFactory
+            ->createByOrder($order, $toRefund)
+            ->setOnestockId($group["id"]);
+        $creditmemo->addComment($message);
+
+        $this->creditmemoManagement->refund($creditmemo, true);
+
+        return $creditmemo;
     }
 }
