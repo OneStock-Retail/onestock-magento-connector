@@ -1,0 +1,15 @@
+{
+    "name": "smile/onestock-connector",
+    "description": "Manage stock with Onestock on your Adobe Commerce platform.",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Smile\\Onestock\\": ""
+        }
+    },
+    "require": {}
+}
