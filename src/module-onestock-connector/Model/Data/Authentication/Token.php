@@ -19,9 +19,7 @@ use Magento\Framework\DataObject;
 use Smile\Onestock\Api\Data\Authentication\TokenInterface;
 
 /**
- * Data model use in login ouput
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Output of login used as authenticating token for all api call towards onestock.
  */
 class Token extends DataObject implements TokenInterface
 {

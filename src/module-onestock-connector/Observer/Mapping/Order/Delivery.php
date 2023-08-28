@@ -23,9 +23,7 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Address;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Part of the mapping handling shipping adress
  */
 class Delivery implements ObserverInterface
 {

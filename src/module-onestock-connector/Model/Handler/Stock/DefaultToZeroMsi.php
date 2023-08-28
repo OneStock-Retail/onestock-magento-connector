@@ -23,9 +23,7 @@ use Zend_Db_Expr;
 use Zend_Db_Select_Exception;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to default all inventory to 0 when a full stock is requested
  */
 class DefaultToZeroMsi implements StockImportHandlerInterface
 {
@@ -46,7 +44,7 @@ class DefaultToZeroMsi implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -56,7 +54,7 @@ class DefaultToZeroMsi implements StockImportHandlerInterface
     /**
      * After import set 0/out of stock product unspecified in the file
      *
-     * @return array
+     * @return DataObject
      * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
@@ -68,7 +66,7 @@ class DefaultToZeroMsi implements StockImportHandlerInterface
             return $res;
         }
         $query = $this->connection->select()
-        ->from(false, ['quantity' => new Zend_Db_Expr(0), 'status' => new Zend_Db_Expr(0)])
+        ->from(false, ['quantity' => new Zend_Db_Expr('0'), 'status' => new Zend_Db_Expr('0')])
         ->joinInner(
             ['e' => $this->connection->getTableName('catalog_product_entity')],
             'p.sku = e.sku',

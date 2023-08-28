@@ -24,9 +24,7 @@ use Zend_Db_Expr;
 use Zend_Db_Select_Exception;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Legacy inventory import
  */
 class CatalogInventoryImport implements StockImportHandlerInterface
 {
@@ -47,7 +45,7 @@ class CatalogInventoryImport implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -57,7 +55,7 @@ class CatalogInventoryImport implements StockImportHandlerInterface
     /**
      * Import file into legacy inventory
      *
-     * @return array
+     * @return DataObject
      * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
@@ -88,7 +86,7 @@ class CatalogInventoryImport implements StockImportHandlerInterface
             $select->insertFromSelect(
                 $this->connection->getTableName('cataloginventory_stock_item'),
                 array_keys($mainColumns + ['is_in_stock' => $isInStock] + $extraColumns),
-                AdapterInterface::INSERT_ON_DUPLICATE
+                (bool) AdapterInterface::INSERT_ON_DUPLICATE
             )
         );
 
@@ -96,7 +94,7 @@ class CatalogInventoryImport implements StockImportHandlerInterface
             $select->insertFromSelect(
                 $this->connection->getTableName('cataloginventory_stock_status'),
                 array_keys($mainColumns + ['stock_status' => $isInStock] + $extraColumns),
-                AdapterInterface::INSERT_ON_DUPLICATE
+                (bool) AdapterInterface::INSERT_ON_DUPLICATE
             )
         );
 

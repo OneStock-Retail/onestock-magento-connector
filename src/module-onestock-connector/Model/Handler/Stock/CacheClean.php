@@ -23,16 +23,12 @@ use Magento\PageCache\Model\Cache\Type as Fpc;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Purge cache after import full
  */
 class CacheClean implements StockImportHandlerInterface
 {
     /**
-     * @param Manager $moduleManager
-     * @param IndexerRegistry $indexerRegistry
-     * @return void
+     * @param CacheInterface $cache
      */
     public function __construct(
         protected CacheInterface $cache
@@ -41,7 +37,7 @@ class CacheClean implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -51,7 +47,7 @@ class CacheClean implements StockImportHandlerInterface
     /**
      * Clean FPC and Block cache
      *
-     * @return array
+     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

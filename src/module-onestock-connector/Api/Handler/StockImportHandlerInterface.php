@@ -18,23 +18,21 @@ namespace Smile\Onestock\Api\Handler;
 use Magento\Framework\DataObject;
 
 /**
- * Represent One Task during Import
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Represent One Task during stock import
  */
 interface StockImportHandlerInterface
 {
     /**
      * Check if import is possible
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool;
 
     /**
      * Proceed to this step of the import
      *
-     * @return array
+     * @return DataObject
      */
     public function process(DataObject $res): DataObject;
 }

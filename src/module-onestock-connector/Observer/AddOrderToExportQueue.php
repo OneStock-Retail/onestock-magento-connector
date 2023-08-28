@@ -23,15 +23,14 @@ use Psr\Log\LoggerInterface;
 
 /**
  * Observer to export order placed
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class AddOrderToExportQueue implements ObserverInterface
 {
     public const TOPIC_NAME = 'async.smile.onestock.api.orderexportinterface.export.post';
 
     /**
-     * @param CustomerAddress $customerAddressHelper
+     * @param MassSchedule $asyncBulkPublisher 
+     * @param LoggerInterface $logger
      */
     public function __construct(
         protected MassSchedule $asyncBulkPublisher,
@@ -40,7 +39,10 @@ class AddOrderToExportQueue implements ObserverInterface
     }
 
     /**
-     * Add order to export queue
+     * Add order to export queue.
+     * 
+     * The queue will be processed asynchrously later
+     * by route /V1/order/:orderId/onestock_export
      */
     public function execute(Observer $observer): void
     {

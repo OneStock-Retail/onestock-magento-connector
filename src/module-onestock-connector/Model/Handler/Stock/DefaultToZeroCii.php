@@ -24,9 +24,7 @@ use Zend_Db_Expr;
 use Zend_Db_Select_Exception;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to default all stock to 0 when a full stock is requested
  */
 class DefaultToZeroCii implements StockImportHandlerInterface
 {
@@ -47,7 +45,7 @@ class DefaultToZeroCii implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -57,7 +55,7 @@ class DefaultToZeroCii implements StockImportHandlerInterface
     /**
      * After import set 0/out of stock product unspecified in the file
      *
-     * @return array
+     * @return DataObject
      * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
@@ -66,7 +64,7 @@ class DefaultToZeroCii implements StockImportHandlerInterface
         $tableName = $this->connection->getTableName($res['table']);
         $stockTable = $this->connection->getTableName('cataloginventory_stock_item');
         $query = $this->connection->select()
-        ->from(false, ['qty' => new Zend_Db_Expr(0), 'is_in_stock' => new Zend_Db_Expr(0)])
+        ->from(false, ['qty' => new Zend_Db_Expr('0'), 'is_in_stock' => new Zend_Db_Expr('0')])
         ->joinInner(
             ['e' => $this->connection->getTableName('catalog_product_entity')],
             'p.product_id = e.entity_id',
@@ -86,8 +84,8 @@ class DefaultToZeroCii implements StockImportHandlerInterface
         $statusTable = $this->connection->getTableName('cataloginventory_stock_status');
         $query->reset(Select::COLUMNS)->columns(
             [
-                'qty' => new Zend_Db_Expr(0),
-                'stock_status' => new Zend_Db_Expr(0),
+                'qty' => new Zend_Db_Expr('0'),
+                'stock_status' => new Zend_Db_Expr('0'),
             ]
         );
         $this->connection->query(

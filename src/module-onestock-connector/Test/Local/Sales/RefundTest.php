@@ -26,9 +26,7 @@ use RuntimeException;
 use Smile\Onestock\Service\ShipmentImport;
 
 /**
- * Test shipment import
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
+ * Test the import of a refund
  */
 class RefundTest extends TestCase
 {
@@ -58,7 +56,7 @@ class RefundTest extends TestCase
     }
 
     /**
-     * Trigger a publication
+     * Get an order to onestock to update magento order.
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */

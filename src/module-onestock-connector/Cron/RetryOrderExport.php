@@ -24,15 +24,10 @@ use Smile\Onestock\Observer\AddOrderToExportQueue as RegularPublisher;
 use Smile\Onestock\Service\OrderExport;
 
 /**
- * Observer to export order placed
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Try to export order again when it failed
  */
 class RetryOrderExport
 {
-    /**
-     * @param CustomerAddress $customerAddressHelper
-     */
     public function __construct(
         protected MassSchedule $asyncBulkPublisher,
         protected LoggerInterface $logger,
@@ -48,7 +43,7 @@ class RetryOrderExport
     {
         $orderCollection = $this->orderCollectionFactory->create();
         $orderCollection->addFieldToFilter("order_retry_count", ['lteq' => $this->config->getOrderRetryCount()]);
-        $orderCollection->addFilter("onestock_exported", OrderExport::ERROR);
+        $orderCollection->addFilter("onestock_exported", strval(OrderExport::ERROR));
         try {
             $this->asyncBulkPublisher->publishMass(
                 RegularPublisher::TOPIC_NAME,

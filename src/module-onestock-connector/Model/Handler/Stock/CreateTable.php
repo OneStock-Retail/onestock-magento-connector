@@ -23,9 +23,7 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 use Zend_Db_Exception;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to create a temporary sql table
  */
 class CreateTable implements StockImportHandlerInterface
 {
@@ -46,7 +44,7 @@ class CreateTable implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -56,7 +54,7 @@ class CreateTable implements StockImportHandlerInterface
     /**
      * Create temporary table
      *
-     * @return array
+     * @return DataObject
      * @throws Zend_Db_Exception
      */
     public function process(DataObject $res): DataObject

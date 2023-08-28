@@ -16,7 +16,7 @@
  namespace Smile\Onestock\Api;
 
 /**
- * Sales interface for order updates
+ * Interface for order update service
  */
 interface ShipmentImportInterface
 {

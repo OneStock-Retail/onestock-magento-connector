@@ -27,8 +27,6 @@ use Smile\Onestock\Observer\AddOrderToExportQueue;
 
 /**
  * Test order publication in queue
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
  */
 class PublishTest extends TestCase
 {
@@ -61,6 +59,6 @@ class PublishTest extends TestCase
      */
     public function testPipeline(): void
     {
-        $this->observer->execute(new Observer(["order" => new DataObject(["id" => 1])]));
+        $this->observer->execute(new Observer(["order" => new DataObject(["id" => 5])]));
     }
 }

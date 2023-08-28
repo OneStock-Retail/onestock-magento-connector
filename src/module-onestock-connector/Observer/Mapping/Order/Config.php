@@ -24,9 +24,7 @@ use Magento\Store\Model\ScopeInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Part of the mapping handling fields which vary according to store config
  */
 class Config implements ObserverInterface
 {
@@ -36,11 +34,6 @@ class Config implements ObserverInterface
 
     public const CONFIG_SALES_CHANNEL = "smile_onestock/general/sales_channel";
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
         protected Json $serializer,

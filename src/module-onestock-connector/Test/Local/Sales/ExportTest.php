@@ -24,7 +24,7 @@ use RuntimeException;
 use Smile\Onestock\Service\OrderExport;
 
 /**
- * Test order publication in queue
+ * Test order export
  *
  * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
  */
@@ -53,7 +53,7 @@ class ExportTest extends TestCase
     }
 
     /**
-     * Test export
+     * Launch export of one magento order
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */

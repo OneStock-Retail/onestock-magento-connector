@@ -20,9 +20,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Part of the mapping handling package value
  */
 class Price implements ObserverInterface
 {

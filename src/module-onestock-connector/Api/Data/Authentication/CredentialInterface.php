@@ -16,9 +16,7 @@ declare(strict_types=1);
 namespace Smile\Onestock\Api\Data\Authentication;
 
 /**
- * Data model use in login input
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Data model used in login input
  */
 interface CredentialInterface
 {

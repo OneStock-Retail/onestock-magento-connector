@@ -21,9 +21,7 @@ use Magento\Store\Model\ScopeInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to init store config for later use in pipeline
  */
 class Configure implements StockImportHandlerInterface
 {
@@ -33,11 +31,6 @@ class Configure implements StockImportHandlerInterface
 
     public const TABLE = 'onestock_transition_unified_stock';
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
         protected string $configPattern = self::CONFIG_PATTERN
@@ -47,7 +40,7 @@ class Configure implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -57,7 +50,7 @@ class Configure implements StockImportHandlerInterface
     /**
      * Initialise which filename must be processed in which table
      *
-     * @return array
+     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

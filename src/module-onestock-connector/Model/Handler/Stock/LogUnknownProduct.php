@@ -24,9 +24,7 @@ use Zend_Db_Select_Exception;
 use Zend_Db_Statement_Exception;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to add messages to log
  */
 class LogUnknownProduct implements StockImportHandlerInterface
 {
@@ -48,7 +46,7 @@ class LogUnknownProduct implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -58,7 +56,7 @@ class LogUnknownProduct implements StockImportHandlerInterface
     /**
      * Write a warning to log file for missing product
      *
-     * @return array
+     * @return DataObject
      * @throws Zend_Db_Select_Exception
      * @throws Zend_Db_Statement_Exception
      */

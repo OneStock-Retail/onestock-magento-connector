@@ -24,20 +24,13 @@ use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\CreditmemoFactory;
 use Magento\Sales\Model\Order\CreditmemoRepository;
 use Smile\Onestock\Helper\OrderItem;
+use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
 
 /**
- * Import creditmemo from onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler when an item is out of stock
  */
 class Remove
 {
-    /**
-     * Constructor
-     *
-     * @param array $data
-     * @return void
-     */
     public function __construct(
         protected OrderItem $orderItemHelper,
         protected CreditmemoFactory $creditMemoFactory,
@@ -61,18 +54,19 @@ class Remove
     /**
      * Create creditmemo based on group
      *
-     * @param array $onestockOrder
-     * @param array $group
+     * @param OnestockOrder $onestockOrder
+     * @param string[] $group
      * @throws LogicException
      * @throws InvalidArgumentException
      * @throws LocalizedException
      */
-    public function update(Order $order, array $onestockOrder, array $group): mixed
+    public function update(Order $order, OnestockOrder $onestockOrder, array $group): mixed
     {
         
         $qtys = [];
         $leftToRefund = $group['quantity'];
         foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
+            /** @var \Magento\Sales\Model\Order\Item $orderItem */
             $qtys[$orderItem->getId()] = min($leftToRefund, $orderItem->getQtyToRefund());
             $leftToRefund -= $qtys[$orderItem->getId()];
         }

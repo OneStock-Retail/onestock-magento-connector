@@ -25,9 +25,7 @@ use RuntimeException;
 use Smile\Onestock\Helper\Mapping;
 
 /**
- * Test order publication in queue
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
+ * Test the order mapping
  */
 class MappingTest extends TestCase
 {
@@ -60,9 +58,7 @@ class MappingTest extends TestCase
     }
 
     /**
-     * Trigger a publication
-     *
-     * @throw \GuzzleHttp\Exception\RequestException
+     * Apply mapping and check resulting field
      */
     public function testMapping(): void
     {

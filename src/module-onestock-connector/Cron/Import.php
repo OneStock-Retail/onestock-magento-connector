@@ -16,23 +16,22 @@ declare(strict_types=1);
 namespace Smile\Onestock\Cron;
 
 use Magento\Framework\DataObject;
+use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class Stock Import
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Stock import class to be used by virtual type
  */
 class Import
 {
     /**
-     * @var array $handlers
+     * @var StockImportHandlerInterface[] $handlers
      */
     protected array $handlers;
 
     /**
      * Constructor.
      *
-     * @param array $data
+     * @param StockImportHandlerInterface[] $data
      */
     public function __construct(
         array $data = []
@@ -42,9 +41,6 @@ class Import
 
     /**
      * Load available imports
-     *
-     * @param array $data
-     * @throws \Exception
      */
     public function start(): void
     {

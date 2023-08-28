@@ -29,9 +29,7 @@ use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Model\Data\Authentication\Token;
 
 /**
- * Service to login
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Rest request to login
  */
 class Authentication
 {
@@ -50,11 +48,6 @@ class Authentication
      */
     protected Client $httpClient;
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         Client $httpClient,
         ServiceInputProcessor $toClassProcessor,
@@ -86,6 +79,7 @@ class Authentication
                 ],
                 json_encode(
                     $this->toArrayProcessor->convertValue(
+                        // @phpstan-ignore-next-line
                         $credential,
                         CredentialInterface::class
                     )

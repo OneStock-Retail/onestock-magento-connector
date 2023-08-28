@@ -24,9 +24,7 @@ use RuntimeException;
 use Smile\Onestock\Cron\RetryOrderExport;
 
 /**
- * Test order publication in queue
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
+ * Retry to export an order
  */
 class RetryTest extends TestCase
 {
@@ -53,7 +51,7 @@ class RetryTest extends TestCase
     }
 
     /**
-     * Trigger a publication
+     * Launch batch to process failed orders
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */

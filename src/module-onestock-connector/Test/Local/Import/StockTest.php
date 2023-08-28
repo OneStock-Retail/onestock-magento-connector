@@ -24,9 +24,7 @@ use RuntimeException;
 use Smile\Onestock\Cron\Import;
 
 /**
- * Test order publication in queue
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
+ * Test full stock import
  */
 class StockTest extends TestCase
 {
@@ -53,7 +51,7 @@ class StockTest extends TestCase
     }
 
     /**
-     * Trigger a publication
+     * Trigger full stock import pipeline
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */

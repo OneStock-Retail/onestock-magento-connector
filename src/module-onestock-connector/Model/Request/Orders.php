@@ -22,15 +22,16 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Magento\Framework\Webapi\ServiceInputProcessor;
 use Magento\Framework\Webapi\ServiceOutputProcessor;
+use Magento\Sales\Api\Data\OrderInterface;
 use RuntimeException;
 use Smile\Onestock\Api\Data\Authentication\CredentialInterface;
 use Smile\Onestock\Api\Data\Authentication\TokenInterface;
+use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrderInterface;
+use Smile\Onestock\Model\Data\Sales\Order as OnestockOrderInstance;
 use Smile\Onestock\Api\Data\ConfigInterface;
 
 /**
- * Service to login
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Rest request to query orders
  */
 class Orders
 {
@@ -49,11 +50,6 @@ class Orders
      */
     protected Client $httpClient;
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         Client $httpClient,
         ServiceInputProcessor $toClassProcessor,
@@ -65,16 +61,17 @@ class Orders
     }
 
     /**
-     * Operation login
+     * Retrive order from onestock
      *
-     * @param ConfigInterface $server dynamic url
-     * @param CredentialInterface $credential dynamic credentials
-     * @return TokenInterface session bearer
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws GuzzleException
+     * @param ConfigInterface $server 
+     * @param TokenInterface $token 
+     * @param int $id 
+     * @return OnestockOrderInterface
+     * @throws RuntimeException 
+     * @throws Exception 
+     * @throws GuzzleException 
      */
-    public function get(ConfigInterface $server, TokenInterface $token, int $id): array
+    public function get(ConfigInterface $server, TokenInterface $token, int $id): OnestockOrderInterface
     {
         try {
             $request = new Request(
@@ -85,6 +82,7 @@ class Orders
                 ],
                 json_encode(
                     $this->toArrayProcessor->convertValue(
+                        // @phpstan-ignore-next-line
                         $token,
                         TokenInterface::class
                     )
@@ -98,7 +96,12 @@ class Orders
                     $response
                 );
             }
-            return json_decode($response->getBody()->getContents(), true);
+            return $this->toClassProcessor->convertValue(
+                [
+                    "data"=>json_decode($response->getBody()->getContents(), true),
+                ],
+                OnestockOrderInstance::class
+            );
         } catch (RequestException $e) {
             throw new Exception(
                 $e->getResponse() ? $e->getResponse()->getBody()->getContents() : '',
@@ -111,16 +114,17 @@ class Orders
     }
 
     /**
-     * Operation login
+     * Create order
      *
-     * @param ConfigInterface $server dynamic url
-     * @param CredentialInterface $credential dynamic credentials
-     * @return TokenInterface session bearer
-     * @throws RuntimeException
-     * @throws Exception
-     * @throws GuzzleException
+     * @param ConfigInterface $server 
+     * @param TokenInterface $token 
+     * @param \ArrayObject[] $onestockOrder 
+     * @return void 
+     * @throws RuntimeException 
+     * @throws Exception 
+     * @throws GuzzleException 
      */
-    public function post(ConfigInterface $server, TokenInterface $token, array $onestockOrder): array
+    public function post(ConfigInterface $server, TokenInterface $token, array $onestockOrder): void
     {
         try {
             $request = new Request(
@@ -131,6 +135,7 @@ class Orders
                 ],
                 json_encode(
                     $this->toArrayProcessor->convertValue(
+                        // @phpstan-ignore-next-line
                         $token,
                         TokenInterface::class
                     ) + ['order' => $onestockOrder]
@@ -144,7 +149,6 @@ class Orders
                     $response
                 );
             }
-            return json_decode($response->getBody()->getContents(), true);
         } catch (RequestException $e) {
             throw new Exception(
                 $e->getResponse() ? $e->getResponse()->getBody()->getContents() : '',

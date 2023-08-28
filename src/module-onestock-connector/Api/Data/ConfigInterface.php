@@ -17,8 +17,6 @@ namespace Smile\Onestock\Api\Data;
 
 /**
  * Represent Server Configuration
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 interface ConfigInterface
 {
@@ -32,14 +30,14 @@ interface ConfigInterface
     /**
      * Connexion option
      *
-     * @return array
+     * @return string[]
      */
     public function getOptions();
 
     /**
      * Connexion option
      *
-     * @return array
+     * @return string[]
      */
     public function getCredentials();
 }

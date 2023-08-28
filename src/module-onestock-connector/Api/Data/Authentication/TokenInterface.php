@@ -16,9 +16,7 @@ declare(strict_types=1);
 namespace Smile\Onestock\Api\Data\Authentication;
 
 /**
- * Data model use in login ouput
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Output of login used as authenticating token for all api call towards onestock.
  */
 interface TokenInterface
 {

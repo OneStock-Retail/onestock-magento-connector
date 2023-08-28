@@ -15,22 +15,20 @@ declare(strict_types=1);
 
 namespace Smile\Onestock\Helper;
 
-use Magento\Sales\Model\Order;
-use Magento\Sales\Model\Order\Item;
+use Magento\Sales\Api\Data\OrderItemInterface;
+use Magento\Sales\Api\Data\OrderInterface;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Helper for orders
  */
 class OrderItem
 {
     /**
      * Loop for item by sku
      *
-     * @return Item[]
+     * @return OrderItemInterface[]
      */
-    public function getItemBySku(Order $order, string $sku): array
+    public function getItemBySku(OrderInterface $order, string $sku): array
     {
         return array_filter($order->getItems(), function ($item) use ($sku) {
             return $sku == $item->getSku() && !$item->getParentItem();

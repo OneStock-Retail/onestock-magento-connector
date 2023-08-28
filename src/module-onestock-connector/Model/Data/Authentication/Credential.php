@@ -19,9 +19,7 @@ use Magento\Framework\DataObject;
 use Smile\Onestock\Api\Data\Authentication\CredentialInterface;
 
 /**
- * Data model use in login input
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Data model used in login input
  */
 class Credential extends DataObject implements CredentialInterface
 {

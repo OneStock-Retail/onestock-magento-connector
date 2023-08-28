@@ -24,9 +24,7 @@ use RuntimeException;
 use Smile\Onestock\Cron\Import;
 
 /**
- * Test order publication in queue
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
+ * Test differential stock import
  */
 class StockDiffTest extends TestCase
 {
@@ -53,7 +51,7 @@ class StockDiffTest extends TestCase
     }
 
     /**
-     * Trigger a publication
+     * Launch differencial import pipeline
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */

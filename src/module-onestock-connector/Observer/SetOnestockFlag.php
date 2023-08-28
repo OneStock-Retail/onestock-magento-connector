@@ -20,8 +20,6 @@ use Magento\Framework\Event\ObserverInterface;
 
 /**
  * Observer to flag order
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class SetOnestockFlag implements ObserverInterface
 {

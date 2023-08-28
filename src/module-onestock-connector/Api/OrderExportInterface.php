@@ -16,7 +16,7 @@
  namespace Smile\Onestock\Api;
 
 /**
- * Sales interface for export operation
+ * Interface for order export service
  */
 interface OrderExportInterface
 {

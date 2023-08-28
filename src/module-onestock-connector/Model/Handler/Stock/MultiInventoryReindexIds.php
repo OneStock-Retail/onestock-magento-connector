@@ -26,9 +26,7 @@ use Magento\InventoryIndexer\Indexer\InventoryIndexer;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Inventory index when a set of product is changed
  */
 class MultiInventoryReindexIds implements StockImportHandlerInterface
 {
@@ -36,9 +34,7 @@ class MultiInventoryReindexIds implements StockImportHandlerInterface
      * This variable contains a ResourceConnection
      */
     protected AdapterInterface $connection;
-    /**
-     * @return void
-     */
+
     public function __construct(
         protected IndexerRegistry $indexerRegistry,
         protected Manager $moduleManager,
@@ -50,7 +46,7 @@ class MultiInventoryReindexIds implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -60,7 +56,7 @@ class MultiInventoryReindexIds implements StockImportHandlerInterface
     /**
      * Launch reindex after import diff
      *
-     * @return array
+     * @return DataObject
      * @throws Exception
      */
     public function process(DataObject $res): DataObject

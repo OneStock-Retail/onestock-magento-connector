@@ -24,9 +24,7 @@ use Magento\Framework\Indexer\IndexerRegistry;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Legacy inventory index
  */
 class CatalogInventoryReindex implements StockImportHandlerInterface
 {
@@ -34,9 +32,7 @@ class CatalogInventoryReindex implements StockImportHandlerInterface
      * This variable contains a ResourceConnection
      */
     protected AdapterInterface $connection;
-    /**
-     * @return void
-     */
+
     public function __construct(
         protected IndexerRegistry $indexerRegistry,
         protected StockProcessor $stockProcessor,
@@ -48,7 +44,7 @@ class CatalogInventoryReindex implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -58,7 +54,7 @@ class CatalogInventoryReindex implements StockImportHandlerInterface
     /**
      * Launch reindex after import full
      *
-     * @return array
+     * @return DataObject
      * @throws Exception
      */
     public function process(DataObject $res): DataObject

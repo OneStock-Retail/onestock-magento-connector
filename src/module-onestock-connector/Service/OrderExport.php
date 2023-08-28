@@ -24,9 +24,7 @@ use Smile\Onestock\Helper\Mapping;
 use Smile\Onestock\Model\Request\Orders as OrdersApi;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Service implementing the interface to export order to onestock
  */
 class OrderExport implements OrderExportInterface
 {
@@ -49,6 +47,7 @@ class OrderExport implements OrderExportInterface
     public function export(
         int $orderId
     ): void {
+        /** @var \Magento\Sales\Model\Order */
         $order = $this->orderRepository->get($orderId);
         try {
             $this->tokenHelper->call(function ($config, $token) use ($order): void {

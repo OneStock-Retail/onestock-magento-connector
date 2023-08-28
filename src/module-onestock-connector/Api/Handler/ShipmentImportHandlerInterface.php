@@ -17,23 +17,29 @@ namespace Smile\Onestock\Api\Handler;
 
 use Magento\Framework\Model\AbstractModel;
 use Magento\Sales\Model\Order;
+use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
 
 /**
- * Represent One Task during Import
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Represent One Task during order update
  */
 interface ShipmentImportHandlerInterface
 {
+
+    /**
+     * Check if shipment already exists for this group
+     * 
+     * @param string $groupId 
+     * @return bool 
+     */
+    public function alreadyProcessed(string $groupId): bool;
+
     /**
      * Analyse line group in order to create a magento object
      *
-     * @param array $onestockOrder
-     * @param array $lineGroup
-     * @return AbstractModel magento object to be saved
-     * @throws LogicException
-     * @throws InvalidArgumentException
-     * @throws LocalizedException
+     * @param Order $order 
+     * @param OnestockOrder $onestockOrder 
+     * @param string[] $lineGroup 
+     * @return AbstractModel 
      */
-    public function update(Order $order, array $onestockOrder, array $lineGroup): AbstractModel;
+    public function update(Order $order, OnestockOrder $onestockOrder, array $lineGroup): AbstractModel;
 }

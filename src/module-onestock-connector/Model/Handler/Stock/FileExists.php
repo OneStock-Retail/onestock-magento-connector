@@ -20,11 +20,8 @@ use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem\Driver\File;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
-
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to init filename for later use in the pipeline
  */
 class FileExists implements StockImportHandlerInterface
 {
@@ -37,7 +34,7 @@ class FileExists implements StockImportHandlerInterface
     /**
      * Check if there is a file to process
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -50,7 +47,7 @@ class FileExists implements StockImportHandlerInterface
     /**
      * Return the file to be processed
      *
-     * @return array
+     * @return DataObject
      * @throws FileSystemException
      */
     public function process(DataObject $res): DataObject

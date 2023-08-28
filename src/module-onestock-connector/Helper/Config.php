@@ -22,8 +22,6 @@ use Smile\Onestock\Api\Data\ConfigInterface;
 
 /**
  * Central config
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class Config implements ConfigInterface
 {
@@ -39,11 +37,6 @@ class Config implements ConfigInterface
 
     public const ORDER_RETRY_COUNT = 'smile_onestock/api/order_retry_count';
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         protected ScopeConfigInterface $scopeConfig
     ) {
@@ -51,11 +44,6 @@ class Config implements ConfigInterface
 
     /**
      * Return server url
-     *
-     * @param mixed $method
-     * @param mixed $resourcePath
-     * @param mixed $body
-     * @throws InvalidArgumentException
      */
     public function getHost(): string
     {
@@ -69,7 +57,7 @@ class Config implements ConfigInterface
     /**
      * Connexion option
      *
-     * @return array
+     * @return string[]
      */
     public function getOptions(): array
     {
@@ -87,7 +75,7 @@ class Config implements ConfigInterface
     /**
      * Connexion option
      *
-     * @return array
+     * @return string[]
      */
     public function getCredentials(): array
     {
@@ -109,11 +97,6 @@ class Config implements ConfigInterface
 
     /**
      * Return max value
-     *
-     * @param mixed $method
-     * @param mixed $resourcePath
-     * @param mixed $body
-     * @throws InvalidArgumentException
      */
     public function getOrderRetryCount(): string
     {

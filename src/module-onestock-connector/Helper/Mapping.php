@@ -19,17 +19,10 @@ use InvalidArgumentException;
 use Magento\Framework\DataObject\Copy;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Apply mapping between magento and onestock structure
  */
 class Mapping
 {
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         protected Copy $objectCopyService
     ) {
@@ -37,7 +30,7 @@ class Mapping
 
     /**
      * Convert order to a structure compatible for onestock webservice
-     *
+     * @return \ArrayObject[]
      * @throws InvalidArgumentException
      */
     public function convertOrder(mixed $order): array

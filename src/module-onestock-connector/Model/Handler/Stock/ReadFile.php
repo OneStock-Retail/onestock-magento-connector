@@ -21,9 +21,7 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler at the beginning of the pipeline to read csv data
  */
 class ReadFile implements StockImportHandlerInterface
 {
@@ -44,7 +42,7 @@ class ReadFile implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -54,7 +52,7 @@ class ReadFile implements StockImportHandlerInterface
     /**
      * Store parsed csv data into temporary table
      *
-     * @return array
+     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

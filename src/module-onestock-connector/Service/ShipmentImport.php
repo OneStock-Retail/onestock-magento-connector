@@ -18,21 +18,25 @@ namespace Smile\Onestock\Service;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\ShipmentImportInterface;
+use Smile\Onestock\Api\Handler\ShipmentImportHandlerInterface;
 use Smile\Onestock\Helper\CacheToken;
 use Smile\Onestock\Model\Request\Orders as OrdersApi;
+use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrderInterface;
 
 /**
- * Export order to onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Service implementing the interface to update order.
+ * 
+ * Parcel and line_item_group from onestock will be imported as shipment and creditmemo
  */
 class ShipmentImport implements ShipmentImportInterface
 {
     /**
-     * Constructor
-     *
-     * @param array $data
-     * @return void
+     * @param OrderRepositoryInterface $orderRepository 
+     * @param LoggerInterface $logger 
+     * @param OrdersApi $ordersApi 
+     * @param CacheToken $tokenHelper 
+     * @param ShipmentImportHandlerInterface[] $data 
+     * @return void 
      */
     public function __construct(
         protected OrderRepositoryInterface $orderRepository,
@@ -49,8 +53,9 @@ class ShipmentImport implements ShipmentImportInterface
     public function requestUpdate(
         int $orderId
     ): void {
+        /** @var \Magento\Sales\Model\Order $order */
         $order = $this->orderRepository->get($orderId);
-        $onestockOrder = $this->tokenHelper->call(function ($config, $token) use ($orderId): array {
+        $onestockOrder = $this->tokenHelper->call(function ($config, $token) use ($orderId): OnestockOrderInterface {
             return $this->ordersApi->get($config, $token, $orderId);
         });
         foreach ($onestockOrder['line_item_groups'] as $group) {

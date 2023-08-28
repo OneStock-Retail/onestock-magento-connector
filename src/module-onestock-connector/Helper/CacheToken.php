@@ -27,8 +27,6 @@ use Smile\Onestock\Model\Request\Authentication as AuthenticationApi;
 
 /**
  * Add cache to api token authentification
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class CacheToken
 {
@@ -36,11 +34,6 @@ class CacheToken
 
     public const TOKEN_LIFETIME = 86400;
 
-    /**
-     * Constructor
-     *
-     * @return void
-     */
     public function __construct(
         protected OnestockConfig $config,
         protected AuthenticationApi $authentication,

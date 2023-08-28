@@ -21,9 +21,7 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to enrich temporary table with product ids based on sku found in csv file
  */
 class FindProductIds implements StockImportHandlerInterface
 {
@@ -44,7 +42,7 @@ class FindProductIds implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -54,7 +52,7 @@ class FindProductIds implements StockImportHandlerInterface
     /**
      * Enrichiment of product entity_id from sku in file
      *
-     * @return array
+     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

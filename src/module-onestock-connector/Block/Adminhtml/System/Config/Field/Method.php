@@ -21,14 +21,14 @@ use Magento\Shipping\Model\Config\Source\Allmethods;
 
 /**
  * Block to generate select within shipping method
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class Method extends Select
 {
     /**
-     * @param array $data
-     * @return void
+     * @param Context $context 
+     * @param Allmethods $carrierMethods 
+     * @param \ArrayObject[] $data 
+     * @return void 
      */
     public function __construct(
         Context $context,

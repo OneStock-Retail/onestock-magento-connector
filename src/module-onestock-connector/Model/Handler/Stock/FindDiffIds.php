@@ -22,9 +22,7 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to retreive all product ids involved by current pipeline
  */
 class FindDiffIds implements StockImportHandlerInterface
 {
@@ -37,9 +35,7 @@ class FindDiffIds implements StockImportHandlerInterface
      * This variable contains a ResourceConnection
      */
     protected AdapterInterface $connection;
-    /**
-     * @return void
-     */
+
     public function __construct(
         ResourceConnection $connection,
     ) {
@@ -49,7 +45,7 @@ class FindDiffIds implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -59,7 +55,7 @@ class FindDiffIds implements StockImportHandlerInterface
     /**
      * Prepare list of product to reindex (do nothing above 5k product limit)
      *
-     * @return array
+     * @return DataObject
      * @throws Exception
      */
     public function process(DataObject $res): DataObject

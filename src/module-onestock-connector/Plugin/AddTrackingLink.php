@@ -12,10 +12,7 @@ use Magento\Sales\Model\Order\Shipment\TrackFactory;
 class AddTrackingLink
 {
     /**
-     * Constructor
-     *
-     * @param array $data
-     * @return void
+     * @param TrackFactory $trackFactory
      */
     public function __construct(
         protected TrackFactory $trackFactory

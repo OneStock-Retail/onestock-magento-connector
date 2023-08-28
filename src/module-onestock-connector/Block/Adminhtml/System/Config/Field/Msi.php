@@ -25,17 +25,18 @@ use RuntimeException;
 
 /**
  * Block to display if module is enabled
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class Msi extends Field
 {
     /**
-     * @param array $data
-     * @return void
-     * @throws RuntimeException
-     * @throws LogicException
-     * @throws BadMethodCallException
+     * 
+     * @param Manager $moduleManager 
+     * @param Context $context 
+     * @param \ArrayObject[] $data 
+     * @return void 
+     * @throws RuntimeException 
+     * @throws LogicException 
+     * @throws BadMethodCallException 
      */
     public function __construct(
         private Manager $moduleManager,

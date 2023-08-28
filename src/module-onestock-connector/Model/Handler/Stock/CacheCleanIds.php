@@ -22,17 +22,11 @@ use Magento\Framework\Indexer\IndexerRegistry;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Purge cache after import of a set of product
  */
 class CacheCleanIds implements StockImportHandlerInterface
 {
-    /**
-     * @param Manager $moduleManager
-     * @param IndexerRegistry $indexerRegistry
-     * @return void
-     */
+
     public function __construct(
         protected CacheInterface $cache
     ) {
@@ -40,7 +34,7 @@ class CacheCleanIds implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -50,7 +44,7 @@ class CacheCleanIds implements StockImportHandlerInterface
     /**
      * Clean products by id
      *
-     * @return array
+     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

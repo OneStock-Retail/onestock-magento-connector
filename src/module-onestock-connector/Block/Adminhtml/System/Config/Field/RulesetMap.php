@@ -24,7 +24,6 @@ use Magento\Framework\View\Element\BlockInterface;
  * Block to configure ruleset within a nice UI selector
  *
  * @see https://developer.adobe.com/commerce/php/tutorials/admin/create-dynamic-row-configuration/
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
  */
 class RulesetMap extends AbstractFieldArray
 {
@@ -70,7 +69,9 @@ class RulesetMap extends AbstractFieldArray
         $selected = $row->getRuleset();
         $options = [];
         if ($selected) {
-            $options['option_' . $this->getOptionRenderer()->calcOptionHash($selected)]
+            /** @var \Magento\Framework\View\Element\Html\Select $renderer */
+            $renderer = $this->getOptionRenderer();
+            $options['option_' . $renderer->calcOptionHash($selected)]
             = 'selected="selected"';
         }
         $row->setData('option_extra_attrs', $options);

@@ -27,8 +27,6 @@ use Smile\Onestock\Service\ShipmentImport;
 
 /**
  * Test shipment import
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
  */
 class ImportTest extends TestCase
 {
@@ -58,7 +56,7 @@ class ImportTest extends TestCase
     }
 
     /**
-     * Trigger a publication
+     * Get an order to onestock to update magento order.
      *
      * @throw \GuzzleHttp\Exception\RequestException
      */

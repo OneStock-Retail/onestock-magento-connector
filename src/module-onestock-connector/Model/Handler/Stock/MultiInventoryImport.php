@@ -24,9 +24,7 @@ use Zend_Db_Expr;
 use Zend_Db_Select_Exception;
 
 /**
- * Class
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler to import stock into inventory table
  */
 class MultiInventoryImport implements StockImportHandlerInterface
 {
@@ -47,7 +45,7 @@ class MultiInventoryImport implements StockImportHandlerInterface
     /**
      * Always proceed
      *
-     * @return array
+     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -57,7 +55,7 @@ class MultiInventoryImport implements StockImportHandlerInterface
     /**
      * Import file into magento source inventory
      *
-     * @return array
+     * @return DataObject
      * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
@@ -91,7 +89,7 @@ class MultiInventoryImport implements StockImportHandlerInterface
             $select->insertFromSelect(
                 $this->connection->getTableName('inventory_source_item'),
                 array_keys($mainColumns + $extraColumns),
-                AdapterInterface::INSERT_ON_DUPLICATE
+                (bool) AdapterInterface::INSERT_ON_DUPLICATE
             )
         );
 

@@ -21,33 +21,25 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\DataObject\Copy;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
-use Magento\Sales\Api\Data\ShipmentInterface;
 use Magento\Sales\Api\ShipmentRepositoryInterface;
 use Magento\Sales\Model\Convert\Order as ConvertOrder;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Shipment;
 use Smile\Onestock\Helper\OrderItem;
+use Magento\Sales\Model\Order\Item;
+use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
 
 /**
- * Import shipment from onestock
- *
- * @author   Pascal Noisette <pascal.noisette@smile.fr>
+ * Handler when a parcel is shipped
  */
 class Parcel
 {
-    /**
-     * Constructor
-     *
-     * @param array $data
-     * @return void
-     */
     public function __construct(
         protected ConvertOrder $convertOrder,
         protected ShipmentRepositoryInterface $shipmentRepository,
         protected SearchCriteriaBuilder $searchCriteriaBuilder,
         protected Copy $objectCopyService,
-        protected OrderItem $orderItemHelper,
-        protected array $data = [],
+        protected OrderItem $orderItemHelper
     ) {
     }
 
@@ -57,11 +49,13 @@ class Parcel
      * @throws LogicException
      * @throws InvalidArgumentException
      */
-    public function initShipment(Order $order): ShipmentInterface
+    public function initShipment(Order $order): Shipment
     {
+        /** @var Shipment $shipment */
         $shipment = $this->shipmentRepository
-        ->create()
-        ->setOrder(
+        ->create();
+
+        $shipment->setOrder(
             $order
         )->setStoreId(
             $order->getStoreId()
@@ -91,14 +85,15 @@ class Parcel
     /**
      * Create shipment based on group
      *
-     * @param array $onestockOrder
-     * @param array $parcel
+     * @param OnestockOrder $onestockOrder
+     * @param string[] $parcel
      * @throws LogicException
      * @throws InvalidArgumentException
      * @throws LocalizedException
      */
-    public function update(Order $order, array $onestockOrder, array $parcel): AbstractModel
+    public function update(Order $order, OnestockOrder $onestockOrder, array $parcel): AbstractModel
     {
+        /** @var \Magento\Sales\Model\Order\Shipment $shipment */
         $shipment = $this->initShipment($order);
         $shipmentQty = 0;
 
@@ -107,6 +102,7 @@ class Parcel
             /** @var Item $orderItem */
             if ($group['state'] == "fulfilled" && isset($group['parcel_id']) && $group['parcel_id'] == $parcel['id']) {
                 foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
+                    /** @var Item $orderItem */
                     $qtyShipped = min($orderItem->getQtyToShip(), $group['quantity'] - $shipmentItemQty);
                     $shipmentItemQty += $qtyShipped;
                     $shipmentItem = $this->convertOrder->itemToShipmentItem($orderItem)->setQty($qtyShipped);
