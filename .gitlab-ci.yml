@@ -53,7 +53,7 @@ phpunit:
 phpstan:
   stage: test
   script:
-    - vendor/bin/phpstan analyse app/code/Smile/Onestock/ --error-format=junit --no-progress > ../phpstan.xml
+    - vendor/bin/phpstan analyse app/code/Smile/Onestock/  -c vendor/smile/magento2-smilelab-phpstan/extension.neon --autoload-file app/autoload.php --level 6 --error-format=junit --no-progress > ../phpstan.xml
   tags:
     - galaxy-docker-shared
   artifacts:
