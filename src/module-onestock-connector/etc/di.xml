@@ -80,13 +80,36 @@
             </argument>
         </arguments>
     </virtualType>
+
+    <type name="Smile\Onestock\Cron\RetryOrderExport">
+        <arguments>
+            <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
+        </arguments>
+    </type>
     <type name="Smile\Onestock\Model\Handler\Stock\LogUnknownProduct">
         <arguments>
             <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
         </arguments>
     </type>
+    <type name="Smile\Onestock\Observer\AddOrderToExportQueue">
+        <arguments>
+            <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
+        </arguments>
+    </type>
+    <type name="Smile\Onestock\Observer\Mapping\Order\Config">
+        <arguments>
+            <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
+        </arguments>
+    </type>
+    <type name="Smile\Onestock\Service\OrderExport">
+        <arguments>
+            <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
+        </arguments>
+    </type>
+
     <type name="Smile\Onestock\Service\ShipmentImport">
         <arguments>
+            <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
             <argument name="data" xsi:type="array">
                 <item name="parcel" xsi:type="object">\Smile\Onestock\Model\Handler\Shipment\Parcel</item>
                 <item name="removed" xsi:type="object">\Smile\Onestock\Model\Handler\Shipment\Remove</item>

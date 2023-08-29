@@ -18,7 +18,6 @@ namespace Smile\Onestock\Model\Handler\Stock;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\FileSystemException;
 use Magento\Framework\Filesystem\Driver\File;
-use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 /**
  * Handler to init filename for later use in the pipeline
@@ -26,8 +25,7 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 class FileExists implements StockImportHandlerInterface
 {
     public function __construct(
-        protected File $driverFile,
-        protected LoggerInterface $logger
+        protected File $driverFile
     ) {
     }
     
