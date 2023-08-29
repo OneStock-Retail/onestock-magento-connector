@@ -19,6 +19,7 @@ use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DataObject;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
+
 /**
  * Clean up table created by any previous import
  */
@@ -40,8 +41,6 @@ class DropTable implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -50,8 +49,6 @@ class DropTable implements StockImportHandlerInterface
 
     /**
      * Cleanup from previous import
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

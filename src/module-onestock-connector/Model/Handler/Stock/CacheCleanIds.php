@@ -18,7 +18,6 @@ namespace Smile\Onestock\Model\Handler\Stock;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\DataObject;
-use Magento\Framework\Indexer\IndexerRegistry;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
 /**
@@ -26,15 +25,12 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
  */
 class CacheCleanIds implements StockImportHandlerInterface
 {
-
     public function __construct(
         protected CacheInterface $cache
     ) {
     }
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -43,8 +39,6 @@ class CacheCleanIds implements StockImportHandlerInterface
            
     /**
      * Clean products by id
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

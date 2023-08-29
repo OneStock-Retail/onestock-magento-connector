@@ -45,8 +45,6 @@ class LogUnknownProduct implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -56,7 +54,6 @@ class LogUnknownProduct implements StockImportHandlerInterface
     /**
      * Write a warning to log file for missing product
      *
-     * @return DataObject
      * @throws Zend_Db_Select_Exception
      * @throws Zend_Db_Statement_Exception
      */

@@ -43,8 +43,6 @@ class CreateTable implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -54,7 +52,6 @@ class CreateTable implements StockImportHandlerInterface
     /**
      * Create temporary table
      *
-     * @return DataObject
      * @throws Zend_Db_Exception
      */
     public function process(DataObject $res): DataObject

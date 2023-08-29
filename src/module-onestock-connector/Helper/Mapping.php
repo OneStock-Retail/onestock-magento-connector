@@ -30,6 +30,7 @@ class Mapping
 
     /**
      * Convert order to a structure compatible for onestock webservice
+     *
      * @return \ArrayObject[]
      * @throws InvalidArgumentException
      */

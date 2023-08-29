@@ -44,8 +44,6 @@ class CatalogInventoryImport implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -55,7 +53,6 @@ class CatalogInventoryImport implements StockImportHandlerInterface
     /**
      * Import file into legacy inventory
      *
-     * @return DataObject
      * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject

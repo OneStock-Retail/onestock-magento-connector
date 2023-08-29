@@ -41,8 +41,6 @@ class FindProductIds implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -51,8 +49,6 @@ class FindProductIds implements StockImportHandlerInterface
 
     /**
      * Enrichiment of product entity_id from sku in file
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

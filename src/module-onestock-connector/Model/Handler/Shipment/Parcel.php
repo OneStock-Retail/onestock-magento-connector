@@ -24,10 +24,10 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Sales\Api\ShipmentRepositoryInterface;
 use Magento\Sales\Model\Convert\Order as ConvertOrder;
 use Magento\Sales\Model\Order;
-use Magento\Sales\Model\Order\Shipment;
-use Smile\Onestock\Helper\OrderItem;
 use Magento\Sales\Model\Order\Item;
+use Magento\Sales\Model\Order\Shipment;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
+use Smile\Onestock\Helper\OrderItem;
 
 /**
  * Handler when a parcel is shipped
@@ -85,7 +85,6 @@ class Parcel
     /**
      * Create shipment based on group
      *
-     * @param OnestockOrder $onestockOrder
      * @param string[] $parcel
      * @throws LogicException
      * @throws InvalidArgumentException

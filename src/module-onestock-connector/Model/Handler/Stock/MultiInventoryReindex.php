@@ -44,8 +44,6 @@ class MultiInventoryReindex implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -55,7 +53,6 @@ class MultiInventoryReindex implements StockImportHandlerInterface
     /**
      * Launch reindex after import full
      *
-     * @return DataObject
      * @throws Exception
      */
     public function process(DataObject $res): DataObject

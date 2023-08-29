@@ -24,22 +24,21 @@ use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
  */
 interface ShipmentImportHandlerInterface
 {
-
     /**
      * Check if shipment already exists for this group
-     * 
-     * @param string $groupId 
-     * @return bool 
+     *
+     * @param string $groupId
+     * @return bool
      */
     public function alreadyProcessed(string $groupId): bool;
 
     /**
      * Analyse line group in order to create a magento object
      *
-     * @param Order $order 
-     * @param OnestockOrder $onestockOrder 
-     * @param string[] $lineGroup 
-     * @return AbstractModel 
+     * @param Order $order
+     * @param OnestockOrder $onestockOrder
+     * @param string[] $lineGroup
+     * @return AbstractModel
      */
     public function update(Order $order, OnestockOrder $onestockOrder, array $lineGroup): AbstractModel;
 }

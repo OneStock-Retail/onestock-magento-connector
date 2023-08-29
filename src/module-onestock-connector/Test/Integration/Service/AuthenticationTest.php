@@ -16,17 +16,11 @@ declare(strict_types=1);
 namespace Smile\Onestock\Test\Service;
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
 use Magento\Framework\App\Bootstrap;
 use Magento\Framework\App\Http;
 use Magento\Framework\App\ObjectManager;
-use PHPUnit\Framework\Exception as FrameworkException;
-use PHPUnit\Framework\MockObject\ReflectionException;
-use PHPUnit\Framework\MockObject\RuntimeException as MockObjectRuntimeException;
-use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Model\Data\Authentication\Credential;
 use Smile\Onestock\Model\Request\Authentication;

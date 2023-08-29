@@ -39,8 +39,6 @@ class Configure implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -49,8 +47,6 @@ class Configure implements StockImportHandlerInterface
 
     /**
      * Initialise which filename must be processed in which table
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

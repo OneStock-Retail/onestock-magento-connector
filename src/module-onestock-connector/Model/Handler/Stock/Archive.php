@@ -26,7 +26,6 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
  */
 class Archive implements StockImportHandlerInterface
 {
-
     public function __construct(
         protected Io $filesystemIo,
         protected Dir $driverFile,
@@ -34,8 +33,6 @@ class Archive implements StockImportHandlerInterface
     }
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -45,7 +42,6 @@ class Archive implements StockImportHandlerInterface
     /**
      * Move files to archive directory
      *
-     * @return DataObject
      * @throws FileSystemException
      */
     public function process(DataObject $res): DataObject

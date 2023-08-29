@@ -44,8 +44,6 @@ class MultiInventoryImport implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -55,7 +53,6 @@ class MultiInventoryImport implements StockImportHandlerInterface
     /**
      * Import file into magento source inventory
      *
-     * @return DataObject
      * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject

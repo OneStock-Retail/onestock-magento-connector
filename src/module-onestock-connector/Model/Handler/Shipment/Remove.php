@@ -23,8 +23,8 @@ use Magento\Sales\Api\CreditmemoManagementInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\CreditmemoFactory;
 use Magento\Sales\Model\Order\CreditmemoRepository;
-use Smile\Onestock\Helper\OrderItem;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
+use Smile\Onestock\Helper\OrderItem;
 
 /**
  * Handler when an item is out of stock
@@ -54,7 +54,6 @@ class Remove
     /**
      * Create creditmemo based on group
      *
-     * @param OnestockOrder $onestockOrder
      * @param string[] $group
      * @throws LogicException
      * @throws InvalidArgumentException

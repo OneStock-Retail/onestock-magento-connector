@@ -41,8 +41,6 @@ class ReadFile implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -51,8 +49,6 @@ class ReadFile implements StockImportHandlerInterface
 
     /**
      * Store parsed csv data into temporary table
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

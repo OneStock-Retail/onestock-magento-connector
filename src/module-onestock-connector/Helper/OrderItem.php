@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 namespace Smile\Onestock\Helper;
 
-use Magento\Sales\Api\Data\OrderItemInterface;
 use Magento\Sales\Api\Data\OrderInterface;
+use Magento\Sales\Api\Data\OrderItemInterface;
 
 /**
  * Helper for orders

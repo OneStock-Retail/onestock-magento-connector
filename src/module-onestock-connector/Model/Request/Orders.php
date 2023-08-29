@@ -17,18 +17,14 @@ namespace Smile\Onestock\Model\Request;
 
 use Exception;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Magento\Framework\Webapi\ServiceInputProcessor;
 use Magento\Framework\Webapi\ServiceOutputProcessor;
-use Magento\Sales\Api\Data\OrderInterface;
-use RuntimeException;
-use Smile\Onestock\Api\Data\Authentication\CredentialInterface;
 use Smile\Onestock\Api\Data\Authentication\TokenInterface;
+use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrderInterface;
 use Smile\Onestock\Model\Data\Sales\Order as OnestockOrderInstance;
-use Smile\Onestock\Api\Data\ConfigInterface;
 
 /**
  * Rest request to query orders
@@ -63,13 +59,8 @@ class Orders
     /**
      * Retrive order from onestock
      *
-     * @param ConfigInterface $server 
-     * @param TokenInterface $token 
-     * @param string $id
-     * @return OnestockOrderInterface
-     * @throws RuntimeException 
-     * @throws Exception 
-     * @throws GuzzleException 
+     * @throws RequestException
+     * @throws Exception
      */
     public function get(ConfigInterface $server, TokenInterface $token, string $id): OnestockOrderInterface
     {
@@ -98,7 +89,7 @@ class Orders
             }
             return $this->toClassProcessor->convertValue(
                 [
-                    "data"=>json_decode($response->getBody()->getContents(), true),
+                    "data" => json_decode($response->getBody()->getContents(), true),
                 ],
                 OnestockOrderInstance::class
             );
@@ -116,13 +107,9 @@ class Orders
     /**
      * Create order
      *
-     * @param ConfigInterface $server 
-     * @param TokenInterface $token 
-     * @param \ArrayObject[] $onestockOrder 
-     * @return void 
-     * @throws RuntimeException 
-     * @throws Exception 
-     * @throws GuzzleException 
+     * @param \ArrayObject[] $onestockOrder
+     * @throws RequestException
+     * @throws Exception
      */
     public function post(ConfigInterface $server, TokenInterface $token, array $onestockOrder): void
     {

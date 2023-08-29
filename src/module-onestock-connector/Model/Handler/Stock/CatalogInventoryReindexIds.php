@@ -43,8 +43,6 @@ class CatalogInventoryReindexIds implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -54,7 +52,6 @@ class CatalogInventoryReindexIds implements StockImportHandlerInterface
     /**
      * Launch reindex after diff
      *
-     * @return DataObject
      * @throws Exception
      */
     public function process(DataObject $res): DataObject

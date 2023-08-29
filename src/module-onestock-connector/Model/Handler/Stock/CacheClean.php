@@ -18,7 +18,6 @@ namespace Smile\Onestock\Model\Handler\Stock;
 use Magento\Framework\App\Cache\Type\Block as Html;
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\DataObject;
-use Magento\Framework\Indexer\IndexerRegistry;
 use Magento\PageCache\Model\Cache\Type as Fpc;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 
@@ -27,17 +26,12 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
  */
 class CacheClean implements StockImportHandlerInterface
 {
-    /**
-     * @param CacheInterface $cache
-     */
     public function __construct(
         protected CacheInterface $cache
     ) {
     }
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -46,8 +40,6 @@ class CacheClean implements StockImportHandlerInterface
            
     /**
      * Clean FPC and Block cache
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject
     {

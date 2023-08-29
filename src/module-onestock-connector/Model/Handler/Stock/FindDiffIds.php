@@ -44,8 +44,6 @@ class FindDiffIds implements StockImportHandlerInterface
 
     /**
      * Always proceed
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool
     {
@@ -55,7 +53,6 @@ class FindDiffIds implements StockImportHandlerInterface
     /**
      * Prepare list of product to reindex (do nothing above 5k product limit)
      *
-     * @return DataObject
      * @throws Exception
      */
     public function process(DataObject $res): DataObject
