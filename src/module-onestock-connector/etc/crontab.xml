@@ -20,7 +20,7 @@
             <schedule>0 4 * * *</schedule>
         </job>
         <job name="onestock_diff_stock_import" instance="Smile\Onestock\Cron\StockDiff" method="start">
-            <schedule>*/15 6-20 * * *</schedule>
+            <schedule>*/15 * * * *</schedule>
         </job>
         <job name="onestock_retry_order_export" instance="Smile\Onestock\Cron\RetryOrderExport" method="start">
             <schedule>*/30 * * * *</schedule>
