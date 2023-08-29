@@ -36,23 +36,28 @@ class Items implements ObserverInterface
     {
         $order = $observer->getSource();
         $target = $observer->getTarget();
-        $target['order_items'] = array_map(
-            function ($item) {
-                $princingDetail = [
-                    'pricing_details' => [
-                        'price' => floatval($item->getRowTotalInclTax()),
-                    ],
-                ];
-                $staticFields = [
-                    'quantity' => intval($item->getQtyOrdered()),
-                ];
-                return $princingDetail + $this->objectCopyService->getDataFromFieldset(
-                    'onestock_item_mapping',
-                    'to_onestock_item',
-                    $item
-                ) + $staticFields;
-            },
-            $order->getAllItems()
+        $target['order_items'] = array_filter(
+            array_map(
+                function ($item) {
+                    if ($item->getParentItem()) {
+                        return false;
+                    }
+                    $princingDetail = [
+                        'pricing_details' => [
+                            'price' => floatval($item->getRowTotalInclTax()),
+                        ],
+                    ];
+                    $staticFields = [
+                        'quantity' => intval($item->getQtyOrdered()),
+                    ];
+                    return $princingDetail + $this->objectCopyService->getDataFromFieldset(
+                        'onestock_item_mapping',
+                        'to_onestock_item',
+                        $item
+                    ) + $staticFields;
+                },
+                $order->getAllItems()
+            )
         );
     }
 }
