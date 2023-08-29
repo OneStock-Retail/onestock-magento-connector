@@ -55,8 +55,8 @@ class ShipmentImport implements ShipmentImportInterface
     ): void {
         /** @var \Magento\Sales\Model\Order $order */
         $order = $this->orderRepository->get($orderId);
-        $onestockOrder = $this->tokenHelper->call(function ($config, $token) use ($orderId): OnestockOrderInterface {
-            return $this->ordersApi->get($config, $token, $orderId);
+        $onestockOrder = $this->tokenHelper->call(function ($config, $token) use ($order): OnestockOrderInterface {
+            return $this->ordersApi->get($config, $token, $order->getIncrementId());
         });
         foreach ($onestockOrder['line_item_groups'] as $group) {
             if (!isset($this->data[$group['state']])) {

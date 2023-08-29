@@ -65,13 +65,13 @@ class Orders
      *
      * @param ConfigInterface $server 
      * @param TokenInterface $token 
-     * @param int $id 
+     * @param string $id
      * @return OnestockOrderInterface
      * @throws RuntimeException 
      * @throws Exception 
      * @throws GuzzleException 
      */
-    public function get(ConfigInterface $server, TokenInterface $token, int $id): OnestockOrderInterface
+    public function get(ConfigInterface $server, TokenInterface $token, string $id): OnestockOrderInterface
     {
         try {
             $request = new Request(
