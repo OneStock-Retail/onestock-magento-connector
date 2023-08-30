@@ -37,6 +37,8 @@ class Config implements ConfigInterface
 
     public const ORDER_RETRY_COUNT = 'smile_onestock/api/order_retry_count';
 
+    public const LOG_ENABLED = 'smile_onestock/api/log_enabled';
+
     public function __construct(
         protected ScopeConfigInterface $scopeConfig
     ) {
@@ -105,5 +107,17 @@ class Config implements ConfigInterface
             ScopeInterface::SCOPE_STORE
         );
         return $max;
+    }
+
+    /**
+     * Predicate log is enabled in config
+     */
+    public function logIsEnabled(): bool
+    {
+        $enabled = $this->scopeConfig->getValue(
+            self::LOG_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+        return (bool) $enabled;
     }
 }

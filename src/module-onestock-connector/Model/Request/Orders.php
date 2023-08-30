@@ -21,6 +21,7 @@ use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
 use Magento\Framework\Webapi\ServiceInputProcessor;
 use Magento\Framework\Webapi\ServiceOutputProcessor;
+use Psr\Http\Message\ResponseInterface;
 use Smile\Onestock\Api\Data\Authentication\TokenInterface;
 use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrderInterface;
@@ -31,29 +32,22 @@ use Smile\Onestock\Model\Data\Sales\Order as OnestockOrderInstance;
  */
 class Orders
 {
-    /**
-     * Converter from object to array
-     */
-    protected ServiceInputProcessor $toClassProcessor;
-
-    /**
-     * Converter from array to object
-     */
-    protected ServiceOutputProcessor $toArrayProcessor;
-
-    /**
-     * Guzzle http client
-     */
-    protected Client $httpClient;
-
     public function __construct(
-        Client $httpClient,
-        ServiceInputProcessor $toClassProcessor,
-        ServiceOutputProcessor $toArrayProcessor
+        protected Client $httpClient,
+        protected ServiceInputProcessor $toClassProcessor,
+        protected ServiceOutputProcessor $toArrayProcessor
     ) {
         $this->httpClient = $httpClient;
         $this->toClassProcessor = $toClassProcessor;
         $this->toArrayProcessor = $toArrayProcessor;
+    }
+
+    /**
+     * Use guzzle to send a request
+     */
+    public function send(Request $request, ConfigInterface $server): ResponseInterface
+    {
+        return $this->httpClient->send($request, $server->getOptions());
     }
 
     /**
@@ -79,7 +73,7 @@ class Orders
                     )
                 )
             );
-            $response = $this->httpClient->send($request, $server->getOptions());
+            $response = $this->send($request, $server);
             if ($response->getStatusCode() != 200) {
                 throw new RequestException(
                     $response->getBody()->getContents(),
@@ -128,7 +122,7 @@ class Orders
                     ) + ['order' => $onestockOrder]
                 )
             );
-            $response = $this->httpClient->send($request, $server->getOptions());
+            $response = $this->send($request, $server);
             if ($response->getStatusCode() != 201) {
                 throw new RequestException(
                     $response->getBody()->getContents(),

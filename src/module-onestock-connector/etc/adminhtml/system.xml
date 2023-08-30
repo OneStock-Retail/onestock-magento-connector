@@ -151,6 +151,17 @@
                        canRestore="1">
                     <label>Timeout</label>
                 </field>
+                <field id="log_enabled"
+                       translate="label comment"
+                       type="select"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">  
+                    <label>Log all requests</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
             </group>
        
             <group id="ftp"
