@@ -70,7 +70,7 @@ class Orders
                         // @phpstan-ignore-next-line
                         $token,
                         TokenInterface::class
-                    )
+                    ) + ['fields' => $server->getFields()]
                 )
             );
             $response = $this->send($request, $server);

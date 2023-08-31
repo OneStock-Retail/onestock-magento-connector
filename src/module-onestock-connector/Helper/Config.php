@@ -39,6 +39,8 @@ class Config implements ConfigInterface
 
     public const LOG_ENABLED = 'smile_onestock/api/log_enabled';
 
+    public const FIELDS = 'smile_onestock/api/fields';
+
     public function __construct(
         protected ScopeConfigInterface $scopeConfig
     ) {
@@ -119,5 +121,20 @@ class Config implements ConfigInterface
             ScopeInterface::SCOPE_STORE
         );
         return (bool) $enabled;
+    }
+
+    /**
+     * Mandatory fields
+     *
+     * @return string[]
+     */
+    public function getFields(): array
+    {
+        $fields = $this->scopeConfig->getValue(
+            self::FIELDS,
+            ScopeInterface::SCOPE_STORE
+        );
+
+        return explode(",", $fields);
     }
 }

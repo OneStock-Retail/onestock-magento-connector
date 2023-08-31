@@ -44,6 +44,7 @@ class LogRequest
         $response = $proceed($request, $server);
         if ($this->config->logIsEnabled()) {
             $this->logger->debug($response->getBody());
+            $response->getBody()->rewind();
         }
         return $response;
     }

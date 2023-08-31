@@ -15,7 +15,10 @@ declare(strict_types=1);
 
 namespace Smile\Onestock\Service;
 
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\Order;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrderInterface;
 use Smile\Onestock\Api\Handler\OrderUpdateHandlerInterface;
@@ -36,6 +39,7 @@ class OrderUpdate implements OrderUpdateInterface
      */
     public function __construct(
         protected OrderRepositoryInterface $orderRepository,
+        protected SearchCriteriaBuilder $searchCriteriaBuilder,
         protected LoggerInterface $logger,
         protected OrdersApi $ordersApi,
         protected CacheToken $tokenHelper,
@@ -47,13 +51,14 @@ class OrderUpdate implements OrderUpdateInterface
      * Receive the Order Id that must be refreshed
      */
     public function requestUpdate(
-        int $orderId
+        string $orderIncrementId
     ): void {
-        /** @var \Magento\Sales\Model\Order $order */
-        $order = $this->orderRepository->get($orderId);
-        $onestockOrder = $this->tokenHelper->call(function ($config, $token) use ($order): OnestockOrderInterface {
-            return $this->ordersApi->get($config, $token, $order->getIncrementId());
-        });
+        $order = $this->getOrderByIncrementId($orderIncrementId);
+        $onestockOrder = $this->tokenHelper->call(
+            function ($config, $token) use ($orderIncrementId): OnestockOrderInterface {
+                return $this->ordersApi->get($config, $token, $orderIncrementId);
+            }
+        );
         foreach ($onestockOrder['line_item_groups'] as $group) {
             if (!isset($this->data[$group['state']])) {
                 continue;
@@ -72,6 +77,28 @@ class OrderUpdate implements OrderUpdateInterface
             }
         }
         
-        $order->save();
+        $this->orderRepository->save($order);
+    }
+
+    /**
+     * Load one order by increment
+     *
+     * @throws NoSuchEntityException
+     */
+    public function getOrderByIncrementId(string $orderIncrementId): Order
+    {
+        $searchCriteria = $this->searchCriteriaBuilder
+            ->addFilter('increment_id', $orderIncrementId, 'eq')
+            ->setPageSize(1)
+            ->create();
+        $listing = $this->orderRepository->getList($searchCriteria)->getItems();
+        if (empty($listing)) {
+            throw new NoSuchEntityException(
+                __("The entity that was requested doesn't exist. Verify the entity and try again.")
+            );
+        }
+        /** @var Order $order */
+        $order = reset($listing);
+        return $order;
     }
 }

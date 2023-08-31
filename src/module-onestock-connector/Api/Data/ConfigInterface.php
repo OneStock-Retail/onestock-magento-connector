@@ -40,4 +40,11 @@ interface ConfigInterface
      * @return string[]
      */
     public function getCredentials();
+
+    /**
+     * Mandatory fields
+     *
+     * @return string[]
+     */
+    public function getFields();
 }

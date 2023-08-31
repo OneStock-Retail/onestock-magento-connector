@@ -22,6 +22,7 @@
             <api>
                 <order_retry_count>2</order_retry_count>
                 <timeout>10</timeout>
+                <fields>id,types,date,last_update,sales_channel,state,information,original_ruleset_id,original_ruleset_chaining_id,ruleset_id,expiration_dates,customer.first_name,customer.last_name,customer.email,customer.phone_number,ordering.endpoint_id,ordering.user_id,reservation_rank,delivery.type,delivery.destination.address,delivery.destination.endpoint_id,pricing_details,pricing_details.currency,pricing_details.address,pricing_details.price,pricing_details.original_price,pricing_details.taxes,pricing_details.discounts,order_items._id,order_items.item_id,order_items.quantity,order_items.pricing_details,order_items.information,line_item_groups.order_id,line_item_groups.order_item_id,line_item_groups.item_id,line_item_groups.endpoint_id,line_item_groups.quantity,line_item_groups.parcel_id,line_item_groups.reason,line_item_groups.epcs,line_item_groups.last_update,line_item_groups.state,line_item_groups.index_ranges,shipping_fees,parcels.shipment.tracking_link,delivery_promise.original_delivery_option,current_delivery_etas</fields>
             </api>
             <ftp>
                 <folder>var/importexport/onestock</folder>

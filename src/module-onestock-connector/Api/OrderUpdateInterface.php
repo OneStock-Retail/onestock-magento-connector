@@ -23,10 +23,10 @@ interface OrderUpdateInterface
     /**
      * Receive the Order Id that must be refreshed
      *
-     * @param int $orderId
+     * @param string $orderIncrementId
      * @return void
      */
     public function requestUpdate(
-        int $orderId
+        string $orderIncrementId
     ): void;
 }
