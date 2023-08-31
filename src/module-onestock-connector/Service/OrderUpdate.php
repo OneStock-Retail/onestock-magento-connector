@@ -18,8 +18,8 @@ namespace Smile\Onestock\Service;
 use Magento\Sales\Api\OrderRepositoryInterface;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrderInterface;
-use Smile\Onestock\Api\Handler\ShipmentImportHandlerInterface;
-use Smile\Onestock\Api\ShipmentImportInterface;
+use Smile\Onestock\Api\Handler\OrderUpdateHandlerInterface;
+use Smile\Onestock\Api\OrderUpdateInterface;
 use Smile\Onestock\Helper\CacheToken;
 use Smile\Onestock\Model\Request\Orders as OrdersApi;
 
@@ -28,10 +28,10 @@ use Smile\Onestock\Model\Request\Orders as OrdersApi;
  *
  * Parcel and line_item_group from onestock will be imported as shipment and creditmemo
  */
-class ShipmentImport implements ShipmentImportInterface
+class OrderUpdate implements OrderUpdateInterface
 {
     /**
-     * @param ShipmentImportHandlerInterface[] $data
+     * @param OrderUpdateHandlerInterface[] $data
      * @return void
      */
     public function __construct(

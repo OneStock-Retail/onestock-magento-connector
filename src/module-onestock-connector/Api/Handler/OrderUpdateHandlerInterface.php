@@ -22,7 +22,7 @@ use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
 /**
  * Represent One Task during order update
  */
-interface ShipmentImportHandlerInterface
+interface OrderUpdateHandlerInterface
 {
     /**
      * Check if shipment already exists for this group

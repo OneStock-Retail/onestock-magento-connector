@@ -18,7 +18,7 @@
 /**
  * Interface for order update service
  */
-interface ShipmentImportInterface
+interface OrderUpdateInterface
 {
     /**
      * Receive the Order Id that must be refreshed

@@ -25,7 +25,7 @@
     </route>
 
     <route url="/V1/order/:orderId/onestock_updates" method="POST">
-        <service class="Smile\Onestock\Api\ShipmentImportInterface" method="requestUpdate"/>
+        <service class="Smile\Onestock\Api\OrderUpdateInterface" method="requestUpdate"/>
         <resources>
             <resource ref="anonymous" />
         </resources>

@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace Smile\Onestock\Model\Handler\Shipment;
+namespace Smile\Onestock\Model\Handler\OrderUpdate;
 
 use InvalidArgumentException;
 use LogicException;

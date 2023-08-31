@@ -17,7 +17,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
     <preference for="Smile\Onestock\Api\OrderExportInterface" type="Smile\Onestock\Service\OrderExport"/>
-    <preference for="Smile\Onestock\Api\ShipmentImportInterface" type="Smile\Onestock\Service\ShipmentImport"/>
+    <preference for="Smile\Onestock\Api\OrderUpdateInterface" type="Smile\Onestock\Service\OrderUpdate"/>
 
     <virtualType name="Smile\Onestock\Cron\StockFull" type="Smile\Onestock\Cron\Import">
         <arguments>
@@ -112,16 +112,16 @@
         </arguments>
     </type>
 
-    <type name="Smile\Onestock\Service\ShipmentImport">
+    <type name="Smile\Onestock\Service\OrderUpdate">
         <arguments>
             <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>
             <argument name="data" xsi:type="array">
-                <item name="parcel" xsi:type="object">\Smile\Onestock\Model\Handler\Shipment\Parcel</item>
-                <item name="removed" xsi:type="object">\Smile\Onestock\Model\Handler\Shipment\Remove</item>
+                <item name="parcel" xsi:type="object">\Smile\Onestock\Model\Handler\OrderUpdate\Parcel</item>
+                <item name="removed" xsi:type="object">\Smile\Onestock\Model\Handler\OrderUpdate\Remove</item>
             </argument>
         </arguments>
     </type>
-    <type name="Smile\Onestock\Model\Handler\Shipment\Parcel">
+    <type name="Smile\Onestock\Model\Handler\OrderUpdate\Parcel">
         <plugin name="add_tracking_link_to_shipment" type="Smile\Onestock\Plugin\AddTrackingLink"/>
     </type>
     <type name="Smile\Onestock\Model\Request\Orders">
