@@ -65,6 +65,7 @@ class CacheToken
             if ($e->getCode() != 401) {
                 throw $e;
             }
+            $this->cache->remove(self::TOKEN_CACHE_IDENTIFIER);
         }
 
         $token = $this->authentication->login($this->config, $credential);
