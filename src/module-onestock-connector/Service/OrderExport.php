@@ -59,6 +59,6 @@ class OrderExport implements OrderExportInterface
             $order->setOnestockExported(self::ERROR);
             $order->setOrderRetryCount($order->getOrderRetryCount() + 1);
         }
-        $order->save();
+        $this->orderRepository->save($order);
     }
 }
