@@ -116,6 +116,8 @@
             <argument name="data" xsi:type="array">
                 <item name="parcel" xsi:type="object">\Smile\Onestock\Model\Handler\OrderUpdate\Parcel</item>
                 <item name="removed" xsi:type="object">\Smile\Onestock\Model\Handler\OrderUpdate\Remove</item>
+                <item name="out_of_stock" xsi:type="object">\Smile\Onestock\Model\Handler\OrderUpdate\Remove</item>
+                <item name="issue" xsi:type="object">\Smile\Onestock\Model\Handler\OrderUpdate\Remove</item>
             </argument>
         </arguments>
     </type>
