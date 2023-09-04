@@ -59,6 +59,12 @@ class CreateTable implements StockImportHandlerInterface
 
         /** @var string $tableName */
         $tableName = $this->connection->getTableName($res['table']);
+
+        if ($this->connection->isTableExists($tableName)) {
+            $this->connection->resetDdlCache($tableName);
+            $this->connection->dropTable($tableName);
+        }
+
         $table =  $this->connection->newTable($tableName)
         ->addColumn(
             'id',
@@ -89,7 +95,8 @@ class CreateTable implements StockImportHandlerInterface
             ['entity_id']
         )->addIndex(
             $this->connection->getIndexName($tableName, ['item_id']),
-            ['item_id']
+            ['item_id'],
+            ['type' => AdapterInterface::INDEX_TYPE_UNIQUE]
         )->setComment(
             'Onestock temporary table for import'
         );

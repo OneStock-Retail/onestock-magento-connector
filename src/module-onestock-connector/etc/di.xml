@@ -24,7 +24,6 @@
             <argument name="data" xsi:type="array">
                 <item name="configure" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\Configure</item>
                 <item name="file_exists" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\FileExists</item>
-                <item name="drop_tmp_table" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\DropTable</item>
                 <item name="create_table" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\CreateTable</item>
                 <item name="read_file" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\ReadFile</item>
                 <item name="find_product_ids" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\FindProductIds</item>
@@ -46,7 +45,6 @@
             <argument name="data" xsi:type="array">
                 <item name="configure_for_differencial" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\ConfigureDiff</item>
                 <item name="file_exists" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\FileExists</item>
-                <item name="drop_tmp_table" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\DropTable</item>
                 <item name="create_table" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\CreateTable</item>
                 <item name="read_file" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\ReadFile</item>
                 <item name="find_product_ids" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\FindProductIds</item>
