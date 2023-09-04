@@ -122,13 +122,14 @@
                 </field>
                 <field id="password"
                        translate="label"
-                       type="text"
+                       type="obscure"
                        sortOrder="51"
                        showInDefault="1"
                        showInWebsite="0"
                        showInStore="0"
                        canRestore="1">
                     <label>API Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                 </field>
                 <field id="order_retry_count"
                        translate="label comment"

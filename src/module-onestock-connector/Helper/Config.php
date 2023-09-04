@@ -17,6 +17,7 @@ namespace Smile\Onestock\Helper;
 
 use GuzzleHttp\RequestOptions;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Store\Model\ScopeInterface;
 use Smile\Onestock\Api\Data\ConfigInterface;
 
@@ -42,7 +43,8 @@ class Config implements ConfigInterface
     public const FIELDS = 'smile_onestock/api/fields';
 
     public function __construct(
-        protected ScopeConfigInterface $scopeConfig
+        protected ScopeConfigInterface $scopeConfig,
+        protected EncryptorInterface $encryptor,
     ) {
     }
 
@@ -88,9 +90,13 @@ class Config implements ConfigInterface
                 self::USER_ID,
                 ScopeInterface::SCOPE_STORE
             ),
-            "password" => $this->scopeConfig->getValue(
-                self::PASSWORD,
-                ScopeInterface::SCOPE_STORE
+            "password" => $this->encryptor->decrypt(
+                trim(
+                    $this->scopeConfig->getValue(
+                        self::PASSWORD,
+                        ScopeInterface::SCOPE_STORE
+                    )
+                )
             ),
             "site_id" => $this->scopeConfig->getValue(
                 self::SITE_ID,
