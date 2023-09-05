@@ -32,8 +32,6 @@ class CacheToken
 {
     public const TOKEN_CACHE_IDENTIFIER = "token_cache_identifier";
 
-    public const TOKEN_LIFETIME = 86400;
-
     public function __construct(
         protected OnestockConfig $config,
         protected AuthenticationApi $authentication,
@@ -73,7 +71,7 @@ class CacheToken
             $token->getToken(),
             self::TOKEN_CACHE_IDENTIFIER,
             [CacheConfig::CACHE_TAG],
-            self::TOKEN_LIFETIME
+            $this->config->getLoginCacheLifetime()
         );
         return $proceed($this->config, $token);
     }

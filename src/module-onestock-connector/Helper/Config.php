@@ -42,6 +42,8 @@ class Config implements ConfigInterface
 
     public const FIELDS = 'smile_onestock/api/fields';
 
+    public const LOGIN_CACHE_LIFETIME = 'smile_onestock/api/login_cache_lifetime';
+
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
         protected EncryptorInterface $encryptor,
@@ -115,6 +117,18 @@ class Config implements ConfigInterface
             ScopeInterface::SCOPE_STORE
         );
         return $max;
+    }
+
+    /**
+     * Return lifetime
+     */
+    public function getLoginCacheLifetime(): int
+    {
+        $lifetime = $this->scopeConfig->getValue(
+            self::LOGIN_CACHE_LIFETIME,
+            ScopeInterface::SCOPE_STORE
+        );
+        return intval($lifetime);
     }
 
     /**

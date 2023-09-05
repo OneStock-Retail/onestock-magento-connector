@@ -152,6 +152,16 @@
                        canRestore="1">
                     <label>Timeout</label>
                 </field>
+                 <field id="login_cache_lifetime"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="51"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="0"
+                       canRestore="1">
+                    <label>Login cache lifetime (seconds)</label>
+                </field>
                 <field id="log_enabled"
                        translate="label comment"
                        type="select"
