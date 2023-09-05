@@ -20,7 +20,7 @@
     <route url="/V1/order/:orderId/onestock_export" method="POST">
         <service class="Smile\Onestock\Api\OrderExportInterface" method="export"/>
         <resources>
-            <resource ref="anonymous" />
+            <resource ref="internal" />
         </resources>
     </route>
 
