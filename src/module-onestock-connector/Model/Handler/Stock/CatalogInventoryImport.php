@@ -57,6 +57,9 @@ class CatalogInventoryImport implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
+        if (!$res['use_legacy']) {
+            return $res;
+        }
 
         $tableName = $this->connection->getTableName($res['table']);
         $mainColumns = [

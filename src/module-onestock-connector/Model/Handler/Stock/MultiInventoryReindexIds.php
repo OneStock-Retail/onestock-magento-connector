@@ -58,11 +58,11 @@ class MultiInventoryReindexIds implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-        if (!isset($res['skus'])) {
+        if (!$res['use_msi']) {
             return $res;
         }
 
-        if (!$this->moduleManager->isEnabled('Magento_Inventory')) {
+        if (!isset($res['skus'])) {
             return $res;
         }
 

@@ -33,6 +33,10 @@
             <dp>
                 <guest_postcode>75001</guest_postcode>
             </dp>
+            <stock>
+                <use_msi>1</use_msi>
+                <use_legacy>1</use_legacy>
+            </stock>
         </smile_onestock>
 
     </default>

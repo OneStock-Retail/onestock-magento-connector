@@ -20,16 +20,15 @@ use Magento\Framework\DataObject;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 use Zend_Db_Expr;
-use Zend_Db_Select_Exception;
 
 /**
- * Handler to default all inventory to 0 when a full stock is requested
+ * Handler to enrich temporary table with parent product
  */
-class DefaultToZeroMsi implements StockImportHandlerInterface
+class FindParents implements StockImportHandlerInterface
 {
-        /**
-         * This variable contains a ResourceConnection
-         */
+    /**
+     * This variable contains a ResourceConnection
+     */
     protected AdapterInterface $connection;
 
     /**
@@ -50,32 +49,42 @@ class DefaultToZeroMsi implements StockImportHandlerInterface
     }
 
     /**
-     * After import set 0/out of stock product unspecified in the file
-     *
-     * @throws Zend_Db_Select_Exception
+     * Restock parent configurable if stock on child
      */
     public function process(DataObject $res): DataObject
     {
-        if (!$res['use_msi']) {
-            return $res;
-        }
         $tableName = $this->connection->getTableName($res['table']);
-        $stockTable = $this->connection->getTableName('inventory_source_item');
-        $query = $this->connection->select()
-        ->from(false, ['quantity' => new Zend_Db_Expr('0'), 'status' => new Zend_Db_Expr('0')])
-        ->joinInner(
+        $fields = [
+            'entity_id' => 'f.parent_id',
+            'item_id' => 'e.sku',
+            'quantity' => new Zend_Db_Expr('SUM(p.quantity)'),
+        ];
+
+        /** @var \Magento\Framework\DB\Select $query */
+        $query = $this->connection->select()->from(
+            ['p' => $tableName],
+            $fields
+        )->joinInner(
+            ['f' => $this->connection->getTableName('catalog_product_super_link')],
+            'p.entity_id = f.product_id',
+            []
+        )->joinInner(
             ['e' => $this->connection->getTableName('catalog_product_entity')],
-            'p.sku = e.sku',
+            'e.entity_id = f.parent_id',
             []
-        )
-        ->joinLeft(
-            ['f' => $tableName],
-            'p.sku = f.item_id',
-            []
-        )
-        ->where('f.item_id is NULL and type_id = "simple"');
+        )->group(
+            'f.parent_id'
+        )->having(
+            'quantity>0'
+        );
+
         $this->connection->query(
-            $this->connection->updateFromSelect($query, ['p' => $stockTable])
+            $this->connection->insertFromSelect(
+                $query,
+                $tableName,
+                array_keys($fields),
+                AdapterInterface::INSERT_IGNORE
+            )
         );
         return $res;
     }

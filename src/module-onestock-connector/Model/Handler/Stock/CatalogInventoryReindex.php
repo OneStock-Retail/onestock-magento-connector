@@ -56,8 +56,12 @@ class CatalogInventoryReindex implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
+        if (!$res['use_legacy']) {
+            return $res;
+        }
+
         $index = $this->indexerRegistry->get(StockProcessor::INDEXER_ID);
-        if (!$index->isScheduled() && isset($res['ids'])) {
+        if (!$index->isScheduled()) {
             $this->stockProcessor->reindexAll();
         }
 

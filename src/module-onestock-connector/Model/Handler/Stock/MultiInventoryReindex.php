@@ -57,7 +57,7 @@ class MultiInventoryReindex implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-        if (!$this->moduleManager->isEnabled('Magento_Inventory')) {
+        if (!$res['use_msi']) {
             return $res;
         }
 

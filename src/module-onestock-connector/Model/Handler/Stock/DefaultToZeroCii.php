@@ -57,6 +57,9 @@ class DefaultToZeroCii implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
+        if (!$res['use_legacy']) {
+            return $res;
+        }
 
         $tableName = $this->connection->getTableName($res['table']);
         $stockTable = $this->connection->getTableName('cataloginventory_stock_item');

@@ -57,12 +57,12 @@ class MultiInventoryImport implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-        
-        $tableName = $this->connection->getTableName($res['table']);
-        $inventory = $this->connection->getTableName('inventory_source');
-        if (!$this->connection->isTableExists($tableName)) {
+        if (!$res['use_msi']) {
             return $res;
         }
+
+        $tableName = $this->connection->getTableName($res['table']);
+        $inventory = $this->connection->getTableName('inventory_source');
         $mainColumns = [
             'sku' => 'item_id',
             'quantity' => 'quantity',
