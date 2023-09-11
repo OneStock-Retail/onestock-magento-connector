@@ -201,7 +201,7 @@
                        showInWebsite="0"
                        showInStore="0"
                        canRestore="1">
-                    <label>Unifed Stock : file pattern for FULL</label>
+                    <label>Unifed Stock: file pattern for FULL</label>
                     <comment>Wildcard (*) will match date and time</comment>
                 </field>
                 <field id="us_diff_pattern"
@@ -212,7 +212,7 @@
                        showInWebsite="0"
                        showInStore="0"
                        canRestore="1">
-                    <label>Unifed Stock : file pattern for DIFF</label>
+                    <label>Unifed Stock: file pattern for DIFF</label>
                     <comment>Wildcard (*) will match date and time</comment>
                 </field>
             </group>

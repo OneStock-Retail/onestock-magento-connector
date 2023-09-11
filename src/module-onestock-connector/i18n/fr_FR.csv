@@ -1,6 +1,17 @@
+"Shipping method","Méthode de livraison"
+Ruleset,Ruleset
+"Add rule","Ajouter"
+Host,"Url du server"
+"Create shipment from onestock","Create shipment from onestock"
+"Create refund from onestock","Create refund from onestock"
+"Product not found in magento database: ""%1""","Product not found in magento database: ""%1"""
+"The entity that was requested doesn't exist. Verify the entity and try again.","The entity that was requested doesn't exist. Verify the entity and try again."
 Onestock,Onestock
 Configuration,Configuration
 "Documentation & Support","Documentation et Support"
+"If you have any further questions, please visit the <a target=""_blank""
+ href=""https://www.onestock-retail.com/en/"">onestock-retail.com</a> website.","Pour toute question, vous pouvez visiter le site <a target=""_blank""
+ href=""https://www.onestock-retail.com/en/"">onestock-retail.com</a>."
 General,Général
 "Site ID","Site ID"
 "Sales Channel","Sales Channel"
@@ -10,17 +21,22 @@ API,API
 "API Password","Mot de passe API"
 "Retry count per order","Nombre de tentatives d’export par commande"
 "Usefull if export fails","Utile pour réessayer en cas d'échec"
+Timeout,Timeout
+"Login cache lifetime (seconds)","Login cache lifetime (seconds)"
+"Log all requests","Log all requests"
 FTP,FTP
 "Import/export folder path","Chemin du dossier d’import export"
-"Unifed Stock : file pattern for FULL","Stock unifié : nommage des fichiers FULL"
-"Unifed Stock : file pattern for DIFF","Stock unifié : nommage des fichiers DIFF"
+"Unifed Stock: file pattern for FULL","Stock unifié : nommage des fichiers FULL"
 "Wildcard (*) will match date and time","L’étoile sera remplacée par une date et heure"
+"Unifed Stock: file pattern for DIFF","Stock unifié : nommage des fichiers DIFF"
 "Delivery Promise","Promesse de livraison"
 Enabled,Activée
 "Postcode for guest","Code postal par défaut pour les invités"
-Stock,Stock
-"Magento Inventory Management","Magento Inventory Management"
-"Shipping method","Méthode de livraison"
-"Ruleset","Ruleset"
-"Add rule","Ajouter"
-"If you have any further questions, please visit the <a target=""_blank"" href=""https://www.onestock-retail.com/en/"">onestock-retail.com</a> website.","Pour toute question, vous pouvez visiter le site <a target=""_blank"" href=""https://www.onestock-retail.com/en/"">onestock-retail.com</a>."
+"Stock import","Stock import"
+"Use inventory management tables","Use inventory management tables"
+"Use legacy stock tables","Use legacy stock tables"
+"Login cache lifetime (seconds)","Durée de vie du cache du login"
+"Use inventory management tables","Utiliser les nouvelles tables d'inventaire"
+"Use legacy stock tables","Utiliser les tables de stock legacy"
+"Stock import","Import de stock"
+"Log all requests","Tracer toutes les requetes dans le log"
