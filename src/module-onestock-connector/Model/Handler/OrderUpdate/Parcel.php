@@ -77,7 +77,7 @@ class Parcel
     public function alreadyProcessed(string $groupId): bool
     {
         $withThisParcelId = $this->searchCriteriaBuilder
-            ->addFilter("onestock_id", $groupId)
+            ->addFilter('onestock_id', $groupId)
             ->create();
         return $this->shipmentRepository->getList($withThisParcelId)->getTotalCount() > 0;
     }
@@ -99,7 +99,7 @@ class Parcel
         foreach ($onestockOrder['line_item_groups'] as $group) {
             $shipmentItemQty = 0;
             /** @var Item $orderItem */
-            if ($group['state'] == "fulfilled" && isset($group['parcel_id']) && $group['parcel_id'] == $parcel['id']) {
+            if ($group['state'] == 'fulfilled' && isset($group['parcel_id']) && $group['parcel_id'] == $parcel['id']) {
                 foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
                     /** @var Item $orderItem */
                     $qtyShipped = min($orderItem->getQtyToShip(), $group['quantity'] - $shipmentItemQty);
@@ -111,10 +111,10 @@ class Parcel
             $shipmentQty += $shipmentItemQty;
         }
 
-        $shipment->setOnestockId($parcel["id"]);
+        $shipment->setOnestockId($parcel['id']);
         $shipment->setShipmentStatus(Shipment::STATUS_NEW);
         $shipment->setTotalQty($shipmentQty);
-        $shipment->addComment(__("Create shipment from onestock"));
+        $shipment->addComment(__('Create shipment from onestock'));
         $shipment->register();
         return  $shipment;
     }

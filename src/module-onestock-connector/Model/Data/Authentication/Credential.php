@@ -28,7 +28,7 @@ class Credential extends DataObject implements CredentialInterface
      */
     public function getSiteId(): string
     {
-        return $this->getData("site_id");
+        return $this->getData('site_id');
     }
 
     /**
@@ -39,7 +39,7 @@ class Credential extends DataObject implements CredentialInterface
      */
     public function setSiteId(string $site_id)
     {
-        return $this->setData("site_id", $site_id);
+        return $this->setData('site_id', $site_id);
     }
 
     /**
@@ -47,7 +47,7 @@ class Credential extends DataObject implements CredentialInterface
      */
     public function getUserId(): string
     {
-        return $this->getData("user_id");
+        return $this->getData('user_id');
     }
 
     /**
@@ -58,7 +58,7 @@ class Credential extends DataObject implements CredentialInterface
      */
     public function setUserId(string $user_id)
     {
-        return $this->setData("user_id", $user_id);
+        return $this->setData('user_id', $user_id);
     }
 
     /**
@@ -66,7 +66,7 @@ class Credential extends DataObject implements CredentialInterface
      */
     public function getPassword(): string
     {
-        return $this->getData("password");
+        return $this->getData('password');
     }
 
     /**
@@ -77,6 +77,6 @@ class Credential extends DataObject implements CredentialInterface
      */
     public function setPassword(string $password)
     {
-        return $this->setData("password", $password);
+        return $this->setData('password', $password);
     }
 }

@@ -44,7 +44,7 @@ class StockTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Cron\StockFull");
+            $this->import = ObjectManager::getInstance()->create('Smile\Onestock\Cron\StockFull');
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

@@ -83,7 +83,7 @@ class Orders
             }
             return $this->toClassProcessor->convertValue(
                 [
-                    "data" => json_decode($response->getBody()->getContents(), true),
+                    'data' => json_decode($response->getBody()->getContents(), true),
                 ],
                 OnestockOrderInstance::class
             );

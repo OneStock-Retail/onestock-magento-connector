@@ -46,7 +46,7 @@ class ExportTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->service = ObjectManager::getInstance()->create("Smile\Onestock\Service\OrderExport");
+            $this->service = ObjectManager::getInstance()->create('Smile\Onestock\Service\OrderExport');
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

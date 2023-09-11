@@ -46,7 +46,7 @@ class PublishTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->observer = ObjectManager::getInstance()->create("Smile\Onestock\Observer\AddOrderToExportQueue");
+            $this->observer = ObjectManager::getInstance()->create('Smile\Onestock\Observer\AddOrderToExportQueue');
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }
@@ -59,6 +59,6 @@ class PublishTest extends TestCase
      */
     public function testPipeline(): void
     {
-        $this->observer->execute(new Observer(["order" => new DataObject(["id" => 5])]));
+        $this->observer->execute(new Observer(['order' => new DataObject(['id' => 5])]));
     }
 }

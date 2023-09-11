@@ -65,7 +65,7 @@ class Delivery implements ObserverInterface
                             'name' => $countryLabel,
                         ],
                     ],
-                    "contact" => array_filter(
+                    'contact' => array_filter(
                         $this->objectCopyService->getDataFromFieldset(
                             'onestock_address_mapping',
                             'to_onestock_contact',

@@ -30,7 +30,7 @@ use Smile\Onestock\Model\Request\Authentication as AuthenticationApi;
  */
 class CacheToken
 {
-    public const TOKEN_CACHE_IDENTIFIER = "token_cache_identifier";
+    public const TOKEN_CACHE_IDENTIFIER = 'token_cache_identifier';
 
     public function __construct(
         protected OnestockConfig $config,
@@ -54,8 +54,8 @@ class CacheToken
             $cached = $this->cache->load(self::TOKEN_CACHE_IDENTIFIER);
             if ($cached) {
                 $token = new Token([
-                    "site_id" => $credential->getSiteId(),
-                    "token" => $cached,
+                    'site_id' => $credential->getSiteId(),
+                    'token' => $cached,
                 ]);
                 return $proceed($this->config, $token);
             }

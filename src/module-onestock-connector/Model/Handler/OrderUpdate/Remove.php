@@ -46,7 +46,7 @@ class Remove
     public function alreadyProcessed(string $groupId): bool
     {
         $withThisParcelId = $this->searchCriteriaBuilder
-            ->addFilter("onestock_id", $groupId)
+            ->addFilter('onestock_id', $groupId)
             ->create();
         return $this->creditmemoRepository->getList($withThisParcelId)->getTotalCount() > 0;
     }
@@ -70,7 +70,7 @@ class Remove
             $leftToRefund -= $qtys[$orderItem->getId()];
         }
 
-        $message = __("Create refund from onestock");
+        $message = __('Create refund from onestock');
         $toRefund = [
             'qtys' => $qtys,
             'reasons' => array_fill_keys(array_keys($qtys), $message),
@@ -78,7 +78,7 @@ class Remove
 
         $creditmemo = $this->creditMemoFactory
             ->createByOrder($order, $toRefund)
-            ->setOnestockId($group["id"]);
+            ->setOnestockId($group['id']);
         $creditmemo->addComment($message);
 
         $this->creditmemoManagement->refund($creditmemo, true);

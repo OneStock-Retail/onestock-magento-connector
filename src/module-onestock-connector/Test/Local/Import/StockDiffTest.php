@@ -44,7 +44,7 @@ class StockDiffTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Cron\StockDiff");
+            $this->import = ObjectManager::getInstance()->create('Smile\Onestock\Cron\StockDiff');
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

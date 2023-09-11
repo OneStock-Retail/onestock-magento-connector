@@ -62,7 +62,7 @@ class LogUnknownProduct implements StockImportHandlerInterface
         $tableName = $this->connection->getTableName($res['table']);
         $query = $this->connection->select()
             ->from($tableName, ['item_id' => 'item_id'])
-            ->where("entity_id is NULL");
+            ->where('entity_id is NULL');
         
         $statement = $this->connection->query($query);
         while ($row = $statement->fetch()) {

@@ -27,13 +27,13 @@ class AddTrackingLink
         mixed $parcel
     ): mixed {
         $shipment = $proceed($order, $onestockOrder, $parcel);
-        if (isset($parcel["shipment"]["tracking_code"])) {
+        if (isset($parcel['shipment']['tracking_code'])) {
             $shipment->addTrack(
                 $this->trackFactory->create()->addData(
                     [
-                        'number' => $parcel["shipment"]["tracking_code"],
-                        'title' => $parcel["shipment"]["tracking_link"],
-                        'carrier_code' => $parcel["shipment"]["transporter"],
+                        'number' => $parcel['shipment']['tracking_code'],
+                        'title' => $parcel['shipment']['tracking_link'],
+                        'carrier_code' => $parcel['shipment']['transporter'],
                     ]
                 )
             );

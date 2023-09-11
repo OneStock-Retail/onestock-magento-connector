@@ -48,7 +48,7 @@ class ImportTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Service\OrderUpdate");
+            $this->import = ObjectManager::getInstance()->create('Smile\Onestock\Service\OrderUpdate');
             $this->applicationState = ObjectManager::getInstance()->get(State::class);
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
@@ -64,11 +64,11 @@ class ImportTest extends TestCase
     {
         
         $output = null;
-        $input = "000000005";
+        $input = '000000005';
         $this->applicationState
             ->emulateAreaCode(
                 Area::AREA_CRONTAB,
-                [$this->import, "requestUpdate"],
+                [$this->import, 'requestUpdate'],
                 [$input, $output]
             );
     }

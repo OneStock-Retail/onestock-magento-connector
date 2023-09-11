@@ -28,11 +28,11 @@ use Psr\Log\LoggerInterface;
  */
 class Config implements ObserverInterface
 {
-    public const CONFIG_RULESET_MAP = "smile_onestock/general/rulesets_map";
+    public const CONFIG_RULESET_MAP = 'smile_onestock/general/rulesets_map';
 
-    public const TYPE_FFS = "ffs";
+    public const TYPE_FFS = 'ffs';
 
-    public const CONFIG_SALES_CHANNEL = "smile_onestock/general/sales_channel";
+    public const CONFIG_SALES_CHANNEL = 'smile_onestock/general/sales_channel';
 
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,

@@ -50,8 +50,8 @@ class MappingTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->mapping = ObjectManager::getInstance()->create("Smile\Onestock\Helper\Mapping");
-            $this->repository = ObjectManager::getInstance()->create("Magento\Sales\Api\OrderRepositoryInterface");
+            $this->mapping = ObjectManager::getInstance()->create('Smile\Onestock\Helper\Mapping');
+            $this->repository = ObjectManager::getInstance()->create('Magento\Sales\Api\OrderRepositoryInterface');
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
         }

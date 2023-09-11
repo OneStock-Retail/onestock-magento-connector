@@ -28,7 +28,7 @@ class Token extends DataObject implements TokenInterface
      */
     public function getToken(): string
     {
-        return $this->getData("token");
+        return $this->getData('token');
     }
 
     /**
@@ -39,7 +39,7 @@ class Token extends DataObject implements TokenInterface
      */
     public function setToken(string $token)
     {
-        return $this->setData("token", $token);
+        return $this->setData('token', $token);
     }
 
     /**
@@ -47,7 +47,7 @@ class Token extends DataObject implements TokenInterface
      */
     public function getSiteId(): string
     {
-        return $this->getData("site_id");
+        return $this->getData('site_id');
     }
 
     /**
@@ -58,6 +58,6 @@ class Token extends DataObject implements TokenInterface
      */
     public function setSiteId(string $site_id)
     {
-        return $this->setData("site_id", $site_id);
+        return $this->setData('site_id', $site_id);
     }
 }

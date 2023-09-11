@@ -62,14 +62,14 @@ class AuthenticationTest extends TestCase
             ->setMethods(['getHost', 'getCredentials', 'getOptions'])
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $config->method('getHost')->willReturn($_ENV["HOST"]);
+        $config->method('getHost')->willReturn($_ENV['HOST']);
         $config->method('getOptions')->willReturn([]);
         $config->method('getCredentials')
                ->willReturn(
                    [
-                   "user_id" => $_ENV["USER_ID"],
-                   "password" => $_ENV["PASSWORD"],
-                   "site_id" => $_ENV["SITE_ID"],
+                   'user_id' => $_ENV['USER_ID'],
+                   'password' => $_ENV['PASSWORD'],
+                   'site_id' => $_ENV['SITE_ID'],
                    ]
                );
 

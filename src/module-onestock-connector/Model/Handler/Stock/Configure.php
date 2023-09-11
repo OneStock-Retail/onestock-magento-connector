@@ -72,11 +72,11 @@ class Configure implements StockImportHandlerInterface
             ScopeInterface::SCOPE_STORE
         );
         return new DataObject([
-            "pattern" => $pattern,
-            "folder" => $folder,
-            "use_msi" => $this->useMsi(),
-            "use_legacy" => $this->useLegacy(),
-            "table" => self::TABLE,
+            'pattern' => $pattern,
+            'folder' => $folder,
+            'use_msi' => $this->useMsi(),
+            'use_legacy' => $this->useLegacy(),
+            'table' => self::TABLE,
         ]);
     }
 

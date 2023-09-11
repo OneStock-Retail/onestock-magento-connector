@@ -48,8 +48,8 @@ class FileExists implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-        $this->driverFile->createDirectory($res['folder'] . "/in/unified_stock");
-        $paths = $this->driverFile->readDirectory($res['folder'] . "/in/unified_stock");
+        $this->driverFile->createDirectory($res['folder'] . '/in/unified_stock');
+        $paths = $this->driverFile->readDirectory($res['folder'] . '/in/unified_stock');
         $paths = preg_grep('/' . str_replace('*', '.*', $res['pattern']) . '/', $paths);
 
         $res->setData('files', $paths);

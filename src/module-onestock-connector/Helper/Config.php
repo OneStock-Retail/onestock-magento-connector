@@ -88,11 +88,11 @@ class Config implements ConfigInterface
     public function getCredentials(): array
     {
         return [
-            "user_id" => $this->scopeConfig->getValue(
+            'user_id' => $this->scopeConfig->getValue(
                 self::USER_ID,
                 ScopeInterface::SCOPE_STORE
             ),
-            "password" => $this->encryptor->decrypt(
+            'password' => $this->encryptor->decrypt(
                 trim(
                     $this->scopeConfig->getValue(
                         self::PASSWORD,
@@ -100,7 +100,7 @@ class Config implements ConfigInterface
                     )
                 )
             ),
-            "site_id" => $this->scopeConfig->getValue(
+            'site_id' => $this->scopeConfig->getValue(
                 self::SITE_ID,
                 ScopeInterface::SCOPE_STORE
             ),
@@ -155,6 +155,6 @@ class Config implements ConfigInterface
             ScopeInterface::SCOPE_STORE
         );
 
-        return explode(",", $fields);
+        return explode(',', $fields);
     }
 }

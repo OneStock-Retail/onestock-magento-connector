@@ -46,7 +46,7 @@ class Archive implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-        $this->driverFile->createDirectory($res['folder'] . "/archive/unified_stock");
+        $this->driverFile->createDirectory($res['folder'] . '/archive/unified_stock');
         foreach ($res['files'] as $file) {
             $this->filesystemIo->mv($file, str_replace('/in/unified_stock', '/archive/unified_stock', $file));
         }

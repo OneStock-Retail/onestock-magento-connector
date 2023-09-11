@@ -48,7 +48,7 @@ class RefundTest extends TestCase
 
         try {
             Bootstrap::create(BP, $_SERVER)->createApplication(Http::class);
-            $this->import = ObjectManager::getInstance()->create("Smile\Onestock\Service\OrderUpdate");
+            $this->import = ObjectManager::getInstance()->create('Smile\Onestock\Service\OrderUpdate');
             $this->applicationState = ObjectManager::getInstance()->get(State::class);
         } catch (Exception $e) {
             throw new RuntimeException($e->getMessage(), 0, $e);
@@ -68,7 +68,7 @@ class RefundTest extends TestCase
         $this->applicationState
             ->emulateAreaCode(
                 Area::AREA_ADMINHTML,
-                [$this->import, "requestUpdate"],
+                [$this->import, 'requestUpdate'],
                 [$input, $output]
             );
     }

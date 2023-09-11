@@ -59,7 +59,7 @@ class FindDiffIds implements StockImportHandlerInterface
     {
         $query = $this->connection->select()
             ->from($this->connection->getTableName($res['table']), ['entity_id', 'item_id'])
-            ->where("entity_id is not NULL");
+            ->where('entity_id is not NULL');
         $ids = $this->connection->fetchPairs($query);
 
         if (count($ids) < self::THRESHOLD) {
