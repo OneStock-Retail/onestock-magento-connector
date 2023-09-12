@@ -271,19 +271,6 @@
                     <comment><![CDATA[<a target="_blank"
  href="https://developer.adobe.com/commerce/webapi/rest/inventory/">Learn More</a>]]></comment>
                 </field>
-                <field id="use_legacy"
-                       translate="label"
-                       type="select"
-                       sortOrder="10"
-                       showInDefault="1"
-                       showInWebsite="1"
-                       showInStore="1">
-                    <label>Use legacy stock tables</label>
-                    <source_model>\Magento\Config\Model\Config\Source\Yesno</source_model>
-                    <if_module_enabled>Magento_CatalogInventory</if_module_enabled>
-                    <comment><![CDATA[<a target="_blank"
- href="https://developer.adobe.com/commerce/php/development/components/web-api/inventory-management/">Learn More</a>]]></comment>
-                </field>
             </group>
         </section>
     </system>
