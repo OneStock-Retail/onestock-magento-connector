@@ -1,7 +1,7 @@
 "Shipping method","Méthode de livraison"
 Ruleset,Ruleset
 "Add rule","Ajouter"
-Host,"Url du server"
+"Host API","API Host"
 "Create shipment from onestock","Create shipment from onestock"
 "Create refund from onestock","Create refund from onestock"
 "Product not found in magento database: ""%1""","Product not found in magento database: ""%1"""
@@ -22,8 +22,8 @@ API,API
 "Retry count per order","Nombre de tentatives d’export par commande"
 "Usefull if export fails","Utile pour réessayer en cas d'échec"
 Timeout,Timeout
-"Login cache lifetime (seconds)","Login cache lifetime (seconds)"
-"Log all requests","Log all requests"
+"API token lifetime","Durée de vie du token API"
+"Debug mode","Mode debug"
 FTP,FTP
 "Import/export folder path","Chemin du dossier d’import export"
 "Unifed Stock: file pattern for FULL","Stock unifié : nommage des fichiers FULL"
@@ -31,7 +31,7 @@ FTP,FTP
 "Unifed Stock: file pattern for DIFF","Stock unifié : nommage des fichiers DIFF"
 "Delivery Promise","Promesse de livraison"
 Enabled,Activée
-"Postcode for guest","Code postal par défaut pour les invités"
+"Guest postcode","Code postal par défaut pour les invités"
 "Stock import","Stock import"
 "Use inventory management tables","Use inventory management tables"
 "Use legacy stock tables","Use legacy stock tables"

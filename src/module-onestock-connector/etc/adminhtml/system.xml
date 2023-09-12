@@ -108,7 +108,7 @@
                        showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">
-                    <label>Host</label>
+                    <label>Host API</label>
                 </field>
                 <field id="user_id"
                        translate="label"
@@ -160,7 +160,7 @@
                        showInWebsite="0"
                        showInStore="0"
                        canRestore="1">
-                    <label>Login cache lifetime (seconds)</label>
+                    <label>API token lifetime</label>
                 </field>
                 <field id="log_enabled"
                        translate="label comment"
@@ -170,7 +170,7 @@
                        showInWebsite="0"
                        showInStore="0"
                        canRestore="1">  
-                    <label>Log all requests</label>
+                    <label>Debug mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
@@ -243,7 +243,7 @@
                        showInWebsite="1"
                        showInStore="0"
                        canRestore="1">
-                    <label>Postcode for guest</label>
+                    <label>Guest postcode</label>
                     <depends>
                         <field id="dp_enabled">1</field>
                     </depends>
