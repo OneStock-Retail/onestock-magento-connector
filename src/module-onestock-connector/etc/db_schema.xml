@@ -19,13 +19,13 @@
     <table name="sales_order" resource="sales" engine="innodb" comment="Sales Flat Order">
         <column xsi:type="smallint" name="order_retry_count" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Onestock Retry Count"/>
-        <column xsi:type="smallint" name="onestock_exported" unsigned="true" nullable="false" default="0" identity="false"
+        <column xsi:type="smallint" name="onestock_export_status" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Is Exported To Onestock"/>
         <index referenceId="SALES_ORDER_ONESTOCK_RETRY_COUNT" indexType="btree">
             <column name="order_retry_count"/>
         </index>
-        <index referenceId="SALES_ORDER_ONESTOCK_EXPORTED" indexType="btree">
-            <column name="onestock_exported"/>
+        <index referenceId="SALES_ORDER_ONESTOCK_EXPORT_STATUS" indexType="btree">
+            <column name="onestock_export_status"/>
         </index>
     </table>
     <table name="sales_shipment" resource="sales" engine="innodb" comment="Sales Flat Shipment">

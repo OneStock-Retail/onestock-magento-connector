@@ -30,6 +30,6 @@ class SetOnestockFlag implements ObserverInterface
      */
     public function execute(Observer $observer): void
     {
-        $observer->getOrder()->setOnestockExported(self::NOT_EXPORTED);
+        $observer->getOrder()->setOnestockExportStatus(self::NOT_EXPORTED);
     }
 }

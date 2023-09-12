@@ -53,10 +53,10 @@ class OrderExport implements OrderExportInterface
             $this->tokenHelper->call(function ($config, $token) use ($order): void {
                 $this->service->post($config, $token, $this->mapping->convertOrder($order));
             });
-            $order->setOnestockExported(self::EXPORTED);
+            $order->setOnestockExportStatus(self::EXPORTED);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
-            $order->setOnestockExported(self::ERROR);
+            $order->setOnestockExportStatus(self::ERROR);
             $order->setOrderRetryCount($order->getOrderRetryCount() + 1);
         }
         $this->orderRepository->save($order);
