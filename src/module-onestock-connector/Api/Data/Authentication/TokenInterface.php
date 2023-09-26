@@ -25,28 +25,28 @@ interface TokenInterface
      *
      * @return string
      */
-    public function getToken();
+    public function getToken(): string;
 
     /**
      * Sets token
      *
-     * @param string $token Your temporary authentication
+     * @param string $token
      * @return $this
      */
     public function setToken(string $token);
 
     /**
-     * Gets site_id
+     * Gets site id
      *
      * @return string
      */
-    public function getSiteId();
+    public function getSiteId(): string;
 
     /**
-     * Sets site_id
+     * Sets site id
      *
-     * @param string $site_id Your Site ID, as provided by your OneStock contact
+     * @param string $siteId
      * @return $this
      */
-    public function setSiteId(string $site_id);
+    public function setSiteId(string $siteId);
 }

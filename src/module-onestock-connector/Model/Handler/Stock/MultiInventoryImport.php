@@ -21,24 +21,16 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\DB\Select;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 use Zend_Db_Expr;
-use Zend_Db_Select_Exception;
 
 /**
  * Handler to import stock into inventory table
  */
 class MultiInventoryImport implements StockImportHandlerInterface
 {
-        /**
-         * This variable contains a ResourceConnection
-         */
     protected AdapterInterface $connection;
 
-    /**
-     * Constructor
-     */
-    public function __construct(
-        ResourceConnection $connection
-    ) {
+    public function __construct(ResourceConnection $connection)
+    {
         $this->connection = $connection->getConnection();
     }
 
@@ -52,8 +44,6 @@ class MultiInventoryImport implements StockImportHandlerInterface
 
     /**
      * Import file into magento source inventory
-     *
-     * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
     {

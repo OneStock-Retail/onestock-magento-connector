@@ -29,16 +29,10 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 class Configure implements StockImportHandlerInterface
 {
     public const CONFIG_FOLDER = 'smile_onestock/ftp/folder';
-
     public const CONFIG_PATTERN = 'smile_onestock/ftp/us_full_pattern';
-
     public const TABLE = 'onestock_transition_unified_stock';
-
     public const USE_MODULE_ = 'smile_onestock/stock/use_';
 
-    /**
-     * This variable contains a ResourceConnection
-     */
     protected AdapterInterface $connection;
 
     public function __construct(

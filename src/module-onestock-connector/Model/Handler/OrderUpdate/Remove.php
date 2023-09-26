@@ -23,6 +23,7 @@ use Magento\Sales\Api\CreditmemoManagementInterface;
 use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\CreditmemoFactory;
 use Magento\Sales\Model\Order\CreditmemoRepository;
+use Magento\Sales\Model\Order\Item;
 use Smile\Onestock\Api\Data\Sales\OrderInterface as OnestockOrder;
 use Smile\Onestock\Helper\OrderItem;
 
@@ -36,7 +37,7 @@ class Remove
         protected CreditmemoFactory $creditMemoFactory,
         protected SearchCriteriaBuilder $searchCriteriaBuilder,
         protected CreditmemoRepository $creditmemoRepository,
-        protected CreditmemoManagementInterface $creditmemoManagement,
+        protected CreditmemoManagementInterface $creditmemoManagement
     ) {
     }
 
@@ -65,7 +66,7 @@ class Remove
         $qtys = [];
         $leftToRefund = $group['quantity'];
         foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
-            /** @var \Magento\Sales\Model\Order\Item $orderItem */
+            /** @var Item $orderItem */
             $qtys[$orderItem->getId()] = min($leftToRefund, $orderItem->getQtyToRefund());
             $leftToRefund -= $qtys[$orderItem->getId()];
         }

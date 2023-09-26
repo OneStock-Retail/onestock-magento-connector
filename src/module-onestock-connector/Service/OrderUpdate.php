@@ -35,7 +35,6 @@ class OrderUpdate implements OrderUpdateInterface
 {
     /**
      * @param OrderUpdateHandlerInterface[] $data
-     * @return void
      */
     public function __construct(
         protected OrderRepositoryInterface $orderRepository,
@@ -43,16 +42,15 @@ class OrderUpdate implements OrderUpdateInterface
         protected LoggerInterface $logger,
         protected OrdersApi $ordersApi,
         protected CacheToken $tokenHelper,
-        protected array $data = [],
+        protected array $data = []
     ) {
     }
 
     /**
-     * Receive the Order Id that must be refreshed
+     * @inheritdoc
      */
-    public function requestUpdate(
-        string $orderIncrementId
-    ): void {
+    public function requestUpdate(string $orderIncrementId): void
+    {
         $order = $this->getOrderByIncrementId($orderIncrementId);
         $onestockOrder = $this->tokenHelper->call(
             function ($config, $token) use ($orderIncrementId): OnestockOrderInterface {
@@ -88,7 +86,7 @@ class OrderUpdate implements OrderUpdateInterface
     public function getOrderByIncrementId(string $orderIncrementId): Order
     {
         $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('increment_id', $orderIncrementId, 'eq')
+            ->addFilter('increment_id', $orderIncrementId)
             ->setPageSize(1)
             ->create();
         $listing = $this->orderRepository->getList($searchCriteria)->getItems();

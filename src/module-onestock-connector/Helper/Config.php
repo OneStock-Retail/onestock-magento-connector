@@ -27,45 +27,31 @@ use Smile\Onestock\Api\Data\ConfigInterface;
 class Config implements ConfigInterface
 {
     public const CONFIG_TIMEOUT = 'smile_onestock/api/timeout';
-
     public const CONFIG_HOST = 'smile_onestock/api/host';
-
     public const USER_ID = 'smile_onestock/api/user_id';
-
     public const PASSWORD = 'smile_onestock/api/password';
-
     public const SITE_ID = 'smile_onestock/general/site_id';
-
     public const ORDER_RETRY_COUNT = 'smile_onestock/api/order_retry_count';
-
     public const LOG_ENABLED = 'smile_onestock/api/log_enabled';
-
     public const FIELDS = 'smile_onestock/api/fields';
-
     public const LOGIN_CACHE_LIFETIME = 'smile_onestock/api/login_cache_lifetime';
 
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
-        protected EncryptorInterface $encryptor,
+        protected EncryptorInterface $encryptor
     ) {
     }
 
     /**
-     * Return server url
+     * @inheritdoc
      */
     public function getHost(): string
     {
-        $host = $this->scopeConfig->getValue(
-            self::CONFIG_HOST,
-            ScopeInterface::SCOPE_STORE
-        );
-        return $host;
+        return $this->scopeConfig->getValue(self::CONFIG_HOST, ScopeInterface::SCOPE_STORE);
     }
 
     /**
-     * Connexion option
-     *
-     * @return string[]
+     * @inheritdoc
      */
     public function getOptions(): array
     {
@@ -81,9 +67,7 @@ class Config implements ConfigInterface
     }
 
     /**
-     * Connexion option
-     *
-     * @return string[]
+     * @inheritdoc
      */
     public function getCredentials(): array
     {
@@ -108,19 +92,28 @@ class Config implements ConfigInterface
     }
 
     /**
-     * Return max value
+     * @inheritdoc
      */
-    public function getOrderRetryCount(): string
+    public function getFields(): array
     {
-        $max = $this->scopeConfig->getValue(
-            self::ORDER_RETRY_COUNT,
+        $fields = $this->scopeConfig->getValue(
+            self::FIELDS,
             ScopeInterface::SCOPE_STORE
         );
-        return $max;
+
+        return explode(',', $fields);
     }
 
     /**
-     * Return lifetime
+     * @inheritdoc
+     */
+    public function getOrderRetryCount(): string
+    {
+        return $this->scopeConfig->getValue(self::ORDER_RETRY_COUNT, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @inheritdoc
      */
     public function getLoginCacheLifetime(): int
     {
@@ -132,7 +125,7 @@ class Config implements ConfigInterface
     }
 
     /**
-     * Predicate log is enabled in config
+     * @inheritdoc
      */
     public function logIsEnabled(): bool
     {
@@ -141,20 +134,5 @@ class Config implements ConfigInterface
             ScopeInterface::SCOPE_STORE
         );
         return (bool) $enabled;
-    }
-
-    /**
-     * Mandatory fields
-     *
-     * @return string[]
-     */
-    public function getFields(): array
-    {
-        $fields = $this->scopeConfig->getValue(
-            self::FIELDS,
-            ScopeInterface::SCOPE_STORE
-        );
-
-        return explode(',', $fields);
     }
 }

@@ -28,7 +28,7 @@ class Archive implements StockImportHandlerInterface
 {
     public function __construct(
         protected Io $filesystemIo,
-        protected Dir $driverFile,
+        protected Dir $driverFile
     ) {
     }
     /**

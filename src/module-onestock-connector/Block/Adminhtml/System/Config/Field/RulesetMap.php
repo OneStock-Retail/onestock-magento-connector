@@ -19,6 +19,7 @@ use Magento\Config\Block\System\Config\Form\Field\FieldArray\AbstractFieldArray;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\View\Element\BlockInterface;
+use Magento\Framework\View\Element\Html\Select;
 
 /**
  * Block to configure ruleset within a nice UI selector
@@ -69,7 +70,7 @@ class RulesetMap extends AbstractFieldArray
         $selected = $row->getRuleset();
         $options = [];
         if ($selected) {
-            /** @var \Magento\Framework\View\Element\Html\Select $renderer */
+            /** @var Select $renderer */
             $renderer = $this->getOptionRenderer();
             $options['option_' . $renderer->calcOptionHash($selected)]
             = 'selected="selected"';

@@ -25,10 +25,10 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
  */
 class CacheCleanIds implements StockImportHandlerInterface
 {
-    public function __construct(
-        protected CacheInterface $cache
-    ) {
+    public function __construct(protected CacheInterface $cache)
+    {
     }
+
     /**
      * Always proceed
      */

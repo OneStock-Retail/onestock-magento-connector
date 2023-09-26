@@ -24,19 +24,10 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 class Import
 {
     /**
-     * @var StockImportHandlerInterface[] $handlers
+     * @param StockImportHandlerInterface[] $handlers
      */
-    protected array $handlers;
-
-    /**
-     * Constructor.
-     *
-     * @param StockImportHandlerInterface[] $data
-     */
-    public function __construct(
-        array $data = []
-    ) {
-        $this->handlers = $data;
+    public function __construct(protected array $handlers = [])
+    {
     }
 
     /**

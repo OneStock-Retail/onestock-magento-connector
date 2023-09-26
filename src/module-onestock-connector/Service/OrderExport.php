@@ -17,6 +17,7 @@ namespace Smile\Onestock\Service;
 
 use Exception;
 use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\Order;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\OrderExportInterface;
 use Smile\Onestock\Helper\CacheToken;
@@ -42,12 +43,11 @@ class OrderExport implements OrderExportInterface
     }
 
     /**
-     * Export Order to Onestock
+     * @inheritdoc
      */
-    public function export(
-        int $orderId
-    ): void {
-        /** @var \Magento\Sales\Model\Order */
+    public function export(int $orderId): void
+    {
+        /** @var Order $order */
         $order = $this->orderRepository->get($orderId);
         try {
             $this->tokenHelper->call(function ($config, $token) use ($order): void {

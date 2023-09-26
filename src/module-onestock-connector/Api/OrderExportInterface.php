@@ -26,7 +26,5 @@ interface OrderExportInterface
      * @param int $orderId
      * @return void
      */
-    public function export(
-        int $orderId
-    ): void;
+    public function export(int $orderId): void;
 }

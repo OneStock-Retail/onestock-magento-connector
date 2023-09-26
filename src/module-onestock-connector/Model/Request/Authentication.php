@@ -104,8 +104,6 @@ class Authentication
                 $e->getCode(),
                 $e
             );
-        } catch (Exception $e) {
-            throw $e;
         }
     }
 }

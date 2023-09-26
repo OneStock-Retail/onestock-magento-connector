@@ -23,9 +23,8 @@ use Magento\Framework\DataObject\Copy;
  */
 class Mapping
 {
-    public function __construct(
-        protected Copy $objectCopyService
-    ) {
+    public function __construct(protected Copy $objectCopyService)
+    {
     }
 
     /**
@@ -37,12 +36,12 @@ class Mapping
     public function convertOrder(mixed $order): array
     {
         $onestockOrder = [];
-        $onestockOrder = $this->objectCopyService->copyFieldsetToTarget(
+
+        return $this->objectCopyService->copyFieldsetToTarget(
             'onestock_order_mapping',
             'to_onestock_order',
             $order,
             $onestockOrder
         );
-        return $onestockOrder;
     }
 }

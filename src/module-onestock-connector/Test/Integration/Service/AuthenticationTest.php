@@ -13,15 +13,18 @@
 
 declare(strict_types=1);
 
-namespace Smile\Onestock\Test\Service;
+namespace Smile\Onestock\Test\Integration\Service;
 
 use Exception;
 use Magento\Framework\App\Bootstrap;
 use Magento\Framework\App\Http;
 use Magento\Framework\App\ObjectManager;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
+use Smile\Onestock\Api\Data\Authentication\TokenInterface;
 use Smile\Onestock\Api\Data\ConfigInterface;
+use Smile\Onestock\Helper\Config;
 use Smile\Onestock\Model\Data\Authentication\Credential;
 use Smile\Onestock\Model\Request\Authentication;
 
@@ -57,26 +60,25 @@ class AuthenticationTest extends TestCase
      */
     public function testLogin(): void
     {
-        /** @var \Smile\Onestock\Helper\Config|\PHPUnit\Framework\MockObject\MockObject */
+        /** @var Config|MockObject $config */
         $config = $this->getMockBuilder(ConfigInterface::class)
             ->setMethods(['getHost', 'getCredentials', 'getOptions'])
             ->disableOriginalConstructor()
             ->getMockForAbstractClass();
-        $config->method('getHost')->willReturn($_ENV['HOST']);
+        $config->method('getHost')->willReturn(getenv('HOST'));
         $config->method('getOptions')->willReturn([]);
         $config->method('getCredentials')
                ->willReturn(
                    [
-                   'user_id' => $_ENV['USER_ID'],
-                   'password' => $_ENV['PASSWORD'],
-                   'site_id' => $_ENV['SITE_ID'],
+                       'user_id' => getenv('USER_ID'),
+                       'password' => getenv('PASSWORD'),
+                       'site_id' => getenv('SITE_ID'),
                    ]
                );
 
-        /**@var \Smile\Onestock\Model\Authentication\Credential */
         $credential = new Credential($config->getCredentials());
 
-        /** @var \Smile\Onestock\Api\Data\Authentication\TokenInterface */
+        /** @var TokenInterface $token */
         $token = $this->authentication->login($config, $credential);
 
         $this->assertNotEmpty($token->getToken());

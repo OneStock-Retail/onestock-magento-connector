@@ -37,9 +37,6 @@ class Orders
         protected ServiceInputProcessor $toClassProcessor,
         protected ServiceOutputProcessor $toArrayProcessor
     ) {
-        $this->httpClient = $httpClient;
-        $this->toClassProcessor = $toClassProcessor;
-        $this->toArrayProcessor = $toArrayProcessor;
     }
 
     /**
@@ -93,8 +90,6 @@ class Orders
                 $e->getCode(),
                 $e
             );
-        } catch (Exception $e) {
-            throw $e;
         }
     }
 
@@ -136,8 +131,6 @@ class Orders
                 $e->getCode(),
                 $e
             );
-        } catch (Exception $e) {
-            throw $e;
         }
     }
 }

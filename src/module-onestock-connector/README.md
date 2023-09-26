@@ -5,9 +5,8 @@
 This module provides an integration between Onestock and Magento:
 
 - Stock are synchronised from Onestock to Magento
-- Order placed on Magento are exported to Onestock
-- Order orchestrated by Onestock are imported back to Magento as shipment or creditmemo
-
+- Orders placed on Magento are exported to Onestock
+- Orders orchestrated by Onestock are imported back to Magento as shipment or creditmemo
 
 ## License
 
