@@ -37,7 +37,7 @@ class Config implements ObserverInterface
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
         protected Json $serializer,
-        protected LoggerInterface $logger,
+        protected LoggerInterface $logger
     ) {
     }
     /**

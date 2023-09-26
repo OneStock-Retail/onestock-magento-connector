@@ -24,7 +24,7 @@ use Smile\Onestock\Api\Data\Authentication\TokenInterface;
 class Token extends DataObject implements TokenInterface
 {
     /**
-     * Gets token
+     * @inheritdoc
      */
     public function getToken(): string
     {
@@ -32,10 +32,7 @@ class Token extends DataObject implements TokenInterface
     }
 
     /**
-     * Sets token
-     *
-     * @param string $token Your temporary authentication
-     * @return $this
+     * @inheritdoc
      */
     public function setToken(string $token)
     {
@@ -43,7 +40,7 @@ class Token extends DataObject implements TokenInterface
     }
 
     /**
-     * Gets site_id
+     * @inheritdoc
      */
     public function getSiteId(): string
     {
@@ -51,13 +48,10 @@ class Token extends DataObject implements TokenInterface
     }
 
     /**
-     * Sets site_id
-     *
-     * @param string $site_id Your Site ID, as provided by your OneStock contact
-     * @return $this
+     * @inheritdoc
      */
-    public function setSiteId(string $site_id)
+    public function setSiteId(string $siteId)
     {
-        return $this->setData('site_id', $site_id);
+        return $this->setData('site_id', $siteId);
     }
 }

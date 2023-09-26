@@ -19,7 +19,7 @@ use Magento\AsynchronousOperations\Model\MassSchedule;
 use Magento\Framework\Exception\BulkException;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactoryInterface;
 use Psr\Log\LoggerInterface;
-use Smile\Onestock\Helper\Config as OnestockConfig;
+use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Observer\AddOrderToExportQueue as RegularPublisher;
 use Smile\Onestock\Service\OrderExport;
 
@@ -32,7 +32,7 @@ class RetryOrderExport
         protected MassSchedule $asyncBulkPublisher,
         protected LoggerInterface $logger,
         protected CollectionFactoryInterface $orderCollectionFactory,
-        protected OnestockConfig $config,
+        protected ConfigInterface $config
     ) {
     }
 

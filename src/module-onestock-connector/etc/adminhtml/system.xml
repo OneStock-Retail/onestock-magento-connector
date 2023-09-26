@@ -1,23 +1,7 @@
 <?xml version="1.0"?>
-<!--
-/**
- * Smile_Onestock admin configuration UI fields.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade to newer
- * versions in the future.
- *
- * @package   Smile\Onestock
- * @author    Pascal Noisette <pascal.noisette@smile.fr>
- * @copyright 2023 Smile
- * @license   Open Software License ("OSL") v. 3.0
- */
- -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-
         <tab id="smile_onestock"
              translate="label"
              sortOrder="210">
@@ -35,7 +19,6 @@
             <label>Configuration</label>
             <tab>smile_onestock</tab>
             <resource>Smile_Onestock::base_settings</resource>
-
 
             <group id="getting_started"
                    translate="label comment"

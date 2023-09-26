@@ -26,16 +26,11 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 class ReadFile implements StockImportHandlerInterface
 {
     public const THRESHOLD = 5000;
-    /**
-     * This variable contains a ResourceConnection
-     */
+
     protected AdapterInterface $connection;
-    /**
-     * Constructor
-     */
-    public function __construct(
-        ResourceConnection $connection
-    ) {
+
+    public function __construct(ResourceConnection $connection)
+    {
         $this->connection = $connection->getConnection();
     }
 

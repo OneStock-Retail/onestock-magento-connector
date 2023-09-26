@@ -21,24 +21,16 @@ use Magento\Framework\DB\Adapter\AdapterInterface;
 use Magento\Framework\DB\Select;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 use Zend_Db_Expr;
-use Zend_Db_Select_Exception;
 
 /**
  * Legacy inventory import
  */
 class CatalogInventoryImport implements StockImportHandlerInterface
 {
-        /**
-         * This variable contains a ResourceConnection
-         */
     protected AdapterInterface $connection;
 
-    /**
-     * Constructor
-     */
-    public function __construct(
-        ResourceConnection $connection
-    ) {
+    public function __construct(ResourceConnection $connection)
+    {
         $this->connection = $connection->getConnection();
     }
 
@@ -52,8 +44,6 @@ class CatalogInventoryImport implements StockImportHandlerInterface
 
     /**
      * Import file into legacy inventory
-     *
-     * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
     {

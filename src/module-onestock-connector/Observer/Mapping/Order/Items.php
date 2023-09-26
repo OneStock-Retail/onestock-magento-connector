@@ -24,9 +24,8 @@ use Magento\Framework\Event\ObserverInterface;
  */
 class Items implements ObserverInterface
 {
-    public function __construct(
-        protected Copy $objectCopyService,
-    ) {
+    public function __construct(protected Copy $objectCopyService)
+    {
     }
 
     /**

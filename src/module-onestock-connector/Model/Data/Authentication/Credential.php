@@ -24,7 +24,7 @@ use Smile\Onestock\Api\Data\Authentication\CredentialInterface;
 class Credential extends DataObject implements CredentialInterface
 {
     /**
-     * Gets site_id
+     * @inheritdoc
      */
     public function getSiteId(): string
     {
@@ -32,18 +32,15 @@ class Credential extends DataObject implements CredentialInterface
     }
 
     /**
-     * Sets site_id
-     *
-     * @param string $site_id Your Site ID, as provided by your OneStock contact
-     * @return $this
+     * @inheritdoc
      */
-    public function setSiteId(string $site_id)
+    public function setSiteId(string $siteId)
     {
-        return $this->setData('site_id', $site_id);
+        return $this->setData('site_id', $siteId);
     }
 
     /**
-     * Gets user_id
+     * @inheritdoc
      */
     public function getUserId(): string
     {
@@ -51,18 +48,15 @@ class Credential extends DataObject implements CredentialInterface
     }
 
     /**
-     * Sets user_id
-     *
-     * @param string $user_id The username provided by your OneStock contact
-     * @return $this
+     * @inheritdoc
      */
-    public function setUserId(string $user_id)
+    public function setUserId(string $userId)
     {
-        return $this->setData('user_id', $user_id);
+        return $this->setData('user_id', $userId);
     }
 
     /**
-     * Gets password
+     * @inheritdoc
      */
     public function getPassword(): string
     {
@@ -70,10 +64,7 @@ class Credential extends DataObject implements CredentialInterface
     }
 
     /**
-     * Sets password
-     *
-     * @param string $password The password associated to the username you are trying to get a token with
-     * @return $this
+     * @inheritdoc
      */
     public function setPassword(string $password)
     {

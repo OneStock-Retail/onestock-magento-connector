@@ -25,9 +25,8 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
  */
 class FileExists implements StockImportHandlerInterface
 {
-    public function __construct(
-        protected File $driverFile
-    ) {
+    public function __construct(protected File $driverFile)
+    {
     }
     
     /**

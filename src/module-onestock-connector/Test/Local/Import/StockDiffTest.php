@@ -13,7 +13,7 @@
 
 declare(strict_types=1);
 
-namespace Smile\Onestock\Test\Local\Import\Stock;
+namespace Smile\Onestock\Test\Local\Import;
 
 use Exception;
 use Magento\Framework\App\Bootstrap;

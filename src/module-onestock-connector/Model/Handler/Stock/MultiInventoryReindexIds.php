@@ -30,15 +30,12 @@ use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
  */
 class MultiInventoryReindexIds implements StockImportHandlerInterface
 {
-    /**
-     * This variable contains a ResourceConnection
-     */
     protected AdapterInterface $connection;
 
     public function __construct(
         protected IndexerRegistry $indexerRegistry,
         protected Manager $moduleManager,
-        ResourceConnection $connection,
+        ResourceConnection $connection
     ) {
         $this->connection = $connection->getConnection();
     }

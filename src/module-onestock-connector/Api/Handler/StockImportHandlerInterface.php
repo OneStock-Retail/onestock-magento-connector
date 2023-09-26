@@ -24,15 +24,11 @@ interface StockImportHandlerInterface
 {
     /**
      * Check if import is possible
-     *
-     * @return bool
      */
     public function validate(DataObject $res): bool;
 
     /**
      * Proceed to this step of the import
-     *
-     * @return DataObject
      */
     public function process(DataObject $res): DataObject;
 }

@@ -20,24 +20,16 @@ use Magento\Framework\DataObject;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 use Zend_Db_Expr;
-use Zend_Db_Select_Exception;
 
 /**
  * Handler to default all inventory to 0 when a full stock is requested
  */
 class DefaultToZeroMsi implements StockImportHandlerInterface
 {
-        /**
-         * This variable contains a ResourceConnection
-         */
     protected AdapterInterface $connection;
 
-    /**
-     * Constructor
-     */
-    public function __construct(
-        ResourceConnection $connection
-    ) {
+    public function __construct(ResourceConnection $connection)
+    {
         $this->connection = $connection->getConnection();
     }
 
@@ -51,8 +43,6 @@ class DefaultToZeroMsi implements StockImportHandlerInterface
 
     /**
      * After import set 0/out of stock product unspecified in the file
-     *
-     * @throws Zend_Db_Select_Exception
      */
     public function process(DataObject $res): DataObject
     {

@@ -92,7 +92,6 @@ class Parcel
      */
     public function update(Order $order, OnestockOrder $onestockOrder, array $parcel): AbstractModel
     {
-        /** @var \Magento\Sales\Model\Order\Shipment $shipment */
         $shipment = $this->initShipment($order);
         $shipmentQty = 0;
 

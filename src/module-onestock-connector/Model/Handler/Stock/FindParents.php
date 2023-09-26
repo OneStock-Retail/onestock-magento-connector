@@ -18,6 +18,7 @@ namespace Smile\Onestock\Model\Handler\Stock;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\DataObject;
 use Magento\Framework\DB\Adapter\AdapterInterface;
+use Magento\Framework\DB\Select;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
 use Zend_Db_Expr;
 
@@ -26,17 +27,10 @@ use Zend_Db_Expr;
  */
 class FindParents implements StockImportHandlerInterface
 {
-    /**
-     * This variable contains a ResourceConnection
-     */
     protected AdapterInterface $connection;
 
-    /**
-     * Constructor
-     */
-    public function __construct(
-        ResourceConnection $connection
-    ) {
+    public function __construct(ResourceConnection $connection)
+    {
         $this->connection = $connection->getConnection();
     }
 
@@ -60,7 +54,7 @@ class FindParents implements StockImportHandlerInterface
             'quantity' => new Zend_Db_Expr('SUM(p.quantity)'),
         ];
 
-        /** @var \Magento\Framework\DB\Select $query */
+        /** @var Select $query */
         $query = $this->connection->select()->from(
             ['p' => $tableName],
             $fields

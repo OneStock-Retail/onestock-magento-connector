@@ -16,7 +16,7 @@ declare(strict_types=1);
 namespace Smile\Onestock\Plugin;
 
 use Psr\Log\LoggerInterface;
-use Smile\Onestock\Helper\Config as OnestockConfig;
+use Smile\Onestock\Api\Data\ConfigInterface;
 
 /**
  * Add log to every requests
@@ -25,7 +25,7 @@ class LogRequest
 {
     public function __construct(
         protected LoggerInterface $logger,
-        protected OnestockConfig $config,
+        protected ConfigInterface $config
     ) {
     }
 

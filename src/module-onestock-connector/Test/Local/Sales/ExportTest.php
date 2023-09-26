@@ -25,8 +25,6 @@ use Smile\Onestock\Service\OrderExport;
 
 /**
  * Test order export
- *
- * @author   Pascal Noisette <paschandlersal.noisette@smile.fr>
  */
 class ExportTest extends TestCase
 {

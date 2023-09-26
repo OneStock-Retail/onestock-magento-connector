@@ -26,7 +26,5 @@ interface OrderUpdateInterface
      * @param string $orderIncrementId
      * @return void
      */
-    public function requestUpdate(
-        string $orderIncrementId
-    ): void;
+    public function requestUpdate(string $orderIncrementId): void;
 }

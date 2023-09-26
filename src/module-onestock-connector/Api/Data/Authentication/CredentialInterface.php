@@ -21,46 +21,46 @@ namespace Smile\Onestock\Api\Data\Authentication;
 interface CredentialInterface
 {
     /**
-     * Gets site_id
+     * Gets site id
      *
      * @return string
      */
-    public function getSiteId();
+    public function getSiteId(): string;
 
     /**
-     * Sets site_id
+     * Sets site id
      *
-     * @param string $site_id Your Site ID, as provided by your OneStock contact
+     * @param string $siteId
      * @return $this
      */
-    public function setSiteId(string $site_id);
+    public function setSiteId(string $siteId);
 
     /**
-     * Gets user_id
+     * Gets user id
      *
      * @return string
      */
-    public function getUserId();
+    public function getUserId(): string;
 
     /**
-     * Sets user_id
+     * Sets user id
      *
-     * @param string $user_id The username provided by your OneStock contact
+     * @param string $userId
      * @return $this
      */
-    public function setUserId(string $user_id);
+    public function setUserId(string $userId);
 
     /**
      * Gets password
      *
      * @return string
      */
-    public function getPassword();
+    public function getPassword(): string;
 
     /**
      * Sets password
      *
-     * @param string $password The password associated to the username you are trying to get a token with
+     * @param string $password
      * @return $this
      */
     public function setPassword(string $password);

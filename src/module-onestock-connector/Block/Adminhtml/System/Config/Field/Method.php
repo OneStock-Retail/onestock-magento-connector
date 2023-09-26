@@ -24,10 +24,6 @@ use Magento\Shipping\Model\Config\Source\Allmethods;
  */
 class Method extends Select
 {
-    /**
-     * @param \ArrayObject[] $data
-     * @return void
-     */
     public function __construct(
         Context $context,
         private Allmethods $carrierMethods,

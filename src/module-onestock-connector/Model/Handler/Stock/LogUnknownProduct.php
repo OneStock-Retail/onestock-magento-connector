@@ -20,7 +20,6 @@ use Magento\Framework\DataObject;
 use Magento\Framework\DB\Adapter\AdapterInterface;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Api\Handler\StockImportHandlerInterface;
-use Zend_Db_Select_Exception;
 use Zend_Db_Statement_Exception;
 
 /**
@@ -28,17 +27,11 @@ use Zend_Db_Statement_Exception;
  */
 class LogUnknownProduct implements StockImportHandlerInterface
 {
-    /**
-     * This variable contains a ResourceConnection
-     */
     protected AdapterInterface $connection;
 
-    /**
-     * Constructor
-     */
     public function __construct(
         protected LoggerInterface $logger,
-        ResourceConnection $connection,
+        ResourceConnection $connection
     ) {
         $this->connection = $connection->getConnection();
     }
@@ -54,7 +47,6 @@ class LogUnknownProduct implements StockImportHandlerInterface
     /**
      * Write a warning to log file for missing product
      *
-     * @throws Zend_Db_Select_Exception
      * @throws Zend_Db_Statement_Exception
      */
     public function process(DataObject $res): DataObject

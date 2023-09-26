@@ -27,17 +27,10 @@ use Zend_Db_Exception;
  */
 class CreateTable implements StockImportHandlerInterface
 {
-    /**
-     * This variable contains a ResourceConnection
-     */
     protected AdapterInterface $connection;
 
-    /**
-     * Constructor
-     */
-    public function __construct(
-        ResourceConnection $connection
-    ) {
+    public function __construct(ResourceConnection $connection)
+    {
         $this->connection = $connection->getConnection();
     }
 
@@ -56,8 +49,6 @@ class CreateTable implements StockImportHandlerInterface
      */
     public function process(DataObject $res): DataObject
     {
-
-        /** @var string $tableName */
         $tableName = $this->connection->getTableName($res['table']);
 
         if ($this->connection->isTableExists($tableName)) {

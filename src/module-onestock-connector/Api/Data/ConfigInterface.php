@@ -25,26 +25,41 @@ interface ConfigInterface
      *
      * @return string
      */
-    public function getHost();
+    public function getHost(): string;
 
     /**
      * Connexion option
      *
      * @return string[]
      */
-    public function getOptions();
+    public function getOptions(): array;
 
     /**
      * Connexion option
      *
      * @return string[]
      */
-    public function getCredentials();
+    public function getCredentials(): array;
 
     /**
      * Mandatory fields
      *
      * @return string[]
      */
-    public function getFields();
+    public function getFields(): array;
+
+    /**
+     * Return max value
+     */
+    public function getOrderRetryCount(): string;
+
+    /**
+     * Return lifetime
+     */
+    public function getLoginCacheLifetime(): int;
+
+    /**
+     * Predicate log is enabled in config
+     */
+    public function logIsEnabled(): bool;
 }

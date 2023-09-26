@@ -20,7 +20,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\App\Config as CacheConfig;
 use RuntimeException;
-use Smile\Onestock\Helper\Config as OnestockConfig;
+use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\Onestock\Model\Data\Authentication\Credential;
 use Smile\Onestock\Model\Data\Authentication\Token;
 use Smile\Onestock\Model\Request\Authentication as AuthenticationApi;
@@ -33,7 +33,7 @@ class CacheToken
     public const TOKEN_CACHE_IDENTIFIER = 'token_cache_identifier';
 
     public function __construct(
-        protected OnestockConfig $config,
+        protected ConfigInterface $config,
         protected AuthenticationApi $authentication,
         protected CacheInterface $cache
     ) {

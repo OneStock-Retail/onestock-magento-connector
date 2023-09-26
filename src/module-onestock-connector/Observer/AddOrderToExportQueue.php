@@ -30,7 +30,7 @@ class AddOrderToExportQueue implements ObserverInterface
 
     public function __construct(
         protected MassSchedule $asyncBulkPublisher,
-        protected LoggerInterface $logger,
+        protected LoggerInterface $logger
     ) {
     }
 

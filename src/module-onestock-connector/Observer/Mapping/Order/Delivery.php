@@ -29,7 +29,7 @@ class Delivery implements ObserverInterface
 {
     public function __construct(
         protected ListsInterface $translate,
-        protected Copy $objectCopyService,
+        protected Copy $objectCopyService
     ) {
     }
 
