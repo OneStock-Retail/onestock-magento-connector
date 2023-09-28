@@ -35,7 +35,7 @@ class Items implements ObserverInterface
     {
         $order = $observer->getSource();
         $target = $observer->getTarget();
-        $target['order_items'] = array_filter(
+        $target['order_items'] = array_values(array_filter(
             array_map(
                 function ($item) {
                     if ($item->getParentItem()) {
@@ -57,6 +57,6 @@ class Items implements ObserverInterface
                 },
                 $order->getAllItems()
             )
-        );
+        ));
     }
 }
