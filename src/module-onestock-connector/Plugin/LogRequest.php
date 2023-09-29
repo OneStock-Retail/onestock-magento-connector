@@ -38,12 +38,14 @@ class LogRequest
         mixed $request,
         mixed $server
     ): mixed {
+        $uuid = uniqid();
         if ($this->config->logIsEnabled()) {
-            $this->logger->debug($request->getBody());
+            $this->logger->debug("Url      : " . $uuid . " : " . $request->getMethod() . " " . $request->getUri());
+            $this->logger->debug("Request  : " . $uuid . " : " . $request->getBody());
         }
         $response = $proceed($request, $server);
         if ($this->config->logIsEnabled()) {
-            $this->logger->debug($response->getBody());
+            $this->logger->debug("Response : " . $uuid . " : " . $response->getBody());
             $response->getBody()->rewind();
         }
         return $response;
