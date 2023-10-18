@@ -1,0 +1,38 @@
+{
+    "name": "smile/onestock-connector-deliverypromise",
+    "description": "Manage stock with Onestock on your Adobe Commerce platform.",
+    "type": "magento2-module",
+    "license": "OSL-3.0",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Smile\\Onestock\\": ""
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "magento/framework": ">=103.0.4",
+        "smile/onestock-connector": "*"
+    },
+    "require-dev": {
+        "magento/module-inventory": "^1.2",
+        "magento/module-inventory-indexer": "^2.2",
+        "phpunit/phpunit": "^9.5",
+        "smile/magento2-smilelab-quality-suite": "^3.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "magento/composer-dependency-version-audit-plugin": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    }
+}

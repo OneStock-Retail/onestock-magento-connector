@@ -1,0 +1,21 @@
+default:
+    image: registry.smile.fr/magento2/php:8.1-fpm-dev-1
+    tags:
+        - galaxy-docker-shared
+    cache:
+        - key: composer-cache
+          paths:
+              - .composer-cache/
+    before_script:
+        - composer config -g cache-dir "$(pwd)/.composer-cache"
+
+code-analysis:
+    stage: test
+    script:
+        - composer remove smile/onestock-connector
+        - composer install --no-interaction
+        - composer audit --format=plain
+        - vendor/bin/parallel-lint --exclude vendor .
+        - vendor/bin/phpcs --extensions=php,phtml
+        - vendor/bin/phpcs --extensions=php,phtml --standard=Magento2 --severity=9 --ignore=vendor .
+        - vendor/bin/phpstan analyse
