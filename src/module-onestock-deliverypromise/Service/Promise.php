@@ -16,29 +16,46 @@ declare(strict_types=1);
 namespace Smile\OnestockDeliveryPromise\Service;
 
 use Exception;
-use Magento\Sales\Api\OrderRepositoryInterface;
-use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Helper\CacheToken;
 use Smile\Onestock\Helper\Mapping;
+use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
+use Smile\OnestockDeliveryPromise\Api\ProductInterface;
 use Smile\OnestockDeliveryPromise\Model\Request\Promise as Request;
+use Smile\OnestockDeliveryPromise\Helper\Config;
 
 /**
  * Service implementing the interface to get promise
  */
-class Promise
+class Promise implements ProductInterface
 {
-    public const EXPORTED = 2;
-
-    public const ERROR = 4;
 
     public function __construct(
-        protected OrderRepositoryInterface $orderRepository,
         protected LoggerInterface $logger,
         protected Request $request,
         protected CacheToken $tokenHelper,
-        protected Mapping $mapping
+        protected Mapping $mapping,
+        protected Config $config,
     ) {
+    }
+
+    /**
+     * Implement product web service
+     *
+     * @return PromiseInterface[]
+     */
+    public function getPromiseForSku(string $sku): array
+    {
+        return $this->get(
+            [
+                [
+                    "item_id" => $sku,
+                    "qty" => 1,
+                ]
+            ],
+            array_keys($this->config->getMethods()),
+            $this->config->getGuestCountry()
+        );
     }
 
     /**
@@ -51,7 +68,7 @@ class Promise
         $res = [];
         try {
             /** @var PromiseInterface[] $res */
-            $res = $this->tokenHelper->call(function ($config, $token) use ($items, $methods, $country) : array {
+            $res = $this->tokenHelper->call(function ($config, $token) use ($items, $methods, $country): array {
                 return $this->request->get($config, $token, $items, $methods, $country);
             });
         } catch (Exception $e) {

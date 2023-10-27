@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface" type="Smile\OnestockDeliveryPromise\Model\Data\Promise"/>
-
+    <preference for="Smile\OnestockDeliveryPromise\Api\ProductInterface" type="Smile\OnestockDeliveryPromise\Service\Promise"/>
     <type name="Smile\OnestockDeliveryPromise\Model\Request\Promise">
         <plugin name="log_all_requests" type="Smile\Onestock\Plugin\LogRequest"/>
     </type>

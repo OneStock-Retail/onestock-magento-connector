@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\OnestockDeliveryPromise
+ * @author    Pascal Noisette <pascal.noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Apache License Version 2.0
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.main">
+            <container name="smile.info.promise" after="product.info.price">
+                <block class="Smile\OnestockDeliveryPromise\Block\Product\Promise"
+                       name="smile.OnestockDeliveryPromise.product.promise"
+                       template="product/promise.phtml"
+                       ifconfig="smile_onestock/dp/dp_enabled">
+                    <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="components" xsi:type="array">
+                                <item name="catalog-product-promise" xsi:type="array">
+                                    <item name="component" xsi:type="string">Smile_OnestockDeliveryPromise/js/product/promise</item>
+                                    <item name="promiseListTemplate" xsi:type="string">Smile_OnestockDeliveryPromise/product/promise</item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

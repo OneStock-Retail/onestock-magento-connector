@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this module to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @author    Noisette Noisette <Noisette.Noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+
+/**
+ * Template to display promise on product view.
+ *
+ * @var $block \Smile\OnestockDeliveryPromise\Block\Product\Promise
+ */
+?>
+<div id="catalog-product-promise" data-block="catalog-product-promise" class="block catalog-product-promise">
+    <div class="block catalog-product-promise"
+         data-bind="scope: 'catalog-product-promise'">
+        <div class="promises-list" data-role="content">
+            <ul data-bind="foreach: promises()">
+                <li data-bind="template: $parent.promiseListTemplate" class="result-item"></li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+
+<script type="text/x-magento-init">
+    { "*" : { "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout(); ?> } }
+</script>

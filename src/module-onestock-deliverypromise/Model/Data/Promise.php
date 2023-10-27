@@ -36,6 +36,9 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getCountry(): string
     {
+        if (!$this->hasData("destination") || !isset($this->getData("destination")['location'])) {
+            return "";
+        }
         return $this->getData("destination")['location']['country'];
     }
 
@@ -52,7 +55,7 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getCutoff(): int
     {
-        return $this->getData("cut_off");
+        return $this->hasData("cut_off") ? $this->getData("cut_off") : 0;
     }
 
     /**
@@ -60,7 +63,7 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getEtaStart(): int
     {
-        return $this->getData("eta_start");
+        return $this->hasData("eta_start") ? $this->getData("eta_start") : 0;
     }
 
     /**
@@ -68,7 +71,7 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getEtaEnd(): int
     {
-        return $this->getData("eta_end");
+        return $this->hasData("eta_end") ? $this->getData("eta_end") : 0;
     }
 
     /**
@@ -76,7 +79,7 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getShipmentNumber(): int
     {
-        return $this->getData("shipment_number");
+        return $this->hasData("shipment_number") ? $this->getData("shipment_number") : 0;
     }
 
     /**
@@ -84,7 +87,7 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getCost(): float
     {
-        return $this->getData("cost");
+        return $this->hasData("cost") ? $this->getData("cost") : 0;
     }
 
     /**
@@ -92,6 +95,6 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getCarbonFootprint(): int
     {
-        return $this->getData("carbon_footprint");
+        return $this->hastData("carbon_footprint") ? $this->getData("carbon_footprint") : 0;
     }
 }
