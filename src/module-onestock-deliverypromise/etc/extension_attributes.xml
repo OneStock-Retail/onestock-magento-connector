@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Smile_OnestockDeliveryPromise Extension Attributes Configuration.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade to newer
+ * versions in the future.
+ *
+ * @category  Smile
+ * @package   Smile\OnestockDeliveryPromise
+ * @author    Pascal Noisette <Pascal.Noisette@smile.fr>
+ * @copyright 2023 Smile
+ * @license   Open Software License ("OSL") v. 3.0
+ */
+ -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Quote\Api\Data\ShippingMethodInterface">
+        <attribute code="onestock_dp" type="Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface" />
+    </extension_attributes>
+</config>

@@ -5,4 +5,10 @@
     <type name="Smile\OnestockDeliveryPromise\Model\Request\Promise">
         <plugin name="log_all_requests" type="Smile\Onestock\Plugin\LogRequest"/>
     </type>
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="smile_onestockdeliverypromise_add_promise_to_rate" type="Smile\OnestockDeliveryPromise\Plugin\AddPromiseToRate"/>
+    </type>
+    <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
+        <plugin name="smile_onestockdeliverypromise_shippingmethodconverter_addpromise" type="Smile\OnestockDeliveryPromise\Plugin\AddPromiseToShipping"/>
+    </type>
 </config>
