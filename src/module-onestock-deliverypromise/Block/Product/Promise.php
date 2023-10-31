@@ -61,6 +61,7 @@ class Promise extends Template implements IdentityInterface
 
         $jsLayout['components']['catalog-product-promise']['sku'] = $this->getProduct()->getSku();
         $jsLayout['components']['catalog-product-promise']['methods'] = $this->config->getMethods();
+        $jsLayout['components']['catalog-product-promise']['country_id'] = $this->config->getGuestCountry();
 
         return json_encode($jsLayout);
     }

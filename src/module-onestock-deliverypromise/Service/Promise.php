@@ -16,18 +16,23 @@ declare(strict_types=1);
 namespace Smile\OnestockDeliveryPromise\Service;
 
 use Exception;
+use Magento\Catalog\Model\ProductFactory;
+use Magento\Quote\Model\QuoteFactory;
+use Magento\Quote\Model\Quote\AddressFactory;
+use Magento\Quote\Model\Quote\ItemFactory;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Helper\CacheToken;
 use Smile\Onestock\Helper\Mapping;
 use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
-use Smile\OnestockDeliveryPromise\Api\ProductInterface;
+use Smile\OnestockDeliveryPromise\Api\ShipmentInterface;
 use Smile\OnestockDeliveryPromise\Model\Request\Promise as Request;
 use Smile\OnestockDeliveryPromise\Helper\Config;
+use Magento\Quote\Model\Cart\ShippingMethodConverter;
 
 /**
  * Service implementing the interface to get promise
  */
-class Promise implements ProductInterface
+class Promise implements ShipmentInterface
 {
 
     public function __construct(
@@ -36,26 +41,45 @@ class Promise implements ProductInterface
         protected CacheToken $tokenHelper,
         protected Mapping $mapping,
         protected Config $config,
+        protected AddressFactory $addressFactory,
+        protected QuoteFactory $quoteFactory,
+        protected ItemFactory $quoteItemFactory,
+        protected ShippingMethodConverter $converter,
+        protected ProductFactory $productFactory,
     ) {
     }
 
     /**
-     * Implement product web service
-     *
-     * @return PromiseInterface[]
+     * Estimate shipping by sku
+     * @param string $sku
+     * @param string $country
+     * @return \Magento\Quote\Api\Data\ShippingMethodInterface[] An array of shipping methods
      */
-    public function getPromiseForSku(string $sku): array
+    public function estimate($sku, $country = "")
     {
-        return $this->get(
+        if (empty($country)) {
+            $country = $this->config->getGuestCountry();
+        }
+        $temporaryAddress = $this->addressFactory->create();
+        $temporaryProduct = $this->productFactory->create();
+        $temporaryItem = $this->quoteItemFactory->create()->setQty(1)->setSku($sku)->setData('product', $temporaryProduct);
+        $temporaryAddress->setData(
             [
-                [
-                    "item_id" => $sku,
-                    "qty" => 1,
-                ]
-            ],
-            array_keys($this->config->getMethods()),
-            $this->config->getGuestCountry()
+                'collect_shipping_rates' => true,
+                'cached_items_all' => [$temporaryItem],
+                'country_id' => $country,
+            ]
         );
+        $temporaryAddress->setQuote($this->quoteFactory->create()->setShippingAddress($temporaryAddress));
+        $temporaryItem->setQuote($temporaryAddress->getQuote());
+        $temporaryAddress->collectShippingRates();
+        $shippingRates = $temporaryAddress->getGroupedAllShippingRates();
+        foreach ($shippingRates as $carrierRates) {
+            foreach ($carrierRates as $rate) {
+                $output[] = $this->converter->modelToDataObject($rate, $this->config->getBaseCurrencyCode());
+            }
+        }
+        return $output;
     }
 
     /**

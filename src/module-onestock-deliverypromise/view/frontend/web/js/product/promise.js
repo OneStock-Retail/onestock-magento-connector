@@ -20,8 +20,10 @@ define([
     'uiComponent',
     'mage/url',
     'ko',
-    'mage/translate'
-    ], function ($, Component, urlBuilder, ko) {
+    'Magento_Checkout/js/checkout-data',
+    'Magento_Swatches/js/swatch-renderer',
+    'mage/translate',
+    ], function ($, Component, urlBuilder, ko, checkoutData, configurable) {
 
     "use strict";
 
@@ -33,19 +35,29 @@ define([
         initialize: function () {
             this.promises = ko.observable([]);
             this._super();
-            $.getJSON(
-                urlBuilder.build(`rest/V1/delivery_promises/products/${this.sku}`),
-            ).done((response) => {
-                if (!response.errors) {
-                    response = response
-                        .filter((option)=>{
-                            return typeof(this.methods[option.delivery_method]) != undefined;
-                        })
-                        .map((option) => {
-                            option.delivery_name = this.methods[option.delivery_method];
-                            return option
-                        })
 
+            $( document ).on( "display_product_promise", this.displayPromise.bind(this));
+            $( document).trigger( "display_product_promise", [ this.sku ] );
+        },
+
+        /**
+         * 
+         */
+        displayPromise: function (_, sku) {
+
+            var address = checkoutData.getShippingAddressFromData();
+            var country_id = this.country_id;
+            if (typeof (address) != "undefined" && address != null && address.country_id) {
+                country_id = address.country_id;
+            }
+
+            $.ajax({
+                url: urlBuilder.build(`rest/V1/delivery_promises/shipping-methods/${sku}/${country_id}`),
+                dataType: 'json',
+                cache:true,
+                type: 'GET'
+            }).done((response) => {
+                if (!response.errors) {
                     this.promises(response)
                 }
             }).fail(function () {

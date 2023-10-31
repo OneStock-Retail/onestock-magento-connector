@@ -1,6 +1,11 @@
 <div class="promise">
     <div class="heading" style="display: flex">
-        <p class="name-label" style="flex: 1"><strong data-bind="text: delivery_name"></strong></p>
+        <p class="name-label" style="flex: 1">
+            <strong data-bind="text: carrier_title"></strong>
+            (<strong data-bind="text: method_title"></strong>)
+            <strong data-bind="text: extension_attributes.onestock_dp.eta_start"></strong>
+            (<strong data-bind="text: price_incl_tax"></strong>)
+        </p>
     </div>
 </div>
 <div class="breaker"></div>

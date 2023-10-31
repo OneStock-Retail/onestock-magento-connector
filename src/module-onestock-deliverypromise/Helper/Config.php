@@ -26,6 +26,7 @@ class Config
 {
     public const GUEST_POSTCODE = 'smile_onestock/dp/guest_postcode';
     public const GUEST_COUNTRY = 'smile_onestock/dp/guest_country';
+    public const BASE_CURRENCY = 'currency/options/base';
 
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
@@ -65,6 +66,14 @@ class Config
                 self::GUEST_COUNTRY,
                 ScopeInterface::SCOPE_STORE
         );
+    }
+
+    public function getBaseCurrencyCode(): string
+    {
+        return $this->scopeConfig->getValue(
+                self::BASE_CURRENCY,
+                ScopeInterface::SCOPE_STORE
+        );;
     }
 
     /**
