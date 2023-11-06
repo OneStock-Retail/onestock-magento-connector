@@ -11,4 +11,7 @@
     <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
         <plugin name="smile_onestockdeliverypromise_shippingmethodconverter_addpromise" type="Smile\OnestockDeliveryPromise\Plugin\AddPromiseToShipping"/>
     </type>
+    <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="smile_onestockdeliverypromise_orderaddress_addpromise" type="Smile\OnestockDeliveryPromise\Plugin\AddPromiseToOrderAddress"/>
+    </type>
 </config>

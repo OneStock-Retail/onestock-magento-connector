@@ -2,6 +2,9 @@
 namespace Smile\OnestockDeliveryPromise\Plugin;
 
 use Magento\Quote\Api\Data\ShippingMethodExtensionFactory;
+use Smile\OnestockDeliveryPromise\Model\Data\Promise as PromiseDataModel;
+use Magento\Framework\Webapi\ServiceInputProcessor;
+use Magento\Framework\Serialize\Serializer\Json;
 
 /**
  * Class AddPromiseToShipping
@@ -10,7 +13,9 @@ class AddPromiseToShipping
 {    
     
     public function __construct(
-        protected ShippingMethodExtensionFactory $extensionFactory
+        protected ShippingMethodExtensionFactory $extensionFactory,
+        protected ServiceInputProcessor $toClassProcessor,
+        protected Json $serializer,
     ) {
     }
     /**
@@ -24,7 +29,7 @@ class AddPromiseToShipping
     {
         $shippingMethod = $proceed($rateModel, $quoteCurrencyCode);
         $enabled = true;
-        if (!$enabled) {
+        if (!$enabled || !$rateModel->getOnestockDp()) {
             return $shippingMethod;
         }
         $extensionAttributes = $shippingMethod->getExtensionAttributes();
@@ -32,7 +37,12 @@ class AddPromiseToShipping
             $extensionAttributes = $this->extensionFactory->create();
         }
         $extensionAttributes->setOnestockDp(
-            $rateModel->getOnestockDp()
+            $this->toClassProcessor->convertValue(
+                [
+                'data' => $this->serializer->unserialize($rateModel->getOnestockDp()),
+                ],
+                PromiseDataModel::class
+            )
         );
         $shippingMethod->setExtensionAttributes($extensionAttributes);
         return $shippingMethod;

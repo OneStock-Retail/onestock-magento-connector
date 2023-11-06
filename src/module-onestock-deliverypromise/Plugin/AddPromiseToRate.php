@@ -1,19 +1,30 @@
 <?php
 namespace Smile\OnestockDeliveryPromise\Plugin;
 
+use Exception;
 use Magento\Quote\Model\Quote\Item\AbstractItem;
 use Magento\Quote\Model\Quote\Address;
 use Magento\Quote\Model\Quote\Address\Rate;
-use Smile\OnestockDeliveryPromise\Service\Promise;
+use Psr\Log\LoggerInterface;
+use Smile\Onestock\Helper\CacheToken;
+use Smile\Onestock\Helper\Mapping;
+use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
+use Smile\OnestockDeliveryPromise\Model\Request\Promise as Request;
 
 class AddPromiseToRate
 {
     public function __construct(
-        protected Promise $service
+        protected LoggerInterface $logger,
+        protected Request $request,
+        protected CacheToken $tokenHelper,
+        protected Mapping $mapping,
     ) {
     }
+
     /**
-     * Request shipping rates for entire address or specified address item
+     * Add onestock_dp to all quote_shipping_rate(s) 
+     * and the rate corresponding to the shipping method to quote_address
+     * if shipping method is set
      */
     public function aroundRequestShippingRates(Address $subject, callable $proceed, AbstractItem $item = null):bool
     {
@@ -43,14 +54,38 @@ class AddPromiseToRate
                 "qty" => $product->getQty(),
             ];
         }
-        foreach($this->service->get($requests, array_keys($methods), $subject->getCountryId()) as $promise) {
+        foreach($this->getPromises($requests, array_keys($methods), $subject->getCountryId()) as $promise) {
             if(!isset($methods[$promise->getDeliveryMethod()])) {
                 continue;
             }
             /** @var Rate $rate */
             $rate = $methods[$promise->getDeliveryMethod()];
-            $rate->setOnestockDp($promise);
+            $rate->setOnestockDp((string) $promise);
+
+            if ($subject->getShippingMethod() == $promise->getDeliveryMethod()) {
+                $subject->setOnestockDp((string) $promise);
+            }
         }
         return $found;
+    }
+
+
+    /**
+     * Retrieve promise for quote
+     *
+     * @return PromiseInterface[]
+     */
+    protected function getPromises(array $items, array $methods, string $country): array
+    {
+        $res = [];
+        try {
+            /** @var PromiseInterface[] $res */
+            $res = $this->tokenHelper->call(function ($config, $token) use ($items, $methods, $country): array {
+                return $this->request->get($config, $token, $items, $methods, $country);
+            });
+        } catch (Exception $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $res;
     }
 }
