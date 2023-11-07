@@ -1,14 +1,19 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Smile\OnestockDeliveryPromise\Plugin;
 
 use Exception;
-use Magento\Quote\Model\Quote\Item\AbstractItem;
+use GuzzleHttp\Exception\GuzzleException;
 use Magento\Quote\Model\Quote\Address;
 use Magento\Quote\Model\Quote\Address\Rate;
+use Magento\Quote\Model\Quote\Item\AbstractItem;
 use Psr\Log\LoggerInterface;
 use Smile\Onestock\Helper\CacheToken;
 use Smile\Onestock\Helper\Mapping;
 use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
+use Smile\OnestockDeliveryPromise\Helper\Config;
 use Smile\OnestockDeliveryPromise\Model\Request\Promise as Request;
 
 class AddPromiseToRate
@@ -18,19 +23,20 @@ class AddPromiseToRate
         protected Request $request,
         protected CacheToken $tokenHelper,
         protected Mapping $mapping,
+        protected Config $config,
     ) {
     }
 
     /**
-     * Add onestock_dp to all quote_shipping_rate(s) 
+     * Add onestock_dp to all quote_shipping_rate(s)
      * and the rate corresponding to the shipping method to quote_address
      * if shipping method is set
      */
-    public function aroundRequestShippingRates(Address $subject, callable $proceed, AbstractItem $item = null):bool
+    public function aroundRequestShippingRates(Address $subject, callable $proceed, ?AbstractItem $item = null): bool
     {
         $found = $proceed($item);
-        $enabled = true;
-        if (!$enabled) {
+
+        if (!$this->config->isEnabled()) {
             return $found;
         }
         $shippingRates = $subject->getShippingRatesCollection();
@@ -38,7 +44,7 @@ class AddPromiseToRate
         foreach ($shippingRates as $rate) {
             $methods[$rate->getCode()] = $rate;
         }
-        if(empty($methods)) {
+        if (empty($methods)) {
             return $found;
         }
         
@@ -46,7 +52,6 @@ class AddPromiseToRate
         $requests = [];
         if ($item == null) {
             $products = $subject->getAllItems();
-
         }
         foreach ($products as $product) {
             $requests[] = [
@@ -54,8 +59,8 @@ class AddPromiseToRate
                 "qty" => $product->getQty(),
             ];
         }
-        foreach($this->getPromises($requests, array_keys($methods), $subject->getCountryId()) as $promise) {
-            if(!isset($methods[$promise->getDeliveryMethod()])) {
+        foreach ($this->getPromises($requests, array_keys($methods), $subject->getCountryId()) as $promise) {
+            if (!isset($methods[$promise->getDeliveryMethod()])) {
                 continue;
             }
             /** @var Rate $rate */
@@ -69,11 +74,13 @@ class AddPromiseToRate
         return $found;
     }
 
-
     /**
      * Retrieve promise for quote
      *
+     * @param array<int, array<string, mixed>> $items
+     * @param string[] $methods
      * @return PromiseInterface[]
+     * @throws GuzzleException
      */
     protected function getPromises(array $items, array $methods, string $country): array
     {

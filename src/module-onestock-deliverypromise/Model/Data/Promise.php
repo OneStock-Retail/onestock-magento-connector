@@ -95,18 +95,14 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getCarbonFootprint(): int
     {
-        return $this->hastData("carbon_footprint") ? $this->getData("carbon_footprint") : 0;
+        return $this->hasData("carbon_footprint") ? $this->getData("carbon_footprint") : 0;
     }
-
 
     /**
      * Convert object data into string
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toJson();
     }
-
 }

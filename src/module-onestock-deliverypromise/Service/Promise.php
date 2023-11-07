@@ -16,19 +16,18 @@ declare(strict_types=1);
 namespace Smile\OnestockDeliveryPromise\Service;
 
 use Magento\Catalog\Model\ProductFactory;
-use Magento\Quote\Model\QuoteFactory;
+use Magento\Quote\Model\Cart\ShippingMethodConverter;
 use Magento\Quote\Model\Quote\AddressFactory;
 use Magento\Quote\Model\Quote\ItemFactory;
+use Magento\Quote\Model\QuoteFactory;
 use Smile\OnestockDeliveryPromise\Api\ShipmentInterface;
 use Smile\OnestockDeliveryPromise\Helper\Config;
-use Magento\Quote\Model\Cart\ShippingMethodConverter;
 
 /**
  * Service implementing the interface to get promise
  */
 class Promise implements ShipmentInterface
 {
-
     public function __construct(
         protected Config $config,
         protected AddressFactory $addressFactory,
@@ -41,18 +40,22 @@ class Promise implements ShipmentInterface
 
     /**
      * Estimate shipping by sku
-     * @param string $sku
-     * @param string $country
+     *
      * @return \Magento\Quote\Api\Data\ShippingMethodInterface[] An array of shipping methods
      */
-    public function estimate($sku, $country = "")
+    public function estimate(string $sku, string $country = ""): array
     {
+        $output = [];
         if (empty($country)) {
             $country = $this->config->getGuestCountry();
         }
         $temporaryAddress = $this->addressFactory->create();
         $temporaryProduct = $this->productFactory->create();
-        $temporaryItem = $this->quoteItemFactory->create()->setQty(1)->setSku($sku)->setData('product', $temporaryProduct);
+        $temporaryItem = $this->quoteItemFactory
+                              ->create()
+                              ->setQty(1)
+                              ->setSku($sku)
+                              ->setData('product', $temporaryProduct);
         $temporaryAddress->setData(
             [
                 'collect_shipping_rates' => true,

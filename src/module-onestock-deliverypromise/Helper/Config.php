@@ -15,8 +15,8 @@ declare(strict_types=1);
 
 namespace Smile\OnestockDeliveryPromise\Helper;
 
-use Magento\Shipping\Model\Config\Source\Allmethods;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Shipping\Model\Config\Source\Allmethods;
 use Magento\Store\Model\ScopeInterface;
 
 /**
@@ -27,6 +27,7 @@ class Config
     public const GUEST_POSTCODE = 'smile_onestock/dp/guest_postcode';
     public const GUEST_COUNTRY = 'smile_onestock/dp/guest_country';
     public const BASE_CURRENCY = 'currency/options/base';
+    public const ENABLED = 'smile_onestock/dp/dp_enabled';
 
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
@@ -46,12 +47,12 @@ class Config
         array_shift($carriers);
         $methods = array_reduce(
             $carriers,
-            function($res, $carrier){ 
-                foreach($carrier['value'] as $method) {
+            function ($res, $carrier) {
+                foreach ($carrier['value'] as $method) {
                     $res[$method['value']] = $method['label'];
                 }
                 return $res;
-            }, 
+            },
             []
         );
         return $methods;
@@ -63,17 +64,20 @@ class Config
     public function getGuestCountry(): string
     {
         return $this->scopeConfig->getValue(
-                self::GUEST_COUNTRY,
-                ScopeInterface::SCOPE_STORE
+            self::GUEST_COUNTRY,
+            ScopeInterface::SCOPE_STORE
         );
     }
 
+    /**
+     * Return currency code iso string
+     */
     public function getBaseCurrencyCode(): string
     {
         return $this->scopeConfig->getValue(
-                self::BASE_CURRENCY,
-                ScopeInterface::SCOPE_STORE
-        );;
+            self::BASE_CURRENCY,
+            ScopeInterface::SCOPE_STORE
+        );
     }
 
     /**
@@ -82,8 +86,19 @@ class Config
     public function getGuestPostcode(): string
     {
         return $this->scopeConfig->getValue(
-                self::GUEST_POSTCODE,
-                ScopeInterface::SCOPE_STORE
+            self::GUEST_POSTCODE,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isEnabled(): bool
+    {
+        return (bool) $this->scopeConfig->getValue(
+            self::ENABLED,
+            ScopeInterface::SCOPE_STORE
         );
     }
 }

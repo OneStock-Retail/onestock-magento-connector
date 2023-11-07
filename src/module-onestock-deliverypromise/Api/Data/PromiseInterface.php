@@ -82,4 +82,11 @@ interface PromiseInterface
      * @return int
      */
     public function getCarbonFootprint(): int;
+
+    /**
+     * Cast to json string
+     *
+     * @return string
+     */
+    public function __toString(): string;
 }

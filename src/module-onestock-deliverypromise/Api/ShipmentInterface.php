@@ -19,9 +19,10 @@ interface ShipmentInterface
 {
     /**
      * Estimate shipping by sku
+     *
      * @param string $sku
      * @param string $country
      * @return \Magento\Quote\Api\Data\ShippingMethodInterface[] An array of shipping methods
      */
-    public function estimate($sku, $country = "");
+    public function estimate(string $sku, string $country = ""): array;
 }

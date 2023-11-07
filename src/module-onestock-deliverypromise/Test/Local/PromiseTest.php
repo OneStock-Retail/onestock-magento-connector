@@ -57,10 +57,9 @@ class PromiseTest extends TestCase
      */
     public function testPromise(): void
     {
-        $items = [["item_id" => "WSH01-29-Green", "qty" => 1]];
+        $item = "WSH01-29-Green";
         $country = "FR";
-        $methods = ["flatrate_flatrate"];
-        $res = $this->service->get($items, $methods, $country);
+        $res = $this->service->estimate($item, $country);
         var_dump($res);
     }
 }

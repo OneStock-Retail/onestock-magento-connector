@@ -1,35 +1,42 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Smile\OnestockDeliveryPromise\Plugin;
 
-use Magento\Quote\Api\Data\ShippingMethodExtensionFactory;
-use Smile\OnestockDeliveryPromise\Model\Data\Promise as PromiseDataModel;
-use Magento\Framework\Webapi\ServiceInputProcessor;
 use Magento\Framework\Serialize\Serializer\Json;
+use Magento\Framework\Webapi\ServiceInputProcessor;
+use Magento\Quote\Api\Data\ShippingMethodExtensionFactory;
+use Magento\Quote\Api\Data\ShippingMethodInterface;
+use Magento\Quote\Model\Cart\ShippingMethodConverter;
+use Magento\Quote\Model\Quote\Address\Rate;
+use Smile\OnestockDeliveryPromise\Helper\Config;
+use Smile\OnestockDeliveryPromise\Model\Data\Promise as PromiseDataModel;
 
 /**
- * Class AddPromiseToShipping
+ * Add Promise To Extension attribute of Shipping
  */
 class AddPromiseToShipping
-{    
-    
+{
     public function __construct(
         protected ShippingMethodExtensionFactory $extensionFactory,
         protected ServiceInputProcessor $toClassProcessor,
         protected Json $serializer,
+        protected Config $config,
     ) {
     }
     /**
-     * Converts a specified rate model to a shipping method data object.
-     *
-     * @param string $quoteCurrencyCode The quote currency code.
-     * @param \Magento\Quote\Model\Quote\Address\Rate $rateModel The rate model.
-     * @return \Magento\Quote\Api\Data\ShippingMethodInterface Shipping method data object.
+     * Converts a specified rate model to a shipping method data object
      */
-    public function aroundModelToDataObject($subject, callable $proceed, $rateModel, $quoteCurrencyCode)
-    {
+    public function aroundModelToDataObject(
+        ShippingMethodConverter $subject,
+        callable $proceed,
+        Rate $rateModel,
+        string $quoteCurrencyCode
+    ): ShippingMethodInterface {
         $shippingMethod = $proceed($rateModel, $quoteCurrencyCode);
-        $enabled = true;
-        if (!$enabled || !$rateModel->getOnestockDp()) {
+
+        if (!$this->config->isEnabled() || !$rateModel->getOnestockDp()) {
             return $shippingMethod;
         }
         $extensionAttributes = $shippingMethod->getExtensionAttributes();

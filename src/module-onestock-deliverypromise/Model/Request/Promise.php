@@ -50,6 +50,8 @@ class Promise
     /**
      * Retrive promise from onestock
      *
+     * @param array<int, array<string, mixed>> $items
+     * @param string[] $methods
      * @return PromiseInterface[]
      */
     public function get(

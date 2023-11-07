@@ -36,6 +36,7 @@ class Promise extends Template implements IdentityInterface
      *
      * @param Context                    $context                   Application context
      * @param ProductRepositoryInterface $productRepository         Product Repository
+     * // @phpstan-ignore-next-line
      * @param array                      $data                      Block Data
      */
     public function __construct(
@@ -83,6 +84,7 @@ class Promise extends Template implements IdentityInterface
     protected function getProduct(): Product
     {
         if (!$this->coreRegistry->registry('product') && $this->getProductId()) {
+            // @phpstan-ignore-next-line
             return $this->productRepository->getById($this->getProductId());
         }
 
