@@ -16,6 +16,7 @@ class AddPromiseToOrderAddress
      * Add promise to order address
      * (fieldset cannot be used because Magento\Quote\Model\Quote\Address\ToOrderAddress
      *  is not looking for extension attribute among setter methods)
+     *
      * @param array $data
      * @return $this
      */
