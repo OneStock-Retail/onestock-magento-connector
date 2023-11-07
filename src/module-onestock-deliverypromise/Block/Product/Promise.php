@@ -34,7 +34,6 @@ class Promise extends Template implements IdentityInterface
      *
      * @param Context                    $context                   Application context
      * @param ProductRepositoryInterface $productRepository         Product Repository
-     * // @phpstan-ignore-next-line
      * @param array                      $data                      Block Data
      */
     public function __construct(
