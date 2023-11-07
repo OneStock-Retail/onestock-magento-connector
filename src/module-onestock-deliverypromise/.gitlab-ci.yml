@@ -12,7 +12,7 @@ default:
 code-analysis:
     stage: test
     script:
-        - composer remove smile/onestock-connector
+        - composer config repositories.repo-name vcs https://git.smile.fr/onestock/m2-connector
         - composer install --no-interaction
         - composer audit --format=plain
         - vendor/bin/parallel-lint --exclude vendor .
