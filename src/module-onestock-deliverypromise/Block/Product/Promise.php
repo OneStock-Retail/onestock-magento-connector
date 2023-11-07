@@ -24,8 +24,6 @@ use Smile\OnestockDeliveryPromise\Helper\Config;
 
 /**
  * Block rendering promise for a given product.
- *
- * @author   Pascal Noisette <Pascal.Noisette@smile.fr>
  */
 class Promise extends Template implements IdentityInterface
 {
