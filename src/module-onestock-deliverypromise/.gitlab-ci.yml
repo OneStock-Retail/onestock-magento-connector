@@ -13,6 +13,7 @@ code-analysis:
     stage: test
     script:
         - composer config repositories.repo-name vcs https://git.smile.fr/onestock/m2-connector
+        - composer config minimum-stability dev
         - composer install --no-interaction
         - composer audit --format=plain
         - vendor/bin/parallel-lint --exclude vendor .
