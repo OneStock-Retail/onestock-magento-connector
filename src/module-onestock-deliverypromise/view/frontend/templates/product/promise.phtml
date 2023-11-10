@@ -21,13 +21,42 @@
 <div id="catalog-product-promise" data-block="catalog-product-promise" class="block catalog-product-promise">
     <div class="block catalog-product-promise"
          data-bind="scope: 'catalog-product-promise'">
-        <div class="promises-list" data-role="content">
+        <div class="action button-promise-change-country">
+            <span data-bind="text: getCountryLabelFromCode(lastCountry), attr: {title: lastCountry}"></span><a href="#" class="text">✎</a>
+        </div>
+        <div class="smile.promise.modale"
+            data-bind="mageInit: {
+                'Magento_Ui/js/modal/modal': {
+                    trigger: '.button-promise-change-country',
+                    buttons: [{
+                        text: 'Submit',
+                        'class': 'action-primary',
+                        click: function () {
+                            jQuery( document).trigger( 'update_country_for_promise');
+                            this.closeModal(event);
+                        }
+                    }, {
+                        text: 'Cancel',
+                        click: function (event) {
+                            jQuery( document).trigger( 'rollback_country_for_promise');
+                            this.closeModal(event);
+                        }
+                    }],
+                    modalClass: 'smile-promise-modale-details',
+                    title: '<?= $escaper->escapeHtmlAttr(__('Edit Image')); ?>'
+                }
+            }">
+            <form id="image-edit-details-form" method="post" enctype="multipart/form-data">
+                <select type="select" data-bind="options: countries, optionsText: formatCountryName, optionsValue: formatCountryCode, value: selectedCountry">
+                </select>
+            </form>
+        </div>
+        <div class="promises-list">
             <ul data-bind="foreach: promises()">
                 <li data-bind="template: $parent.promiseListTemplate" class="result-item"></li>
             </ul>
         </div>
     </div>
-    
 </div>
 
 <script type="text/x-magento-init">

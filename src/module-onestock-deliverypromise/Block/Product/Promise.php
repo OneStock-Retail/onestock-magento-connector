@@ -17,6 +17,7 @@ namespace Smile\OnestockDeliveryPromise\Block\Product;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Block\Product\Context;
 use Magento\Catalog\Model\Product;
+use Magento\Directory\Model\ResourceModel\Country\Collection as CountryCollection;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Framework\Registry;
 use Magento\Framework\View\Element\Template;
@@ -40,6 +41,7 @@ class Promise extends Template implements IdentityInterface
         Context $context,
         protected ProductRepositoryInterface $productRepository,
         protected Config $config,
+        protected CountryCollection $countryCollection,
         array $data = []
     ) {
         $this->coreRegistry = $context->getRegistry();
@@ -60,8 +62,17 @@ class Promise extends Template implements IdentityInterface
         $jsLayout['components']['catalog-product-promise']['sku'] = $this->getProduct()->getSku();
         $jsLayout['components']['catalog-product-promise']['methods'] = $this->config->getMethods();
         $jsLayout['components']['catalog-product-promise']['country_id'] = $this->config->getGuestCountry();
+        $jsLayout['components']['catalog-product-promise']['countries'] = $this->getCountries();
 
         return json_encode($jsLayout);
+    }
+
+    /**
+     * Retrive dictionary of countries
+     */
+    public function getCountries(): array
+    {
+        return $this->countryCollection->loadByStore()->toOptionArray();
     }
 
     /**

@@ -19,7 +19,7 @@ define([
                 this._super($this, widget);
 
                 if (typeof(productVariationsSku[widget.getProductId()]) != "undefined") {
-                    $( document).trigger( "display_product_promise", [ productVariationsSku[widget.getProductId()] ] );
+                    $( document).trigger( "update_sku_for_promise", [ productVariationsSku[widget.getProductId()] ] );
                 }
             }
         });
