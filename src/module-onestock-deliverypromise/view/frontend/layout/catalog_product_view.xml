@@ -18,7 +18,7 @@
             <container name="smile.info.promise" after="product.info.price">
                 <block class="Smile\OnestockDeliveryPromise\Block\Product\Promise"
                        name="smile.OnestockDeliveryPromise.product.promise"
-                       template="product/promise.phtml"
+                       template="Smile_OnestockDeliveryPromise::product/promise.phtml"
                        ifconfig="smile_onestock/dp/dp_enabled">
                     <arguments>
                         <argument name="jsLayout" xsi:type="array">

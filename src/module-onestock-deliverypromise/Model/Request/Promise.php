@@ -102,6 +102,14 @@ class Promise
                 );
             }
             $jsonContent = json_decode($response->getBody()->getContents(), true);
+            usort($jsonContent["delivery_options"], function($l,$r ) {
+                return $l["carbon_footprint"] <=> $r["carbon_footprint"];
+            });
+            $jsonContent["delivery_options"][0]["green_option"] = true;
+            $writer = new \Zend_Log_Writer_Stream(BP . '/var/log/custom.log');
+            $logger = new \Zend_Log();
+            $logger->addWriter($writer);
+            $logger->info(print_r($jsonContent['delivery_options'], true));
             if (!isset($jsonContent['delivery_options'])) {
                 throw new RequestException(
                     $response->getBody()->getContents(),

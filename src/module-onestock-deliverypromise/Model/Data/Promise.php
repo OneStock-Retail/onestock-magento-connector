@@ -55,7 +55,7 @@ class Promise extends DataObject implements PromiseInterface
      */
     public function getCutoff(): int
     {
-        return $this->hasData("cut_off") ? $this->getData("cut_off") : 0;
+        return $this->hasData("cutoff") ? $this->getData("cutoff") : 0;
     }
 
     /**
@@ -104,5 +104,10 @@ class Promise extends DataObject implements PromiseInterface
     public function __toString(): string
     {
         return $this->toJson();
+    }
+
+    public function getGreenOption(): bool
+    {
+        return $this->hasData("green_option") ? $this->getData("green_option") : false;
     }
 }

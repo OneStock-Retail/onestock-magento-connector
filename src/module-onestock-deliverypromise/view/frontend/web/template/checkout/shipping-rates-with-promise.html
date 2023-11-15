@@ -4,6 +4,7 @@
  * See COPYING.txt for license details.
  */
 -->
+<p><span class="home-delivery"></span>Home delivery</p>
 <form id="co-shipping-method-form" data-bind="blockLoader: isLoading, visible: isVisible()">
     <p class="field note" data-bind="visible: (!isLoading() && shippingRates().length <= 0)">
         <!-- ko text: $t('Sorry, no quotes are available for this order at this time')--><!-- /ko -->
@@ -16,6 +17,8 @@
                     <div data-bind="text: error_message"></div>
                     <!-- /ko -->
                     <!-- ko if: (available) -->
+                    <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span>Greenest option</p>
+
                     <input type="radio"
                            class="radio"
                            data-bind="
@@ -29,8 +32,16 @@
                                 "/>
                     <label class="label" data-bind="attr: {for: 's_method_' + carrier_code + '_' + method_code}">
                         <!-- ko text: $data.method_title --><!-- /ko -->
-                        <!-- ko text: $data.extension_attributes.onestock_dp.eta_start --><!-- /ko -->
-                        <each args="element.getRegion('price')" render=""></each>
+                        <each class="one-stock-cart-prices" args="element.getRegion('price')" render=""></each>
+
+                        <p>Delivered
+                            <!-- ko text: $parents[1].calculDeliveryDate($data.extension_attributes.onestock_dp.eta_start, $data.extension_attributes.onestock_dp.eta_end) --><!-- /ko -->
+                        </p>
+                        <span data-bind="text: console.log($data)"></span>
+                        <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span>Your order may arrive in multiple parcels</p>
+
+                        <span class="calcul-deadline-text"><!-- ko text: $parents[1].CalculDeadLineText($data.extension_attributes.onestock_dp.cutoff) --><!-- /ko --></span>
+
                     </label>
                     <!-- /ko -->
                 </div>

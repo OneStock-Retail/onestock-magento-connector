@@ -89,4 +89,12 @@ interface PromiseInterface
      * @return string
      */
     public function __toString(): string;
+
+    /**
+     * Cast to json string
+     *
+     * @return string
+     */
+    public function getGreenOption(): bool;
+
 }

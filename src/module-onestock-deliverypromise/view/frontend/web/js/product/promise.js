@@ -45,7 +45,7 @@ define([
             $( document ).on( "update_country_for_promise", (_) => this.setCountry(this.selectedCountry()));
             this.displayPromise();
         },
-        
+
         formatCountryName: function (item) {
             return item.label;
         },
@@ -85,7 +85,7 @@ define([
         },
 
         /**
-         * 
+         *
          */
         displayPromise: function () {
             var country_id = this.getCountry()
@@ -102,7 +102,7 @@ define([
                     this.promises(response)
                 }
             }).fail(function () {
-                
+
             });
         }
     });
