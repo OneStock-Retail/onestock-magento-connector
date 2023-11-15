@@ -75,19 +75,19 @@ class Config implements ConfigInterface
             'user_id' => $this->scopeConfig->getValue(
                 self::USER_ID,
                 ScopeInterface::SCOPE_STORE
-            ),
+            ) ?? "",
             'password' => $this->encryptor->decrypt(
                 trim(
                     $this->scopeConfig->getValue(
                         self::PASSWORD,
                         ScopeInterface::SCOPE_STORE
-                    )
+                    ) ?? ""
                 )
             ),
             'site_id' => $this->scopeConfig->getValue(
                 self::SITE_ID,
                 ScopeInterface::SCOPE_STORE
-            ),
+            ) ?? "",
         ];
     }
 
