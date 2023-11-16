@@ -5,22 +5,42 @@
  */
 -->
 <!-- ko if:  isDisplayShippingPriceExclTax -->
-<span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_excl_tax)"></span></span>
+    <!-- ko if: method.price_excl_tax -->
+        <span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_excl_tax)"></span></span>
+    <!-- /ko -->
+    <!-- ko ifnot: method.price_excl_tax -->
+        <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
+    <!-- /ko -->
 <!-- /ko -->
 <!-- ko ifnot: isDisplayShippingPriceExclTax -->
-<!-- ko if:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
-<span class="price-including-tax" data-bind = "attr: {'data-label': $t('Incl. Tax')}">
-    <span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_incl_tax)"></span></span>
-</span>
-<!-- /ko -->
+    <!-- ko if:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
+        <span class="price-including-tax" data-bind = "attr: {'data-label': $t('Incl. Tax')}">
+    <!-- ko if: method.price_excl_tax -->
+        <span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_incl_tax)"></span></span>
+    <!-- /ko -->
+    <!-- ko ifnot: method.price_excl_tax -->
+        <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
+    <!-- /ko -->
+    </span>
+    <!-- /ko -->
 
-<!-- ko ifnot:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
-    <span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_incl_tax)"></span></span>
-<!-- /ko -->
+    <!-- ko ifnot:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
+        <!-- ko if: method.price_excl_tax -->
+        <span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_incl_tax)"></span></span>
+        <!-- /ko -->
+        <!-- ko ifnot: method.price_excl_tax -->
+        <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
+        <!-- /ko -->
+    <!-- /ko -->
 
 <!-- /ko -->
 <!-- ko if:  (isDisplayShippingBothPrices && (method.price_excl_tax != method.price_incl_tax))-->
-<span class="price-excluding-tax" data-bind = "attr: {'data-label': $t('Excl. Tax')}">
+    <span class="price-excluding-tax" data-bind = "attr: {'data-label': $t('Excl. Tax')}">
+        <!-- ko if: method.price_excl_tax -->
     <span class="price"><span class="price-promise" data-bind="text: getFormattedPrice(method.price_excl_tax)"></span></span>
-</span>
+        <!-- /ko -->
+        <!-- ko ifnot: method.price_excl_tax -->
+    <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
+        <!-- /ko -->
+    </span>
 <!-- /ko -->

@@ -11,6 +11,23 @@
                                 <item name="config" xsi:type="array">
                                     <item name="template" xsi:type="string">Smile_OnestockDeliveryPromise/checkout/shipping-rates-with-promise.html</item>
                                 </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="delivery-date" xsi:type="array">
+                                        <item name="component" xsi:type="string">Smile_OnestockDeliveryPromise/js/cart/delivery-date</item>
+                                        <item name="displayArea" xsi:type="string">delivery-date</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Smile_OnestockDeliveryPromise/cart/delivery-date.html</item>
+                                        </item>
+                                    </item>
+                                    <item name="deadline-date" xsi:type="array">
+                                        <item name="component" xsi:type="string">Smile_OnestockDeliveryPromise/js/cart/deadline-date</item>
+                                        <item name="displayArea" xsi:type="string">deadline-date</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="template" xsi:type="string">Smile_OnestockDeliveryPromise/cart/deadline-date.html</item>
+                                        </item>
+                                    </item>
+
+                                </item>
                             </item>
                         </item>
                     </item>
