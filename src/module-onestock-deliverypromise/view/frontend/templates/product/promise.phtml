@@ -31,21 +31,22 @@
                 'Magento_Ui/js/modal/modal': {
                     trigger: '.button-promise-change-country',
                     buttons: [{
-                        text: 'Submit',
+                        text: 'Update',
                         'class': 'action-primary',
                         click: function () {
                             jQuery( document).trigger( 'update_country_for_promise');
                             this.closeModal(event);
                         }
                     }, {
-                        text: 'Cancel',
+                        text: 'Close',
                         click: function (event) {
                             jQuery( document).trigger( 'rollback_country_for_promise');
                             this.closeModal(event);
                         }
                     }],
+                    subTitle: 'Country',
                     modalClass: 'smile-promise-modale-details',
-                    title: '<?= $escaper->escapeHtmlAttr(__('Edit Image')); ?>'
+                    title: '<?= $escaper->escapeHtmlAttr(__('Enter your country')); ?>'
                 }
             }">
             <form id="image-edit-details-form" method="post" enctype="multipart/form-data">
@@ -58,7 +59,6 @@
                 <li data-bind="template: $parent.promiseListTemplate" class="result-item"></li>
             </ul>
         </div>
-
         </div>
 </div>
 

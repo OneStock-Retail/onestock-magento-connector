@@ -1,6 +1,5 @@
 <div class="promise">
     <div class="heading" style="display: flex;   flex-direction: column;">
-        <span data-bind="text: console.log($data)"></span>
         <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span>Greenest option</p>
         <p><strong data-bind="text: method_title"></strong> <span class="price-promise" data-bind="text: price_incl_tax"></span></p>
         Delivered     <!-- ko text: $parent.calculDeliveryDate($data.extension_attributes.onestock_dp.eta_start, $data.extension_attributes.onestock_dp.eta_end) --><!-- /ko -->
