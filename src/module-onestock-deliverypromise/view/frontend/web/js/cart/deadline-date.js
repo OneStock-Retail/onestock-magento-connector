@@ -21,6 +21,12 @@ define([
 
         return Component.extend({
 
+            /**
+             *
+             * @param timestampCutOff
+             * @returns {string}
+             * @constructor
+             */
             CalculDeadLineText: function (timestampCutOff) {
 
                 var dateCutOff = new Date(timestampCutOff * 1000);

@@ -15,7 +15,7 @@
 <page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="product.info.main">
-            <container name="smile.info.promise" after="product.info.price">
+            <container name="smile.info.promise" after="product.info.extrahint">
                 <block class="Smile\OnestockDeliveryPromise\Block\Product\Promise"
                        name="smile.OnestockDeliveryPromise.product.promise"
                        template="Smile_OnestockDeliveryPromise::product/promise.phtml"
@@ -27,11 +27,17 @@
                                     <item name="component" xsi:type="string">Smile_OnestockDeliveryPromise/js/product/promise</item>
                                     <item name="promiseListTemplate" xsi:type="string">Smile_OnestockDeliveryPromise/product/promise</item>
                                 </item>
+
                             </item>
                         </argument>
                     </arguments>
                 </block>
             </container>
         </referenceContainer>
+
+        <move element="product.info.media" destination="columns" />
+        <move element="product.info.details" destination="columns" after="product.info.media"/>
+        <move element="catalog.product.related" destination="columns" after="product.info.details"/>
+
     </body>
 </page>

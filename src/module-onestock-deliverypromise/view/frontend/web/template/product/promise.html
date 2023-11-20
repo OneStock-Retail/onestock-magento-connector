@@ -1,11 +1,14 @@
 <div class="promise">
     <div class="heading" style="display: flex;   flex-direction: column;">
         <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span>Greenest option</p>
-        <p><strong data-bind="text: method_title"></strong> <span class="price-promise" data-bind="text: price_incl_tax"></span></p>
-        Delivered     <!-- ko text: $parent.calculDeliveryDate($data.extension_attributes.onestock_dp.eta_start, $data.extension_attributes.onestock_dp.eta_end) --><!-- /ko -->
-        by <!-- ko text: $data.carrier_title --><!-- /ko -->
-        <!-- ko text: $parent.CalculDeadLineText($data.extension_attributes.onestock_dp.cutoff) --><!-- /ko -->
+        <div><strong data-bind="text: method_title"></strong> <span class="price-promise">
+ <span data-bind="text: $parent.getFormattedPrice($data.price_incl_tax)"></span>
+        </span>
+        <div><span>Delivered</span> <span class="promise-bold" data-bind="text: $parent.calculDeliveryDate($data.extension_attributes.onestock_dp.eta_start, $data.extension_attributes.onestock_dp.eta_end)"></span>
+        by <!-- ko text: $data.carrier_title --><!-- /ko --> by ordering within
+        <span class="calcul-deadline-text" data-bind="text: $parent.CalculDeadLineText($data.extension_attributes.onestock_dp.cutoff)"></span></div>
         <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span>Your order may arrive in multiple parcels</p>
     </div>
 </div>
 <div class="breaker"></div>
+</div>

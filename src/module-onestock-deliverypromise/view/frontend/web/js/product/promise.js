@@ -21,9 +21,8 @@ define([
     'mage/url',
     'ko',
     'Magento_Checkout/js/checkout-data',
-    'Magento_Swatches/js/swatch-renderer',
-    'mage/translate',
-    ], function ($, Component, urlBuilder, ko, checkoutData, configurable) {
+    'Magento_Catalog/js/price-utils',
+], function ($, Component, urlBuilder, ko, checkoutData,priceUtils) {
 
     "use strict";
 
@@ -105,12 +104,17 @@ define([
 
             });
         },
-
-        calculDeliveryDate: function (Start, End) {
+        /**
+         *
+         * @param start
+         * @param end
+         * @returns {string}
+         */
+        calculDeliveryDate: function (start, end) {
             var result= "";
             const timestampNow = Date.now();
-            const timestampEtaStart = Start * 1000;
-            const timestampEtaEnd = End * 1000;
+            const timestampEtaStart = start * 1000;
+            const timestampEtaEnd = end * 1000;
             const dateNow = new Date(timestampNow);
             const dateEtaStart = new Date(timestampEtaStart);
             const dateEtaEnd = new Date(timestampEtaEnd);
@@ -118,23 +122,23 @@ define([
             const dateEtaEndDayAfter = new Date(timestampEtaEnd + 86400000);
 
 
-            if(( timestampEtaEnd - timestampNow ) < 86400000 && ( dateNow.getDay() === dateEtaEnd.getDay())) {
+            if(( timestampEtaStart - timestampNow ) < 86400000 && ( dateNow.getDay() === dateEtaEnd.getDay())) {
                 result += "today between ";
 
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + "and ";
+                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
                 result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
                 return result;
             }
-            if(( timestampEtaEnd - timestampNow ) < 86400000 && ( dateNow.getDay() !== dateEtaEnd.getDay())) {
+            if(( timestampEtaStart - timestampNow ) < 86400000 && ( dateNow.getDay() !== dateEtaEnd.getDay())) {
                 result += "tomorrow between ";
 
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + "and ";
+                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
                 result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
                 return result;
             }
-            if(( timestampEtaEnd - timestampNow ) < 17280000 && ( dateNowDayAfter.getDay() !== dateEtaEndDayAfter.getDay()))  {
+            if(( timestampEtaStart - timestampNow ) < 17280000 && ( dateNowDayAfter.getDay() !== dateEtaEndDayAfter.getDay()))  {
                 result += "tomorrow between ";
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + "and ";
+                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
                 result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
                 return result;
             }
@@ -159,12 +163,18 @@ define([
                 };
                 return  dateEtaStart.toLocaleDateString("en-US", options);
             }
-            result += day() + ", " + month() + " " + year() + " between"
-            result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + "and ";
+            result += day() + ", " + month() + " " + year() + " between "
+            result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
             result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
             return result;
         },
 
+        /**
+         *
+         * @param timestampCutOff
+         * @returns {string}
+         * @constructor
+         */
         CalculDeadLineText: function (timestampCutOff) {
 
             var dateCutOff = new Date(timestampCutOff * 1000);
@@ -198,6 +208,14 @@ define([
                 textToDisplay +=  diff.min + "m ";
                 return textToDisplay;
             }
+        },
+
+        /**
+         * @param {*} price
+         * @return {*|String}
+         */
+        getFormattedPrice: function (price) {
+            return priceUtils.formatPriceLocale(price);
         }
 
     });

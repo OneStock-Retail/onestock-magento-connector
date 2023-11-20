@@ -10,7 +10,7 @@
         <!-- ko text: $t('Sorry, no quotes are available for this order at this time')--><!-- /ko -->
     <fieldset class="fieldset rate" data-bind="visible: (shippingRates().length > 0)">
         <dl class="items methods" data-bind="foreach: shippingRateGroups">
-            <dt class="item-title"><span data-bind="text: $data"></span></dt>
+
             <dd class="item-options" data-bind="foreach: { data:$parent.getRatesForGroup($data), as: 'method' }">
                 <div data-bind="css: {'field choice item': available, 'message error': !available} ">
                     <!-- ko ifnot: (available) -->
@@ -31,15 +31,24 @@
                                         }
                                 "/>
                     <label class="label" data-bind="attr: {for: 's_method_' + carrier_code + '_' + method_code}">
-                        <!-- ko text: $data.method_title --><!-- /ko -->
-                        <each class="one-stock-cart-prices" args="element.getRegion('price')" render=""></each>
+                        <span clas="promise-bold" data-bind="text: $data.method_title"></span>
 
-                            Delivered <each class="one-stock-cart-prices" args="element.getRegion('delivery-date')" render=""></each>
-                        by <!-- ko text: $data.carrier_title --><!-- /ko --> within
-                            <each class="one-stock-cart-prices" args="element.getRegion('deadline-date')" render=""></each>
+                        <!-- ko if: $data.amount -->
+                        <span class="price-promise"><each class="one-stock-cart-prices" args="element.getRegion('price')" render=""></each></span>
+                        <!-- /ko -->
+                        <!-- ko ifnot: $data.amount -->
+                        <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
+                        <!-- /ko -->
+                        Delivered
+                        <deliverydate class="item-options promise-bold" data-bind="foreach: { data:element.getRegion('delivery-date'), as: 'method' }">
+                            <span data-bind="text: calculDeliveryDate($parent.extension_attributes.onestock_dp.eta_start, $parent.extension_attributes.onestock_dp.eta_end)"></span>
+                        </deliverydate>
+                        by <!-- ko text: $data.carrier_title --><!-- /ko -->by ordering within
+                        <deadline class="item-options calcul-deadline-text" data-bind="foreach: { data:element.getRegion('deadline-date'), as: 'method' }">
+                            <span data-bind="text: CalculDeadLineText($parent.extension_attributes.onestock_dp.cutoff)"></span>
+                        </deadline>
 
                         <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span>Your order may arrive in multiple parcels</p>
-
 
                     </label>
                     <!-- /ko -->
