@@ -14,6 +14,9 @@
     <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
         <plugin name="smile_onestockdeliverypromise_orderaddress_addpromise" type="Smile\OnestockDeliveryPromise\Plugin\AddPromiseToOrderAddress"/>
     </type>
+    <type name="Magento\QuoteGraphQl\Model\Resolver\ShippingAddress\SelectedShippingMethod">
+        <plugin name="smile_onestockdeliverypromise_selectedshippingmethod_addpromise" type="Smile\OnestockDeliveryPromise\Plugin\AddPromiseToSelectedShippingAddress"/>
+    </type>
     <type name="Smile\OnestockDeliveryPromise\Observer\ExportOrderPromise">
         <arguments>
             <argument name="logger" xsi:type="object">Smile\Onestock\Model\CustomLogger</argument>

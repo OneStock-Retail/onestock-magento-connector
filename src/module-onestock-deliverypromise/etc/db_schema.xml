@@ -5,4 +5,8 @@
     <table name="sales_order_address" resource="sales" engine="innodb" comment="Sales Flat Order Address">
         <column xsi:type="text" name="onestock_dp" nullable="true" comment="Delivery Promise"/>
     </table>
+    <table name="quote_address" resource="sales" engine="innodb" comment="Quote Flat Order Address">
+        <column xsi:type="text" name="onestock_dp" nullable="true" comment="Delivery Promise"/>
+    </table>
+
 </schema>
