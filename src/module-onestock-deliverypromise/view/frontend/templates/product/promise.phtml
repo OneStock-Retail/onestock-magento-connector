@@ -23,7 +23,7 @@
          data-bind="scope: 'catalog-product-promise'">
         <div class="promises-list" data-role="content">
         <div class="action button-promise-change-country">
-            <span class="home-delivery"></span>Home delivery to: <span class="promise-country" data-bind="text: getCountryLabelFromCode(lastCountry), attr: {title: lastCountry}"></span><a href="#" class="text">✎</a>
+            <span class="home-delivery"></span><!-- ko text: $data.homeDeliveryTo --><!-- /ko --><span class="promise-country" data-bind="text: getCountryLabelFromCode(lastCountry), attr: {title: lastCountry}"></span><a href="#" class="text">✎</a>
         </div>
         <div class="smile.promise.modale"
             data-bind="mageInit: {

@@ -22,11 +22,25 @@ define([
     'ko',
     'Magento_Checkout/js/checkout-data',
     'Magento_Catalog/js/price-utils',
-], function ($, Component, urlBuilder, ko, checkoutData,priceUtils) {
+    'mage/translate'
+], function ($, Component, urlBuilder, ko, checkoutData,priceUtils, $t) {
 
     "use strict";
 
     return Component.extend({
+
+        defaults: {
+            greenestOption: $t('Greenest option'),
+            delivered: $t('Delivered'),
+            tomorrow: $t('tomorrow between '),
+            today: $t('today between '),
+            andDate: $t(' and '),
+            onDate: $t('on '),
+            byCarrier: $t('by '),
+            byDelay: $t('by ordering within '),
+            parcelNumber: $t('Your order may arrive in multiple parcels'),
+            homeDeliveryTo: $t('Home delivery to'),
+        },
 
         /**
          * Constructor
@@ -111,6 +125,7 @@ define([
          * @returns {string}
          */
         calculDeliveryDate: function (start, end) {
+            var locale = window.LOCALE || 'en-US';
             var result= "";
             const timestampNow = Date.now();
             const timestampEtaStart = start * 1000;
@@ -123,48 +138,48 @@ define([
 
 
             if(( timestampEtaStart - timestampNow ) < 86400000 && ( dateNow.getDay() === dateEtaEnd.getDay())) {
-                result += "today between ";
+                result += this.today;
 
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
+                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
                 result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
                 return result;
             }
             if(( timestampEtaStart - timestampNow ) < 86400000 && ( dateNow.getDay() !== dateEtaEnd.getDay())) {
-                result += "tomorrow between ";
+                result += this.tomorrow;
 
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
+                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
                 result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
                 return result;
             }
             if(( timestampEtaStart - timestampNow ) < 17280000 && ( dateNowDayAfter.getDay() !== dateEtaEndDayAfter.getDay()))  {
-                result += "tomorrow between ";
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
+                result += this.tomorrow;
+                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
                 result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
                 return result;
             }
-            result += "on ";
+            result += this.onDate
             var day = function() {
                 const options = {
                     weekday: 'long',
                 };
-                return  dateEtaStart.toLocaleDateString("en-US", options);
+                return  dateEtaStart.toLocaleDateString(locale, options);
             }
 
             var month = function() {
                 const options = {
                     month: 'long',
                 };
-                return  dateEtaStart.toLocaleDateString("en-US", options);
+                return  dateEtaStart.toLocaleDateString(locale, options);
             }
 
             var year = function() {
                 const options = {
                     year: '2-digit',
                 };
-                return  dateEtaStart.toLocaleDateString("en-US", options);
+                return  dateEtaStart.toLocaleDateString(locale, options);
             }
             result += day() + ", " + month() + " " + year() + " between "
-            result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + " and ";
+            result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
             result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
             return result;
         },

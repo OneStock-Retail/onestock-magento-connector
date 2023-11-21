@@ -33,10 +33,10 @@
                     <label class="label" data-bind="attr: {for: 's_method_' + carrier_code + '_' + method_code}">
                         <span clas="promise-bold" data-bind="text: $data.method_title"></span>
 
-                        <!-- ko if: $data.amount -->
+                        <!-- ko if: $data.price_incl_tax -->
                         <span class="price-promise"><each class="one-stock-cart-prices" args="element.getRegion('price')" render=""></each></span>
                         <!-- /ko -->
-                        <!-- ko ifnot: $data.amount -->
+                        <!-- ko ifnot: $data.price_incl_tax -->
                         <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
                         <!-- /ko -->
                         Delivered
