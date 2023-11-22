@@ -17,8 +17,7 @@
                     <div data-bind="text: error_message"></div>
                     <!-- /ko -->
                     <!-- ko if: (available) -->
-                    <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span><span translate="'Greenest option'"></span></p>
-
+                    
                     <input type="radio"
                            class="radio"
                            data-bind="
@@ -39,9 +38,8 @@
                         <!-- ko ifnot: $data.price_incl_tax -->
                         <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
                         <!-- /ko -->
+        
                         <each args="element.getRegion('delivery-date')" render=""></each>
-
-                        <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span>Your order may arrive in multiple parcels</p>
 
                     </label>
                     <!-- /ko -->

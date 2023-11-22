@@ -1,6 +1,7 @@
+<div data-bind="if: $parent.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span><span translate="'Greenest option'"></span></span></div>
 <span translate="'Delivered'"></span>
 <span translate="'by '"></span> <!-- ko text: $parent.carrier_title --><!-- /ko --> 
 <span class="promise-bold" data-bind="text: calculDeliveryDate($parent.extension_attributes.onestock_dp.eta_start, $parent.extension_attributes.onestock_dp.eta_end)"></span>
 <span translate="'by ordering within '"></span>
 <span class="calcul-deadline-text" data-bind="text: CalculDeadLineText($parent.extension_attributes.onestock_dp.cutoff)"></span>
-<p data-bind="if: $parent.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels" translate="'Your order may arrive in multiple parcels'"></span></p>
+<div data-bind="if: $parent.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span><span translate="'Your order may arrive in multiple parcels'"></span></div>

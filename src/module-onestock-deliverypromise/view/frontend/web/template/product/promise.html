@@ -1,6 +1,5 @@
 <div class="promise">
     <div class="heading" style="display: flex;   flex-direction: column;">
-        <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span><span translate="'Greenest option'"></span></span></p>
         <div>
             <strong data-bind="text: method_title"></strong>
             <span class="price-promise">
@@ -11,10 +10,10 @@
                     <span translate="'Free'"></span>
                 <!-- /ko -->
             </span>
+            
             <div>
                 <each args="$parent.getRegion('delivery-date')" render=""></each>
             </div>
-            <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span><span translate="'Your order may arrive in multiple parcels'"></span> </p>
         </div>
     </div>
     <div class="breaker"></div>
