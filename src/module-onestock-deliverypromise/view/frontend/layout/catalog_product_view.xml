@@ -43,10 +43,5 @@
                 </block>
             </container>
         </referenceContainer>
-
-        <move element="product.info.media" destination="columns" />
-        <move element="product.info.details" destination="columns" after="product.info.media"/>
-        <move element="catalog.product.related" destination="columns" after="product.info.details"/>
-
     </body>
 </page>
