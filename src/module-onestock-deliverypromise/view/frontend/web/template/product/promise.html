@@ -1,6 +1,6 @@
 <div class="promise">
     <div class="heading" style="display: flex;   flex-direction: column;">
-        <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span><!-- ko text: $parent.greenestOption --><!-- /ko --></span></p>
+        <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span><span translate="'Greenest option'"></span></span></p>
         <div>
             <strong data-bind="text: method_title"></strong>
             <span class="price-promise">
@@ -8,16 +8,13 @@
                     <span data-bind="text: $parent.getFormattedPrice($data.price_incl_tax)"></span>
                 <!-- /ko -->
                 <!-- ko ifnot: $data.price_incl_tax -->
-                    <span data-bind="text: 'free'"></span>
+                    <span translate="'Free'"></span>
                 <!-- /ko -->
             </span>
             <div>
-                <span data-bind="text: $parent.delivered" ></span>
-                <span class="promise-bold" data-bind="text: $parent.calculDeliveryDate($data.extension_attributes.onestock_dp.eta_start, $data.extension_attributes.onestock_dp.eta_end)"></span>
-                <!-- ko text: $parent.byCarrier --><!-- /ko --> <!-- ko text: $data.carrier_title --><!-- /ko --> <!-- ko text: $parent.byDelay --><!-- /ko -->
-                <span class="calcul-deadline-text" data-bind="text: $parent.CalculDeadLineText($data.extension_attributes.onestock_dp.cutoff)"></span>
+                <each args="$parent.getRegion('delivery-date')" render=""></each>
             </div>
-            <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span><!-- ko text: $parent.parcelNumber --><!-- /ko --> </p>
+            <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span><span translate="'Your order may arrive in multiple parcels'"></span> </p>
         </div>
     </div>
     <div class="breaker"></div>

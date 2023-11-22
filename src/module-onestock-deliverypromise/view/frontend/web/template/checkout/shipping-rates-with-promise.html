@@ -17,6 +17,8 @@
                     <div data-bind="text: error_message"></div>
                     <!-- /ko -->
                     <!-- ko if: (available) -->
+                    <p data-bind="if: $data.extension_attributes.onestock_dp.green_option"><span class="green-leaf"></span><span translate="'Greenest option'"></span></p>
+
                     <input type="radio"
                            class="radio"
                            data-bind="
@@ -37,17 +39,7 @@
                         <!-- ko ifnot: $data.price_incl_tax -->
                         <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
                         <!-- /ko -->
-                        <!-- ko if: $data.extension_attributes.onestock_dp.green_option -->
-                        <p><span class="green-leaf"></span>Greenest option</p>
-                        <!-- /ko -->
-                        Delivered
-                        <deliverydate class="item-options promise-bold" data-bind="foreach: { data:element.getRegion('delivery-date'), as: 'method' }">
-                            <span data-bind="text: calculDeliveryDate($parent.extension_attributes.onestock_dp.eta_start, $parent.extension_attributes.onestock_dp.eta_end)"></span>
-                        </deliverydate>
-                        by <!-- ko text: $data.carrier_title --><!-- /ko -->by ordering within
-                        <deadline class="item-options calcul-deadline-text" data-bind="foreach: { data:element.getRegion('deadline-date'), as: 'method' }">
-                            <span data-bind="text: CalculDeadLineText($parent.extension_attributes.onestock_dp.cutoff)"></span>
-                        </deadline>
+                        <each args="element.getRegion('delivery-date')" render=""></each>
 
                         <p data-bind="if: $data.extension_attributes.onestock_dp.shipment_number > 1"><span class="multi-parcels"></span>Your order may arrive in multiple parcels</p>
 
