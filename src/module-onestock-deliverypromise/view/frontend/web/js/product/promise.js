@@ -35,14 +35,23 @@ define([
         initialize: function () {
             this.promises = ko.observable([]);
             this.lastCountry = ko.observable("");
+            this.lastPostcode = ko.observable("");
             this.selectedCountry = ko.observable(this.getCountry());
+            this.selectedPostcode = ko.observable(this.getPostcode());
             this.selectedSku = ko.observable(this.sku);
             this.selectedSku.subscribe(this.displayPromise.bind(this));
             this._super();
 
             $( document ).on( "update_sku_for_promise", (_, sku) => this.selectedSku(sku));
-            $( document ).on( "rollback_country_for_promise", (_) => this.selectedCountry(this.lastCountry()));
-            $( document ).on( "update_country_for_promise", (_) => this.setCountry(this.selectedCountry()));
+            $( document ).on( "rollback_country_for_promise", (_) => {
+                this.selectedCountry(this.lastCountry());
+                this.selectedPostcode(this.lastPostcode())
+            });
+            $( document ).on( "update_country_for_promise", (_) => {
+                this.setCountry(this.selectedCountry()); 
+                this.setPostcode(this.selectedPostcode());
+                this.displayPromise();
+            });
             this.displayPromise();
         },
 
@@ -73,6 +82,15 @@ define([
             return country_id;
         },
 
+        getPostcode: function () {
+            var address = checkoutData.getShippingAddressFromData();
+            var postcode = this.postcode;
+            if (typeof (address) != "undefined" && address != null && address.postcode) {
+                postcode = address.postcode;
+            }
+            return postcode;
+        },
+
         setCountry: function (code) {
             var address = checkoutData.getShippingAddressFromData();
             if (typeof (address) == "undefined" || address == null) {
@@ -80,7 +98,17 @@ define([
             }
             address.country_id = code;
             checkoutData.setShippingAddressFromData(address);
-            this.displayPromise();
+            
+            return this;
+        },
+
+        setPostcode: function (code) {
+            var address = checkoutData.getShippingAddressFromData();
+            if (typeof (address) == "undefined" || address == null) {
+                address = {}
+            }
+            address.postcode = code;
+            checkoutData.setShippingAddressFromData(address);
             return this;
         },
 
@@ -89,15 +117,17 @@ define([
          */
         displayPromise: function () {
             var country_id = this.getCountry()
+            var postcode = this.getPostcode()
             var sku = this.selectedSku();
 
             $.ajax({
-                url: urlBuilder.build(`rest/V1/delivery_promises/shipping-methods/${sku}/${country_id}`),
+                url: urlBuilder.build(`rest/V1/delivery_promises/shipping-methods/${sku}/${country_id}/${postcode}`),
                 dataType: 'json',
                 cache:true,
                 type: 'GET'
             }).done((response) => {
                 this.lastCountry(country_id);
+                this.lastPostcode(postcode);
                 if (!response.errors) {
                     this.promises(response)
                 }

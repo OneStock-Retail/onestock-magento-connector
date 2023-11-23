@@ -7,7 +7,7 @@
             <resource ref="anonymous" />
         </resources>
     </route>
-    <route url="V1/delivery_promises/shipping-methods/:sku/:country" method="GET">
+    <route url="V1/delivery_promises/shipping-methods/:sku/:country/:postcode" method="GET">
         <service class="Smile\OnestockDeliveryPromise\Api\ShipmentInterface" method="estimate"/>
         <resources>
             <resource ref="anonymous" />

@@ -59,7 +59,7 @@ class AddPromiseToRate
                 "qty" => $product->getQty(),
             ];
         }
-        foreach ($this->getPromises($requests, array_keys($methods), $subject->getCountryId()) as $promise) {
+        foreach ($this->getPromises($requests, array_keys($methods), $subject->getCountryId(), $subject->getPostcode()??"") as $promise) {
             if (!isset($methods[$promise->getDeliveryMethod()])) {
                 continue;
             }
@@ -82,13 +82,13 @@ class AddPromiseToRate
      * @return PromiseInterface[]
      * @throws GuzzleException
      */
-    protected function getPromises(array $items, array $methods, string $country): array
+    protected function getPromises(array $items, array $methods, string $country, string $postcode): array
     {
         $res = [];
         try {
             /** @var PromiseInterface[] $res */
-            $res = $this->tokenHelper->call(function ($config, $token) use ($items, $methods, $country): array {
-                return $this->request->get($config, $token, $items, $methods, $country);
+            $res = $this->tokenHelper->call(function ($config, $token) use ($items, $methods, $country, $postcode): array {
+                return $this->request->get($config, $token, $items, $methods, $country, $postcode);
             });
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());

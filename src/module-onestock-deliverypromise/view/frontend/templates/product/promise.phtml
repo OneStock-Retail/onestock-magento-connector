@@ -43,14 +43,17 @@
                             this.closeModal(event);
                         }
                     }],
-                    subTitle: 'Country',
                     modalClass: 'smile-promise-modale-details',
-                    title: '<?= $escaper->escapeHtmlAttr(__('Enter your country')); ?>'
+                    title: '<?= $escaper->escapeHtmlAttr(__('Enter your address')); ?>'
                 }
             }">
             <form id="image-edit-details-form" method="post" enctype="multipart/form-data">
+                <?= $escaper->escapeHtmlAttr(__('Country')); ?>
                 <select type="select" data-bind="options: countries, optionsText: formatCountryName, optionsValue: formatCountryCode, value: selectedCountry">
                 </select>
+                <div>&nbsp;</div>
+                <?= $escaper->escapeHtmlAttr(__('Postcode')); ?>
+                <input type="text" data-bind="value: selectedPostcode"/>
             </form>
         </div>
         <div class="promises-list">

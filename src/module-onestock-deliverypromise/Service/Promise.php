@@ -43,11 +43,14 @@ class Promise implements ShipmentInterface
      *
      * @return \Magento\Quote\Api\Data\ShippingMethodInterface[] An array of shipping methods
      */
-    public function estimate(string $sku, string $country = ""): array
+    public function estimate(string $sku, string $country = "", string $postcode = ""): array
     {
         $output = [];
         if (empty($country)) {
             $country = $this->config->getGuestCountry();
+        }
+        if (empty($postcode)) {
+            $postcode = $this->config->getGuestPostcode();
         }
         $temporaryAddress = $this->addressFactory->create();
         $temporaryProduct = $this->productFactory->create();
@@ -61,6 +64,7 @@ class Promise implements ShipmentInterface
                 'collect_shipping_rates' => true,
                 'cached_items_all' => [$temporaryItem],
                 'country_id' => $country,
+                'postcode' => $postcode,
             ]
         );
         $temporaryAddress->setQuote($this->quoteFactory->create()->setShippingAddress($temporaryAddress));

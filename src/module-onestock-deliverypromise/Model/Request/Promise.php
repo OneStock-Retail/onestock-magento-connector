@@ -59,7 +59,8 @@ class Promise
         TokenInterface $token,
         array $items,
         array $methods,
-        string $country
+        string $country,
+        string $postcode
     ): array {
         try {
             $request = new Request(
@@ -78,12 +79,13 @@ class Promise
                     ]
                       + [
                         "delivery_options" => array_map(
-                            function ($method) use ($country) {
+                            function ($method) use ($country, $postcode) {
                                 return [
                                 "delivery_method" => $method,
                                 "destination" => [
                                         "location" => [
                                             "country" => $country,
+                                            "postcode" => $postcode,
                                         ],
                                     ],
                                 ];
