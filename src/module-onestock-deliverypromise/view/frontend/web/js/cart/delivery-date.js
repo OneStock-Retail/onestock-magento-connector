@@ -21,12 +21,8 @@ define([
     'use strict';
 
     return Component.extend({
-        defaults: {
-            tomorrow: $t('tomorrow between '),
-            today: $t('today between '),
-            andDate: $t(' and '),
-            onDate: $t('on '),
-        },
+
+        timestampNow: Date.now(),
 
         /**
          *
@@ -36,61 +32,46 @@ define([
          */
         calculDeliveryDate: function (start, end) {
             var locale = window.LOCALE || 'en-US';
-            var result= "";
-            const timestampNow = Date.now();
             const timestampEtaStart = start * 1000;
             const timestampEtaEnd = end * 1000;
-            const dateNow = new Date(timestampNow);
+            const dateNow = new Date(this.timestampNow);
+            const dateTomorrow =  new Date(this.timestampNow + 24*60*60*1000)
             const dateEtaStart = new Date(timestampEtaStart);
             const dateEtaEnd = new Date(timestampEtaEnd);
-            const dateNowDayAfter = new Date(timestampNow + 86400000);
-            const dateEtaEndDayAfter = new Date(timestampEtaEnd + 86400000);
-
-
-            if(( timestampEtaStart - timestampNow ) < 86400000 && ( dateNow.getDay() === dateEtaEnd.getDay())) {
-                result += this.today;
-
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
-                result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
-                return result;
-            }
-            if(( timestampEtaStart - timestampNow ) < 86400000 && ( dateNow.getDay() !== dateEtaEnd.getDay())) {
-                result += this.tomorrow;
-
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
-                result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
-                return result;
-            }
-            if(( timestampEtaStart - timestampNow ) < 17280000 && ( dateNowDayAfter.getDay() !== dateEtaEndDayAfter.getDay()))  {
-                result += this.tomorrow;
-                result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
-                result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
-                return result;
-            }
-            result += this.onDate
-            var day = function() {
-                const options = {
+            var result = "";
+            if( (timestampEtaStart - this.timestampNow < 24*60*60*1000) && (timestampEtaEnd - this.timestampNow  < 24*60*60*1000) &&  dateNow.getDay() === dateEtaStart.getDay() && dateEtaStart.getDay()  === dateEtaEnd.getDay()) {
+                result = $t('today between ');
+            } else if( (timestampEtaStart - this.timestampNow < 24*60*60*1000*2) && ( timestampEtaEnd - this.timestampNow < 24*60*60*1000*2) && dateTomorrow.getDay() === dateEtaStart.getDay() && dateEtaStart.getDay()  === dateEtaEnd.getDay()) {
+                result = $t('tomorrow between ');
+            } else if(( timestampEtaStart - timestampEtaEnd ) < 24*60*60*1000 && ( dateEtaStart.getDay() === dateEtaEnd.getDay())) {
+                result = $t('on ')
+                + dateEtaStart.toLocaleDateString(locale, {
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric'
+                    })
+                + $t(' between ');
+            } else {
+                return $t(' between ') + dateEtaStart.toLocaleDateString(locale, {
                     weekday: 'long',
-                };
-                return  dateEtaStart.toLocaleDateString(locale, options);
-            }
-
-            var month = function() {
-                const options = {
+                        month: 'long',
+                        day: 'numeric'
+                }) + $t(' and ') + dateEtaEnd.toLocaleDateString(locale, {
+                    weekday: 'long',
                     month: 'long',
-                };
-                return  dateEtaStart.toLocaleDateString(locale, options);
+                    day: 'numeric'
+                });
             }
+            result += dateEtaStart.toLocaleTimeString(locale, {
+                minute: 'numeric',
+                hour: 'numeric'
+            }) + $t(' and ');
+            result += dateEtaEnd.toLocaleTimeString(locale, {
+                minute: 'numeric',
+                hour: 'numeric'
+            });
 
-            var year = function() {
-                const options = {
-                    year: '2-digit',
-                };
-                return  dateEtaStart.toLocaleDateString(locale, options);
-            }
-            result += day() + ", " + month() + " " + year() + " between "
-            result += dateEtaStart.getHours() + ":"  + dateEtaStart.getMinutes() + this.andDate;
-            result += dateEtaEnd.getHours() + ":"  + dateEtaEnd.getMinutes();
+
             return result;
         },
 
@@ -103,8 +84,7 @@ define([
         CalculDeadLineText: function (timestampCutOff) {
 
             var dateCutOff = new Date(timestampCutOff * 1000);
-            var timestampNow = Date.now();
-            var dateNow = new Date(timestampNow);
+            var dateNow = new Date(this.timestampNow);
             var textToDisplay = "";
 
             var diff = {}							// Initialisation du retour
@@ -118,13 +98,6 @@ define([
             tmp = Math.floor((tmp - diff.min) / 60);	// Nombre d'heures (entières)
             diff.hour = tmp % 24;					// Extraction du nombre d'heures
 
-            tmp = Math.floor((tmp - diff.hour) / 24);	// Nombre de jours restants
-            diff.day = tmp;
-
-            if (diff.day) {
-                textToDisplay += diff.day + "d " + diff.hour + "h " +  diff.min + "m";
-                return textToDisplay;
-            }
             if (diff.hour) {
                 textToDisplay +=  diff.hour + "h " + diff.min + "m";
                 return textToDisplay;
