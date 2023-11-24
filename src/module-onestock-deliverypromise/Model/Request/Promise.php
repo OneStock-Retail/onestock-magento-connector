@@ -75,6 +75,8 @@ class Promise
                         $token,
                         TokenInterface::class
                     ) + [
+                        "sales_channel" => $server->getSalesChannel(),
+                    ]+ [
                         "line_items" => $items,
                     ]
                       + [
