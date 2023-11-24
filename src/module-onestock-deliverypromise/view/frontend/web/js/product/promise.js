@@ -33,6 +33,7 @@ define([
          * Constructor
          */
         initialize: function () {
+            this._super();
             this.promises = ko.observable([]);
             this.lastCountry = ko.observable("");
             this.lastPostcode = ko.observable("");
@@ -40,9 +41,12 @@ define([
             this.selectedPostcode = ko.observable(this.getPostcode());
             this.selectedSku = ko.observable(this.sku);
             this.selectedSku.subscribe(this.displayPromise.bind(this));
-            this._super();
 
-            $( document ).on( "update_sku_for_promise", (_, sku) => this.selectedSku(sku));
+            $( document ).on( "update_sku_for_promise", (_, sku) => {
+                if (typeof(sku)!="undefined") {
+                    this.selectedSku(sku);
+                }
+            });
             $( document ).on( "rollback_country_for_promise", (_) => {
                 this.selectedCountry(this.lastCountry());
                 this.selectedPostcode(this.lastPostcode())
