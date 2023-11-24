@@ -28,6 +28,7 @@ class Config implements ConfigInterface
 {
     public const CONFIG_TIMEOUT = 'smile_onestock/api/timeout';
     public const CONFIG_HOST = 'smile_onestock/api/host';
+    public const CONFIG_SALES_CHANNEL = 'smile_onestock/general/sales_channel';
     public const USER_ID = 'smile_onestock/api/user_id';
     public const PASSWORD = 'smile_onestock/api/password';
     public const SITE_ID = 'smile_onestock/general/site_id';
@@ -48,6 +49,14 @@ class Config implements ConfigInterface
     public function getHost(): string
     {
         return $this->scopeConfig->getValue(self::CONFIG_HOST, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getSalesChannel(): string
+    {
+        return $this->scopeConfig->getValue(self::CONFIG_SALES_CHANNEL, ScopeInterface::SCOPE_STORE);
     }
 
     /**

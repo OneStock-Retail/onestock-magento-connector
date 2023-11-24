@@ -28,6 +28,13 @@ interface ConfigInterface
     public function getHost(): string;
 
     /**
+     * Return sales channel
+     *
+     * @return string
+     */
+    public function getSalesChannel(): string;
+
+    /**
      * Connexion option
      *
      * @return string[]
