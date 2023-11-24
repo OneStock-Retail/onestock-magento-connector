@@ -64,7 +64,7 @@ define([
         },
 
         getCountryLabelFromCode: function (code) {
-            for(i in this.countries) {
+            for(var i in this.countries) {
                 var country = this.countries[i];
                 if (this.formatCountryCode(country) == code()) {
                     return ko.observable(this.formatCountryName(country));
