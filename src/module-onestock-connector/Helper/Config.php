@@ -56,7 +56,7 @@ class Config implements ConfigInterface
      */
     public function getSalesChannel(): string
     {
-        return $this->scopeConfig->getValue(self::CONFIG_SALES_CHANNEL, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(self::CONFIG_SALES_CHANNEL, ScopeInterface::SCOPE_STORE) ?? "";
     }
 
     /**
