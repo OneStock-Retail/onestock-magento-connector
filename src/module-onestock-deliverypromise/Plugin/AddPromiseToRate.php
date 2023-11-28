@@ -68,13 +68,13 @@ class AddPromiseToRate
                 || $promise->getStatus() === "none" ) {
                 continue;
             }
-                /** @var Rate $rate */
-                $rate = $methods[$promise->getDeliveryMethod()];
-                $rate->setOnestockDp((string) $promise);
+            /** @var Rate $rate */
+            $rate = $methods[$promise->getDeliveryMethod()];
+            $rate->setOnestockDp((string) $promise);
 
-                if ($subject->getShippingMethod() == $promise->getDeliveryMethod()) {
-                    $subject->setOnestockDp((string) $promise);
-                }
+            if ($subject->getShippingMethod() == $promise->getDeliveryMethod()) {
+                $subject->setOnestockDp((string) $promise);
+            }
         }
         return $found;
     }

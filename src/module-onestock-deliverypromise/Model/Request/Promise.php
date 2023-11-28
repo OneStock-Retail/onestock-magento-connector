@@ -108,12 +108,7 @@ class Promise
                 );
             }
             $jsonContent = json_decode($response->getBody()->getContents(), true);
-            if ($this->config->greenEnabled()) {
-                usort($jsonContent["delivery_options"], function ($l, $r) {
-                    return $l["carbon_footprint"] <=> $r["carbon_footprint"];
-                });
-                $jsonContent["delivery_options"][0]["green_option"] = true;
-            }
+
             if (!isset($jsonContent['delivery_options'])) {
                 throw new RequestException(
                     $response->getBody()->getContents(),
@@ -121,6 +116,14 @@ class Promise
                     $response
                 );
             }
+
+            if ($this->config->greenEnabled()) {
+                usort($jsonContent["delivery_options"], function ($l, $r) {
+                    return $l["carbon_footprint"] <=> $r["carbon_footprint"];
+                });
+                $jsonContent["delivery_options"][0]["green_option"] = true;
+            }
+
             return array_map(function ($promise) {
                     return $this->toClassProcessor->convertValue(
                         [

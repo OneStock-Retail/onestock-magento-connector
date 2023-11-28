@@ -23,14 +23,7 @@ class AddPromiseToSelectedShippingAddress
     }
 
     /**
-     * @param SelectedShippingMethod $subject
-     * @param callable $proceed
-     * @param Field $field
-     * @param ContextInterface $context
-     * @param ResolveInfo $info
-     * @param array|null $value
-     * @param array|null $args
-     * @return mixed
+     *
      */
     public function aroundResolve(SelectedShippingMethod $subject,
                                   callable $proceed,
@@ -38,10 +31,16 @@ class AddPromiseToSelectedShippingAddress
                                   ContextInterface $context,
                                   ResolveInfo $info,
                                   array $value = null,
-                                  array $args = null): mixed
+                                  array $args = null): array
     {
+        $unseraliazedAdress = [];
         $address = $value['model'];
-        $unseraliazedAdress = $this->serializer->unserialize($address->getOnestockDp());
+
+        try {
+            $unseraliazedAdress = $this->serializer->unserialize($address->getOnestockDp());
+        } catch ( \InvalidArgumentException $e) {
+        }
+
         $result = $proceed($field, $context, $info, $value, $args );
         return array_merge($result, $unseraliazedAdress);
     }
