@@ -25,8 +25,8 @@ use Psr\Http\Message\ResponseInterface;
 use Smile\Onestock\Api\Data\Authentication\TokenInterface;
 use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
-use Smile\OnestockDeliveryPromise\Model\Data\Promise as PromiseDataModel;
 use Smile\OnestockDeliveryPromise\Helper\Config;
+use Smile\OnestockDeliveryPromise\Model\Data\Promise as PromiseDataModel;
 
 /**
  * Rest request to query orders
@@ -78,7 +78,7 @@ class Promise
                         TokenInterface::class
                     ) + [
                         "sales_channel" => $server->getSalesChannel(),
-                    ]+ [
+                    ] + [
                         "line_items" => $items,
                     ]
                       + [

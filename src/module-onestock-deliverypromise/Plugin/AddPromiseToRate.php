@@ -60,12 +60,20 @@ class AddPromiseToRate
             ];
         }
 
-        foreach ($this->getPromises($requests, array_keys($methods),
-            $subject->getCountryId(), $subject->getPostcode() ?? "") as $promise) {
-            if (!isset($methods[$promise->getDeliveryMethod()])
+        foreach (
+            $this->getPromises(
+                $requests,
+                array_keys($methods),
+                $subject->getCountryId(),
+                $subject->getPostcode() ?? ""
+            ) as $promise
+        ) {
+            if (
+                !isset($methods[$promise->getDeliveryMethod()])
                 || $promise->getStatus() === "partial"
                 || $promise->getStatus() === "partial_estimation"
-                || $promise->getStatus() === "none" ) {
+                || $promise->getStatus() === "none"
+            ) {
                 continue;
             }
             /** @var Rate $rate */
