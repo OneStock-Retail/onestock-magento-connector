@@ -13,3 +13,16 @@ type SelectedShippingMethod @doc(description: "Contains details about the select
     shipment_number: String @doc(description: "Shipment number.")
     carbon_footprint: String @doc(description: "Ecologic impact.")
 }
+
+type OrderAddress @doc(description: "Contains detailed information about an order's billing and shipping addresses."){
+    cutoff: String @doc(description: "Deadline date.")
+    eta_start: String @doc(description: "Start date of the delivery.")
+    eta_end: String @doc(description: "End date of the delivery.")
+    shipment_number: String @doc(description: "Shipment number.")
+    carbon_footprint: String @doc(description: "Ecologic impact.")
+    onestock_dp: String @doc(description: "Ecologic impact.")
+}
+
+type CustomerOrder @doc(description: "Contains details about each of the customer's orders.") {
+    shipping_address: OrderAddress @doc(description: "The shipping address for the order.") @resolver(class: "Smile\\OnestockDeliveryPromise\\Model\\Resolver\\CustomerOrders\\ShippingAddress")
+}

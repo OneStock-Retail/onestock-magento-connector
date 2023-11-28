@@ -20,6 +20,9 @@ class AddPromiseToSelectedShippingAddress
     {
     }
 
+    /**
+     * Add onestockdp to the graphQL
+     */
     public function aroundResolve(
         SelectedShippingMethod $subject,
         callable $proceed,
@@ -31,10 +34,9 @@ class AddPromiseToSelectedShippingAddress
     ): array {
         $unseraliazedAdress = [];
         $address = $value['model'];
-
         try {
             $unseraliazedAdress = $this->serializer->unserialize($address->getOnestockDp());
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) { // phpcs:ignore Magento2.CodeAnalysis.EmptyBlock.DetectedCatch
         }
 
         $result = $proceed($field, $context, $info, $value, $args);

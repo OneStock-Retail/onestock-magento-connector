@@ -31,6 +31,8 @@ class AddPromiseToRate
      * Add onestock_dp to all quote_shipping_rate(s)
      * and the rate corresponding to the shipping method to quote_address
      * if shipping method is set
+     *
+     * @throws GuzzleException
      */
     public function aroundRequestShippingRates(Address $subject, callable $proceed, ?AbstractItem $item = null): bool
     {
@@ -65,6 +67,7 @@ class AddPromiseToRate
                 $requests,
                 array_keys($methods),
                 $subject->getCountryId(),
+                // @phpstan-ignore-next-line
                 $subject->getPostcode() ?? ""
             ) as $promise
         ) {
@@ -100,7 +103,8 @@ class AddPromiseToRate
         $res = [];
         try {
             /** @var PromiseInterface[] $res */
-            $res = $this->tokenHelper->call(function ($config, $token) use ($items, $methods, $country, $postcode): array {
+            $res = $this->tokenHelper->call(function ($config, $token)
+ use ($items, $methods, $country, $postcode): array {
                 return $this->request->get($config, $token, $items, $methods, $country, $postcode);
             });
         } catch (Exception $e) {

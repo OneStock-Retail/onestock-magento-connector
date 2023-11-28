@@ -93,7 +93,7 @@ interface PromiseInterface
     /**
      * Cast to json string
      *
-     * @return string
+     * @return bool
      */
     public function getGreenOption(): bool;
 }
