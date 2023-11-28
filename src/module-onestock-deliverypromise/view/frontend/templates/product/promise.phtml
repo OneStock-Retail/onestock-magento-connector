@@ -21,7 +21,7 @@
 <div id="catalog-product-promise" data-block="catalog-product-promise" class="block catalog-product-promise">
     <div class="block catalog-product-promise"
          data-bind="scope: 'catalog-product-promise'">
-        <div class="promises-list" data-role="content">
+        <div class="promises-list" data-role="content" data-bind="blockLoader: ajaxPending">
         <div class="action button-promise-change-country">
             <span class="home-delivery"></span>
             <span> <?= $escaper->escapeHtmlAttr(__('Home delivery to')); ?> </span>

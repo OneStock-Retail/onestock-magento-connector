@@ -34,6 +34,7 @@ define([
          */
         initialize: function () {
             this._super();
+            this.ajaxPending = ko.observable(false);
             this.promises = ko.observable([]);
             this.lastCountry = ko.observable("");
             this.lastPostcode = ko.observable("");
@@ -123,13 +124,14 @@ define([
             var country_id = this.getCountry()
             var postcode = this.getPostcode()
             var sku = this.selectedSku();
-
+            this.ajaxPending(true);
             $.ajax({
                 url: urlBuilder.build(`rest/V1/delivery_promises/shipping-methods/${sku}/${country_id}/${postcode}`),
                 dataType: 'json',
                 cache:true,
                 type: 'GET'
             }).done((response) => {
+                this.ajaxPending(false);
                 $('.form-modal-promise').css('display', 'block');
                 this.lastCountry(country_id);
                 this.lastPostcode(postcode);
@@ -137,7 +139,7 @@ define([
                     this.promises(response)
                 }
             }).fail(function () {
-
+                this.ajaxPending(false);
             });
         },
         /**
