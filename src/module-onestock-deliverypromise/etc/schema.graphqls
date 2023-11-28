@@ -1,15 +1,15 @@
 type AvailableShippingMethod @doc(description: "Contains details about the possible shipping methods and carriers.") {
-    cutoff: String! @doc(description: "A string that identifies a commercial carrier or an offline shipping method.")
-    eta_start: String! @doc(description: "The label for the carrier code.")
-    eta_end: String @doc(description: "A shipping method code associated with a carrier. The value could be null if no method is available.")
-    shipment_number: String @doc(description: "The label for the shipping method code. The value could be null if no method is available.")
-    carbon_footprint: String @doc(description: "Describes an error condition.")
+    cutoff: String @doc(description: "Deadline date.")
+    eta_start: String @doc(description: "Start date of the delivery.")
+    eta_end: String @doc(description: "End date of the delivery.")
+    shipment_number: String @doc(description: "Shipment number.")
+    carbon_footprint: String @doc(description: "Ecologic impact.")
 }
 
 type SelectedShippingMethod @doc(description: "Contains details about the selected shipping method and carrier.") {
-    cutoff: String! @doc(description: "A string that identifies a commercial carrier or an offline shipping method.")
-    eta_start: String! @doc(description: "The label for the carrier code.")
-    eta_end: String @doc(description: "A shipping method code associated with a carrier. The value could be null if no method is available.")
-    shipment_number: String @doc(description: "The label for the shipping method code. The value could be null if no method is available.")
-    carbon_footprint: String @doc(description: "Describes an error condition.")
+    cutoff: String @doc(description: "Deadline date.")
+    eta_start: String @doc(description: "Start date of the delivery.")
+    eta_end: String @doc(description: "End date of the delivery.")
+    shipment_number: String @doc(description: "Shipment number.")
+    carbon_footprint: String @doc(description: "Ecologic impact.")
 }

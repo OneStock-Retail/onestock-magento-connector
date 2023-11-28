@@ -96,5 +96,4 @@ interface PromiseInterface
      * @return string
      */
     public function getGreenOption(): bool;
-
 }

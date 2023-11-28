@@ -3,7 +3,7 @@
 <!-- /ko -->
 
 <span translate="'Delivered'"></span>
-<span translate="'by '"></span> <!-- ko text: $parent.carrier_title --><!-- /ko --> 
+<span translate="'by '"></span> <!-- ko text: $parent.carrier_title --><!-- /ko -->
 
 <!-- ko if: ($parent.extension_attributes && $parent.extension_attributes.onestock_dp) -->
 <span class="promise-bold" data-bind="text: calculDeliveryDate($parent.extension_attributes.onestock_dp.eta_start, $parent.extension_attributes.onestock_dp.eta_end)"></span>

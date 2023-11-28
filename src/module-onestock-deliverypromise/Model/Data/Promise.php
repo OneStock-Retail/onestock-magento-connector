@@ -106,6 +106,9 @@ class Promise extends DataObject implements PromiseInterface
         return $this->toJson();
     }
 
+    /**
+     * Check if greenest option
+     */
     public function getGreenOption(): bool
     {
         return $this->hasData("green_option") ? $this->getData("green_option") : false;

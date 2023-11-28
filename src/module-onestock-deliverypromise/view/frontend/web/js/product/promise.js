@@ -52,7 +52,7 @@ define([
                 this.selectedPostcode(this.lastPostcode())
             });
             $( document ).on( "update_country_for_promise", (_) => {
-                this.setCountry(this.selectedCountry()); 
+                this.setCountry(this.selectedCountry());
                 this.setPostcode(this.selectedPostcode());
                 this.displayPromise();
             });
@@ -102,7 +102,7 @@ define([
             }
             address.country_id = code;
             checkoutData.setShippingAddressFromData(address);
-            
+
             return this;
         },
 
@@ -130,6 +130,7 @@ define([
                 cache:true,
                 type: 'GET'
             }).done((response) => {
+                $('.form-modal-promise').css('display', 'block');
                 this.lastCountry(country_id);
                 this.lastPostcode(postcode);
                 if (!response.errors) {

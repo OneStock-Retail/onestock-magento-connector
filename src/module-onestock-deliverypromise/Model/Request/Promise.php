@@ -26,6 +26,7 @@ use Smile\Onestock\Api\Data\Authentication\TokenInterface;
 use Smile\Onestock\Api\Data\ConfigInterface;
 use Smile\OnestockDeliveryPromise\Api\Data\PromiseInterface;
 use Smile\OnestockDeliveryPromise\Model\Data\Promise as PromiseDataModel;
+use Smile\OnestockDeliveryPromise\Helper\Config;
 
 /**
  * Rest request to query orders
@@ -35,7 +36,8 @@ class Promise
     public function __construct(
         protected Client $httpClient,
         protected ServiceInputProcessor $toClassProcessor,
-        protected ServiceOutputProcessor $toArrayProcessor
+        protected ServiceOutputProcessor $toArrayProcessor,
+        protected Config $config,
     ) {
     }
 
@@ -106,10 +108,12 @@ class Promise
                 );
             }
             $jsonContent = json_decode($response->getBody()->getContents(), true);
-            usort($jsonContent["delivery_options"], function($l,$r ) {
-                return $l["carbon_footprint"] <=> $r["carbon_footprint"];
-            });
-            $jsonContent["delivery_options"][0]["green_option"] = true;
+            if ($this->config->greenEnabled()) {
+                usort($jsonContent["delivery_options"], function ($l, $r) {
+                    return $l["carbon_footprint"] <=> $r["carbon_footprint"];
+                });
+                $jsonContent["delivery_options"][0]["green_option"] = true;
+            }
             if (!isset($jsonContent['delivery_options'])) {
                 throw new RequestException(
                     $response->getBody()->getContents(),

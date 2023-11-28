@@ -28,6 +28,7 @@ class Config
     public const GUEST_COUNTRY = 'smile_onestock/dp/guest_country';
     public const BASE_CURRENCY = 'currency/options/base';
     public const ENABLED = 'smile_onestock/dp/dp_enabled';
+    public const GREEN_ENABLED = 'smile_onestock/dp/green_enabled';
 
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
@@ -98,6 +99,17 @@ class Config
     {
         return (bool) $this->scopeConfig->getValue(
             self::ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function greenEnabled(): bool
+    {
+        return (bool) $this->scopeConfig->getValue(
+            self::GREEN_ENABLED,
             ScopeInterface::SCOPE_STORE
         );
     }

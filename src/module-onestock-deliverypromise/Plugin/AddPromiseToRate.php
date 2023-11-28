@@ -47,7 +47,7 @@ class AddPromiseToRate
         if (empty($methods)) {
             return $found;
         }
-        
+
         $products = [$item];
         $requests = [];
         if ($item == null) {
@@ -59,17 +59,22 @@ class AddPromiseToRate
                 "qty" => $product->getQty(),
             ];
         }
-        foreach ($this->getPromises($requests, array_keys($methods), $subject->getCountryId(), $subject->getPostcode()??"") as $promise) {
-            if (!isset($methods[$promise->getDeliveryMethod()])) {
+
+        foreach ($this->getPromises($requests, array_keys($methods),
+            $subject->getCountryId(), $subject->getPostcode() ?? "") as $promise) {
+            if (!isset($methods[$promise->getDeliveryMethod()])
+                || $promise->getStatus() === "partial"
+                || $promise->getStatus() === "partial_estimation"
+                || $promise->getStatus() === "none" ) {
                 continue;
             }
-            /** @var Rate $rate */
-            $rate = $methods[$promise->getDeliveryMethod()];
-            $rate->setOnestockDp((string) $promise);
+                /** @var Rate $rate */
+                $rate = $methods[$promise->getDeliveryMethod()];
+                $rate->setOnestockDp((string) $promise);
 
-            if ($subject->getShippingMethod() == $promise->getDeliveryMethod()) {
-                $subject->setOnestockDp((string) $promise);
-            }
+                if ($subject->getShippingMethod() == $promise->getDeliveryMethod()) {
+                    $subject->setOnestockDp((string) $promise);
+                }
         }
         return $found;
     }

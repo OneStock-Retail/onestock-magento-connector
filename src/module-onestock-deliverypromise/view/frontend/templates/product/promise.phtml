@@ -23,7 +23,9 @@
          data-bind="scope: 'catalog-product-promise'">
         <div class="promises-list" data-role="content">
         <div class="action button-promise-change-country">
-            <span class="home-delivery"></span><span translate="'Home delivery to'"></span><span class="promise-country" data-bind="text: getCountryLabelFromCode(lastCountry), attr: {title: lastCountry}"></span><a href="#" class="text">✎</a>
+            <span class="home-delivery"></span>
+            <span> <?= $escaper->escapeHtmlAttr(__('Home delivery to')); ?> </span>
+            <span class="promise-country" data-bind="text: getCountryLabelFromCode(lastCountry), attr: {title: lastCountry}"></span><a href="#" class="text">✎</a>
         </div>
         <div class="smile.promise.modale"
             data-bind="mageInit: {
@@ -47,7 +49,7 @@
                     title: '<?= $escaper->escapeHtmlAttr(__('Enter your address')); ?>'
                 }
             }">
-            <form id="image-edit-details-form" method="post" enctype="multipart/form-data">
+            <form class= "form-modal-promise" style="display: none"  id="image-edit-details-form" method="post" enctype="multipart/form-data">
                 <?= $escaper->escapeHtmlAttr(__('Country')); ?>
                 <select type="select" data-bind="options: countries, optionsText: formatCountryName, optionsValue: formatCountryCode, value: selectedCountry">
                 </select>

@@ -17,6 +17,7 @@ namespace Smile\OnestockDeliveryPromise\Service;
 
 use Magento\Catalog\Model\ProductFactory;
 use Magento\Quote\Model\Cart\ShippingMethodConverter;
+use Magento\Quote\Model\Quote\Address;
 use Magento\Quote\Model\Quote\AddressFactory;
 use Magento\Quote\Model\Quote\ItemFactory;
 use Magento\Quote\Model\QuoteFactory;
@@ -52,6 +53,7 @@ class Promise implements ShipmentInterface
         if (empty($postcode)) {
             $postcode = $this->config->getGuestPostcode();
         }
+        /** @var  Address $temporaryAddress */
         $temporaryAddress = $this->addressFactory->create();
         $temporaryProduct = $this->productFactory->create();
         $temporaryItem = $this->quoteItemFactory

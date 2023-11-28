@@ -4,10 +4,10 @@
  * See COPYING.txt for license details.
  */
 -->
-<p><span class="home-delivery"></span>Home delivery</p>
+<p><span class="home-delivery"></span><span translate="'Home delivery'"></span></p>
 <form id="co-shipping-method-form" data-bind="blockLoader: isLoading, visible: isVisible()">
     <p class="field note" data-bind="visible: (!isLoading() && shippingRates().length <= 0)">
-        <!-- ko text: $t('Sorry, no quotes are available for this order at this time')--><!-- /ko -->
+        <!-- ko text: $t('No delivery option available for your postal code')--><!-- /ko -->
     <fieldset class="fieldset rate" data-bind="visible: (shippingRates().length > 0)">
         <dl class="items methods" data-bind="foreach: shippingRateGroups">
 
@@ -17,7 +17,7 @@
                     <div data-bind="text: error_message"></div>
                     <!-- /ko -->
                     <!-- ko if: (available) -->
-                    
+
                     <input type="radio"
                            class="radio"
                            data-bind="
@@ -38,7 +38,7 @@
                         <!-- ko ifnot: $data.price_incl_tax -->
                         <span class="price"><span class="price-promise" data-bind="text: 'free'"></span></span>
                         <!-- /ko -->
-        
+
                         <each args="element.getRegion('delivery-date')" render=""></each>
 
                     </label>
