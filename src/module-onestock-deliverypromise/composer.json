@@ -25,6 +25,7 @@
     "require-dev": {
         "magento/module-inventory": "^1.2",
         "magento/module-inventory-indexer": "^2.2",
+        "magento/module-quote-graph-ql": "^100.4",
         "phpunit/phpunit": "^9.5",
         "smile/magento2-smilelab-quality-suite": "^3.0"
     },
