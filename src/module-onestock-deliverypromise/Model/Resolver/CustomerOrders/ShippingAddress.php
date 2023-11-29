@@ -21,10 +21,12 @@ class ShippingAddress implements ResolverInterface
 
     /**
      * Add onestockdp on customer order address graphQL
+     *
+     * @param ContextInterface $context
      */
     public function resolve(
         Field $field,
-        ContextInterface $context,
+        $context,
         ResolveInfo $info,
         ?array $value = null,
         ?array $args = null
