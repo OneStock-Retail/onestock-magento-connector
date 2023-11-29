@@ -124,6 +124,7 @@ define([
             var country_id = this.getCountry()
             var postcode = this.getPostcode()
             var sku = this.selectedSku();
+            this.promises([]);
             this.ajaxPending(true);
             $.ajax({
                 url: urlBuilder.build(`rest/V1/delivery_promises/shipping-methods/${sku}/${country_id}/${postcode}`),
