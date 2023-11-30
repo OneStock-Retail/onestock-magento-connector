@@ -69,7 +69,8 @@
             </form>
         </div>
         <div class="promises-list" data-bind="blockLoader: ajaxPending">
-            <span data-bind="visible: (!ajaxPending() && promises().length <= 0), text: $t('No delivery option available for your postal code')">
+            <span class="no-promise-available" data-bind="visible: (!ajaxPending() && promises().length <= 0)">
+                <!-- ko text: $t('No delivery option available for your postal code') --><!-- /ko -->
             </span>
             <ul data-bind="foreach: promises()">
                 <li data-bind="template: $parent.promiseListTemplate" class="result-item"></li>
