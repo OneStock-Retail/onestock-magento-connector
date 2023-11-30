@@ -139,7 +139,7 @@ define([
                 if (!response.errors) {
                     this.promises(response)
                 }
-            }).fail(function () {
+            }).fail(() => {
                 this.ajaxPending(false);
             });
         },
