@@ -99,7 +99,7 @@ define([
             diff.hour = tmp % 24;					// Extraction du nombre d'heures
 
             if (diff.hour) {
-                textToDisplay +=  diff.hour + "h " + diff.min + "m";
+                textToDisplay +=  diff.hour + "h" + diff.min + "m";
                 return textToDisplay;
             }
             if (diff.min) {
