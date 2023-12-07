@@ -4,6 +4,7 @@
     <module name="Smile_OnestockDeliveryPromise" >
         <sequence>
             <module name="Smile_Onestock"/>
+            <module name="Magento_QuoteGraphQl"/>
         </sequence>
     </module>
 </config>
