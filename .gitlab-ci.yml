@@ -9,32 +9,49 @@ default:
     before_script:
         - composer config -g cache-dir "$(pwd)/.composer-cache"
 
-code-analysis:
+code-analysis-core:
     stage: test
     script:
+        - cd src/module-onestock-connector
         - composer install --no-interaction
         - composer audit --format=plain
         - vendor/bin/parallel-lint --exclude vendor .
         - vendor/bin/phpcs --extensions=php,phtml
         - vendor/bin/phpcs --extensions=php,phtml --standard=Magento2 --severity=9 --ignore=vendor .
         - vendor/bin/phpstan analyse
+    rules:
+    - changes:
+        - src/module-onestock-connector/**/*
 
-phpunit:
+code-analysis-deliverypromise:
+    stage: test
+    script:
+        - cd src/module-onestock-deliverypromise
+        - composer config repositories.repo-name path ../module-onestock-connector
+        - composer config minimum-stability dev
+        - composer config prefer-stable true
+        - composer install --no-interaction
+        - composer audit --format=plain
+        - vendor/bin/parallel-lint --exclude vendor .
+        - vendor/bin/phpcs --extensions=php,phtml
+        - vendor/bin/phpcs --extensions=php,phtml --standard=Magento2 --severity=9 --ignore=vendor .
+        - vendor/bin/phpstan analyse
+    rules:
+    - changes:
+        - src/module-onestock-deliverypromise/**/*
+
+compile:
     stage: test
     script:
         - mkdir -p .magento
         - cd .magento
-        - rm -rf app/code/Smile/Onestock
+        - rm -rf app/code/Smile/
         - stat composer.json || composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
-        - mkdir -p app/code/Smile/Onestock
-        - mv ../* app/code/Smile/Onestock
+        - mkdir -p app/code/Smile/
+        - mv ../src/module-onestock-connector app/code/Smile/Onestock
+        - mv ../src/module-onestock-deliverypromise app/code/Smile/OnestockDeliveryPromise
         - bin/magento module:enable --all
         - bin/magento setup:di:compile
-        - vendor/bin/phpunit -c app/code/Smile/Onestock/phpunit.xml --bootstrap "dev/tests/unit/framework/bootstrap.php" --log-junit ../phpunit.xml app/code/Smile/Onestock/Test/Integration
     cache:
         paths:
             - .magento
-    artifacts:
-        reports:
-            junit:
-                - phpunit.xml
