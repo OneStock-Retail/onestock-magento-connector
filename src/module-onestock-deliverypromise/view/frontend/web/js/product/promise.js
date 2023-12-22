@@ -136,8 +136,8 @@ define([
                 $('.form-modal-promise').css('display', 'block');
                 this.lastCountry(country_id);
                 this.lastPostcode(postcode);
-                if (!response.errors) {
-                    this.promises(response)
+                if (!response.errors && typeof(response.filter) != "undefined") {
+                    this.promises(response.filter(method=>method.available));
                 }
             }).fail(() => {
                 this.ajaxPending(false);
