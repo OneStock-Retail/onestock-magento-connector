@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 - Initial release
 
 Primary features:
-- integration of core Webservice /delivery_promises
+- integration of core Webservice /v2/delivery_promises
 - ajax block on product page
 - side effect on shipping rates
 - save promise date on quote and order addresses

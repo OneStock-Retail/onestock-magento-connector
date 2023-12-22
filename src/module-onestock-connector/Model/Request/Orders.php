@@ -58,7 +58,7 @@ class Orders
         try {
             $request = new Request(
                 'GET',
-                $server->getHost() . '/v3/orders/' . $id,
+                $server->getHost() . '/v2/orders/' . $id,
                 [
                     'Content-Type' => 'application/json',
                 ],
@@ -105,7 +105,7 @@ class Orders
         try {
             $request = new Request(
                 'POST',
-                $server->getHost() . '/v3/orders',
+                $server->getHost() . '/v2/orders',
                 [
                     'Content-Type' => 'application/json',
                 ],

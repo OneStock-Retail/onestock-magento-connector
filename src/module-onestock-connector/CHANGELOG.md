@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
 
 Primary features:
 - Daily cron onestock_full_stock_import to import stock from csv file
-- Observe quote submit to export order to Onestock
+- Observe quote submit to export order to Onestock webservice /v2/orders
 - Webhook /rest/V1/order/:orderId/onestock_updates to receive updates, such as a shipments, of this order
 - Configurable settings in etc/adminhtml/system.xml
 
@@ -17,7 +17,7 @@ Secondary features:
 - Sweeper-car cron to manage export error.
 - Dummy webhook  /rest/V1/order/:orderId/onestock_export for internal async use.
 - Helper using fieldset to convert a magento order into an order in onestock rest api.
-- Login helper
+- Login helper to authenticate with webservice /v2/login
 - Config helper
 - Virtual Type to share code between daily stock import.
 - Guzzle requests toward onestock rest api in order to login, fetch and post order

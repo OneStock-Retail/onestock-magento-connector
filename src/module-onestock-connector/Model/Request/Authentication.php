@@ -73,7 +73,7 @@ class Authentication
         try {
             $request = new Request(
                 'POST',
-                $server->getHost() . '/login',
+                $server->getHost() . '/v2/login',
                 [
                     'Content-Type' => 'application/json',
                 ],

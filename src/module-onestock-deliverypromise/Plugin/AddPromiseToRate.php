@@ -53,7 +53,7 @@ class AddPromiseToRate
         $products = [$item];
         $requests = [];
         if ($item == null) {
-            $products = $subject->getAllItems();
+            $products = $subject->getAllVisibleItems();
         }
         foreach ($products as $product) {
             $requests[] = [

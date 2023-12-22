@@ -37,13 +37,15 @@ class Price implements ObserverInterface
         $target = $observer->getTarget();
         $target['pricing_details'] = [
             'currency' => $order->getOrderCurrencyCode(),
-            'address' => array_filter(
-                $this->objectCopyService->getDataFromFieldset(
-                    'onestock_address_mapping',
-                    'to_onestock_contact',
-                    $order->getBillingAddress(),
-                )
-            ),
+            'address' => [
+                'contact' => array_filter(
+                    $this->objectCopyService->getDataFromFieldset(
+                        'onestock_address_mapping',
+                        'to_onestock_contact',
+                        $order->getBillingAddress(),
+                    )
+                ),
+            ],
             'price' => floatval($order->getGrandTotal()),
         ];
     }

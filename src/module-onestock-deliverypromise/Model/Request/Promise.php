@@ -67,7 +67,7 @@ class Promise
         try {
             $request = new Request(
                 'GET',
-                $server->getHost() . '/delivery_promises',
+                $server->getHost() . '/v2/delivery_promises',
                 [
                     'Content-Type' => 'application/json',
                 ],

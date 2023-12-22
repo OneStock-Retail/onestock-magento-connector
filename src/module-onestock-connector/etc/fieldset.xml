@@ -21,9 +21,6 @@
             <field name="lastname">
                 <aspect name="to_onestock_contact" targetField="last_name"/>
             </field>
-            <field name="company">
-                <aspect name="to_onestock_contact" targetField="company_name"/>
-            </field>
             <field name="telephone">
                 <aspect name="to_onestock_contact" targetField="phone_number"/>
             </field>
@@ -32,17 +29,8 @@
             </field>
         </fieldset>
         <fieldset id="onestock_item_mapping">
-            <field name="item_id">
-                <aspect name="to_onestock_item" targetField="id"/>
-            </field>
             <field name="sku">
                 <aspect name="to_onestock_item" targetField="item_id"/>
-            </field>
-            <field name="lastname">
-                <aspect name="to_onestock_item" targetField="last_name"/>
-            </field>
-            <field name="telephone">
-                <aspect name="to_onestock_item" targetField="phone_number"/>
             </field>
         </fieldset>
     </scope>
