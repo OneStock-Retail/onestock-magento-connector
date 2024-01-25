@@ -69,7 +69,7 @@ class ImportTest extends TestCase
             ->emulateAreaCode(
                 Area::AREA_CRONTAB,
                 [$this->import, 'requestUpdate'],
-                [$input, $output]
+                [$input, 0, "", ""]
             );
     }
 }

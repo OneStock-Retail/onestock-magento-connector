@@ -63,13 +63,12 @@ class RefundTest extends TestCase
     public function testPipeline(): void
     {
         
-        $output = null;
-        $input = 7;
+        $input = "000000007";
         $this->applicationState
             ->emulateAreaCode(
                 Area::AREA_ADMINHTML,
                 [$this->import, 'requestUpdate'],
-                [$input, $output]
+                [$input, 0, "", ""]
             );
     }
 }

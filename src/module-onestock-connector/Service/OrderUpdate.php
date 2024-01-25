@@ -49,7 +49,7 @@ class OrderUpdate implements OrderUpdateInterface
     /**
      * @inheritdoc
      */
-    public function requestUpdate(string $orderIncrementId): void
+    public function requestUpdate(string $orderIncrementId, int $date, string $oldState, string $newState): void
     {
         $order = $this->getOrderByIncrementId($orderIncrementId);
         $onestockOrder = $this->tokenHelper->call(
