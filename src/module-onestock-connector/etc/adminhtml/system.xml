@@ -156,6 +156,10 @@
                     <label>Debug mode</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="order_export_mode" translate="label" type="select" sortOrder="60" showInDefault="1" canRestore="1">
+                    <label>Order export mode</label>
+                    <source_model>Smile\Onestock\Model\Config\Source\OrderExportMode</source_model>
+                </field>
             </group>
        
             <group id="ftp"
