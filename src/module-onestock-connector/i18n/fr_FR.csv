@@ -40,3 +40,6 @@ Enabled,Activée
 "Use legacy stock tables","Utiliser les tables de stock legacy"
 "Stock import","Import de stock"
 "Log all requests","Tracer toutes les requetes dans le log"
+"Order export mode","Modalité d'export de commande"
+"Immediately when order is placed","Immédiatement après le passage de commande"
+"Wait for invoice paid","Attendre le paiment de la facture"

@@ -36,6 +36,7 @@ class Config implements ConfigInterface
     public const LOG_ENABLED = 'smile_onestock/api/log_enabled';
     public const FIELDS = 'smile_onestock/api/fields';
     public const LOGIN_CACHE_LIFETIME = 'smile_onestock/api/login_cache_lifetime';
+    public const ORDER_EXPORT_MODE = 'smile_onestock/api/order_export_mode';
 
     public function __construct(
         protected ScopeConfigInterface $scopeConfig,
@@ -119,6 +120,14 @@ class Config implements ConfigInterface
     public function getOrderRetryCount(): string
     {
         return $this->scopeConfig->getValue(self::ORDER_RETRY_COUNT, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * Return when export should occur
+     */
+    public function getOrderExportMode(): string
+    {
+        return $this->scopeConfig->getValue(self::ORDER_EXPORT_MODE, ScopeInterface::SCOPE_STORE);
     }
 
     /**

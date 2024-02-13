@@ -61,6 +61,13 @@ interface ConfigInterface
     public function getOrderRetryCount(): string;
 
     /**
+     * Return when export should occur
+     *
+     * @return string
+     */
+    public function getOrderExportMode(): string;
+
+    /**
      * Return lifetime
      */
     public function getLoginCacheLifetime(): int;
