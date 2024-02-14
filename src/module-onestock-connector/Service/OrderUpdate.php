@@ -49,12 +49,12 @@ class OrderUpdate implements OrderUpdateInterface
     /**
      * @inheritdoc
      */
-    public function requestUpdate(string $orderIncrementId, int $date, string $oldState, string $newState): void
+    public function requestUpdate(string $order_id, int $date, string $old_state, string $new_state): void
     {
-        $order = $this->getOrderByIncrementId($orderIncrementId);
+        $order = $this->getOrderByIncrementId($order_id);
         $onestockOrder = $this->tokenHelper->call(
-            function ($config, $token) use ($orderIncrementId): OnestockOrderInterface {
-                return $this->ordersApi->get($config, $token, $orderIncrementId);
+            function ($config, $token) use ($order_id): OnestockOrderInterface {
+                return $this->ordersApi->get($config, $token, $order_id);
             }
         );
         foreach ($onestockOrder['line_item_groups'] as $group) {
