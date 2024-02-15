@@ -30,6 +30,12 @@ class Configure implements StockImportHandlerInterface
 {
     public const CONFIG_FOLDER = 'smile_onestock/ftp/folder';
     public const CONFIG_PATTERN = 'smile_onestock/ftp/us_full_pattern';
+    public const CONFIG_FTP_ENABLED = 'smile_onestock/ftp/remote_enabled';
+    public const CONFIG_FTP_USERNAME = 'smile_onestock/ftp/remote_username';
+    public const CONFIG_FTP_PASSWORD = 'smile_onestock/ftp/remote_password';
+    public const CONFIG_FTP_PATH = 'smile_onestock/ftp/remote_path';
+    public const CONFIG_FTP_HOST = 'smile_onestock/ftp/remote_host';
+    public const CONFIG_FTP_CLEANUP = 'smile_onestock/ftp/remote_cleanup';
     public const TABLE = 'onestock_transition_unified_stock';
     public const USE_MODULE_ = 'smile_onestock/stock/use_';
 
@@ -66,11 +72,12 @@ class Configure implements StockImportHandlerInterface
             ScopeInterface::SCOPE_STORE
         );
         return new DataObject([
-            'pattern' => $pattern,
+            'regex' => '/' . str_replace('*', '.*', $pattern) . '/',
             'folder' => $folder,
             'use_msi' => $this->useMsi(),
             'use_legacy' => $this->useLegacy(),
             'table' => self::TABLE,
+            'ftp' => $this->getSftpCredentials(),
         ]);
     }
 
@@ -88,6 +95,40 @@ class Configure implements StockImportHandlerInterface
         return $configEnabled && $moduleEnabled && $structureOk;
     }
 
+    /**
+     * Return ftp credential if feature is enabled
+     */
+    public function getSftpCredentials(): array
+    {
+        $credential = [];
+        $configEnabled = (bool) $this->scopeConfig->getValue(
+            self::CONFIG_FTP_ENABLED,
+            ScopeInterface::SCOPE_STORE
+        );
+        if ($configEnabled) {
+            $credential['username'] = $this->scopeConfig->getValue(
+                self::CONFIG_FTP_USERNAME,
+                ScopeInterface::SCOPE_STORE
+            );
+            $credential['password'] = $this->scopeConfig->getValue(
+                self::CONFIG_FTP_PASSWORD,
+                ScopeInterface::SCOPE_STORE
+            );
+            $credential['path'] = $this->scopeConfig->getValue(
+                self::CONFIG_FTP_PATH,
+                ScopeInterface::SCOPE_STORE
+            );
+            $credential['host'] = $this->scopeConfig->getValue(
+                self::CONFIG_FTP_HOST,
+                ScopeInterface::SCOPE_STORE
+            );
+            $credential['cleanup'] = $this->scopeConfig->getValue(
+                self::CONFIG_FTP_CLEANUP,
+                ScopeInterface::SCOPE_STORE
+            );
+        }
+        return $credential;
+    }
     /**
      * Predicate legacy is enabled in config
      */
