@@ -7,7 +7,7 @@
         <observer name="onestock_export_new_order" instance="Smile\Onestock\Observer\ExportNewOrder"/>
     </event>
     <event name="sales_order_invoice_pay">
-        <observer name="onestock_export_paid_order" instance="Smile\Onestock\Observer\ExportNewOrder"/>
+        <observer name="onestock_export_paid_order" instance="Smile\Onestock\Observer\ExportInvoicedOrder"/>
     </event>
     <event name="core_copy_fieldset_onestock_order_mapping_to_onestock_order">
         <observer name="onestock_export_order_static_fields" instance="Smile\Onestock\Observer\Mapping\Order\StaticFields"/>
