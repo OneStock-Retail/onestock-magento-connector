@@ -6,8 +6,9 @@
 
     <virtualType name="Smile\Onestock\Cron\StockFull" type="Smile\Onestock\Cron\Import">
         <arguments>
-            <argument name="data" xsi:type="array">
+            <argument name="handlers" xsi:type="array">
                 <item name="configure" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\Configure</item>
+                <item name="ftp_fetch" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\Ftp</item>
                 <item name="file_exists" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\FileExists</item>
                 <item name="create_table" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\CreateTable</item>
                 <item name="read_file" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\ReadFile</item>
@@ -28,8 +29,9 @@
 
     <virtualType name="Smile\Onestock\Cron\StockDiff" type="Smile\Onestock\Cron\Import">
         <arguments>
-            <argument name="data" xsi:type="array">
+            <argument name="handlers" xsi:type="array">
                 <item name="configure_for_differencial" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\ConfigureDiff</item>
+                <item name="ftp_fetch" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\Ftp</item>
                 <item name="file_exists" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\FileExists</item>
                 <item name="create_table" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\CreateTable</item>
                 <item name="read_file" xsi:type="object">\Smile\Onestock\Model\Handler\Stock\ReadFile</item>

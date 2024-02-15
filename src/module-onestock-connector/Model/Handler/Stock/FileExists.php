@@ -49,7 +49,8 @@ class FileExists implements StockImportHandlerInterface
     {
         $this->driverFile->createDirectory($res['folder'] . '/in/unified_stock');
         $paths = $this->driverFile->readDirectory($res['folder'] . '/in/unified_stock');
-        $paths = preg_grep('/' . str_replace('*', '.*', $res['pattern']) . '/', $paths);
+
+        $paths = preg_grep($res['regex'], $paths);
 
         $res->setData('files', $paths);
         return $res;

@@ -202,6 +202,45 @@
                     <label>Unifed Stock: file pattern for DIFF</label>
                     <comment>Wildcard (*) will match date and time</comment>
                 </field>
+
+                <field id="remote_enabled" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1">
+                    <label>Fetch file on remote FTP</label>
+                    <comment>Automatically retrieve files from a FTP and copy them to the local import/export folder</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="remote_username" translate="label" type="obscure" sortOrder="72" showInDefault="1" showInWebsite="1">
+                    <label>Remote FTP Username</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="remote_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="remote_password" translate="label" type="obscure" sortOrder="74" showInDefault="1" showInWebsite="1">
+                    <label>Remote FTP Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="remote_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="remote_host" translate="label comment tooltip" type="text" sortOrder="76" showInDefault="1" showInWebsite="1">
+                    <label>Remote FTP Hostname or IP-Address</label>
+                    <depends>
+                        <field id="remote_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="remote_path" translate="label comeent" type="text" sortOrder="78" showInDefault="1" showInWebsite="1">
+                    <label>Remote FTP Custom Path</label>
+                    <depends>
+                        <field id="remote_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="remote_cleanup" translate="label comeent" type="select" sortOrder="78" showInDefault="1" showInWebsite="1">
+                    <label>Remote cleanup file after import</label>
+                    <depends>
+                        <field id="remote_enabled">1</field>
+                    </depends>
+                    <source_model>Smile\Onestock\Model\Config\Source\Cleanup</source_model>
+                </field>
             </group>
 
             <group id="stock"
