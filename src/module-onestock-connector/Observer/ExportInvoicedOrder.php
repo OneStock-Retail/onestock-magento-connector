@@ -15,24 +15,13 @@ declare(strict_types=1);
 
 namespace Smile\Onestock\Observer;
 
-use Magento\AsynchronousOperations\Model\MassSchedule;
 use Magento\Framework\Event\Observer;
-use Psr\Log\LoggerInterface;
-use Smile\Onestock\Api\Data\ConfigInterface;
 
 /**
  * Observer to export order placed
  */
 class ExportInvoicedOrder extends AddOrderToExportQueue
 {
-    public function __construct(
-        protected MassSchedule $asyncBulkPublisher,
-        protected LoggerInterface $logger,
-        protected ConfigInterface $config,
-    ) {
-        parent::__construct($asyncBulkPublisher, $logger);
-    }
-
     /**
      * Add order to export queue.
      *
@@ -41,9 +30,7 @@ class ExportInvoicedOrder extends AddOrderToExportQueue
      */
     public function execute(Observer $observer): void
     {
-        if ($this->config->getOrderExportMode() == $observer->getEventName()) {
-            $observer->setOrder($observer->getInvoice()->getOrder());
-            parent::execute($observer);
-        }
+        $observer->setOrder($observer->getInvoice()->getOrder());
+        parent::execute($observer);
     }
 }
