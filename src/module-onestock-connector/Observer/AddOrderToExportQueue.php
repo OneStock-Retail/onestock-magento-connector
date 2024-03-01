@@ -20,6 +20,7 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\BulkException;
 use Psr\Log\LoggerInterface;
+use Smile\Onestock\Api\Data\ConfigInterface;
 
 /**
  * Observer to export order placed
@@ -30,7 +31,8 @@ class AddOrderToExportQueue implements ObserverInterface
 
     public function __construct(
         protected MassSchedule $asyncBulkPublisher,
-        protected LoggerInterface $logger
+        protected LoggerInterface $logger,
+        protected ConfigInterface $config,
     ) {
     }
 
@@ -43,6 +45,15 @@ class AddOrderToExportQueue implements ObserverInterface
     public function execute(Observer $observer): void
     {
         $orderId = $observer->getOrder()->getId();
+
+        $mode = $this->config->getOrderExportMode();
+        $event = $observer->getEvent()->getName();
+        if ($mode != $event) {
+            $this->logger->debug("Order " . $orderId . " not queued during " . $event . " in mode " . $mode);
+            return;
+        }
+
+        $this->logger->debug("Order " . $orderId . " added to queue");
         try {
             $this->asyncBulkPublisher->publishMass(
                 self::TOPIC_NAME,
