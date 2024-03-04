@@ -42,7 +42,7 @@ class RetryOrderExport
     public function start(): void
     {
         $orderCollection = $this->orderCollectionFactory->create();
-        $orderCollection->addFieldToFilter('order_retry_count', ['lteq' => $this->config->getOrderRetryCount()]);
+        $orderCollection->addFieldToFilter('onestock_retries', ['lteq' => $this->config->getOrderRetryCount()]);
         $orderCollection->addFieldToFilter('onestock_export_status', strval(OrderExport::ERROR));
         try {
             $this->asyncBulkPublisher->publishMass(

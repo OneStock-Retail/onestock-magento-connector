@@ -2,12 +2,12 @@
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="sales_order" resource="sales" engine="innodb" comment="Sales Flat Order">
-        <column xsi:type="smallint" name="order_retry_count" unsigned="true" nullable="false" default="0" identity="false"
+        <column xsi:type="smallint" name="onestock_retries" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Onestock Retry Count"/>
         <column xsi:type="smallint" name="onestock_export_status" unsigned="true" nullable="false" default="0" identity="false"
                 comment="Is Exported To Onestock"/>
         <index referenceId="SALES_ORDER_ONESTOCK_RETRY_COUNT" indexType="btree">
-            <column name="order_retry_count"/>
+            <column name="onestock_retries"/>
         </index>
         <index referenceId="SALES_ORDER_ONESTOCK_EXPORT_STATUS" indexType="btree">
             <column name="onestock_export_status"/>
