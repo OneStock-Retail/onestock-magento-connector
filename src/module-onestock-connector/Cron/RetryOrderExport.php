@@ -45,10 +45,14 @@ class RetryOrderExport
         $orderCollection->addFieldToFilter('onestock_retries', ['lteq' => $this->config->getOrderRetryCount()]);
         $orderCollection->addFieldToFilter('onestock_export_status', strval(OrderExport::ERROR));
         try {
+            $ids = $orderCollection->getAllIds();
             $this->asyncBulkPublisher->publishMass(
                 RegularPublisher::TOPIC_NAME,
-                array_map('intval', $orderCollection->getAllIds()),
+                array_map('intval', $ids),
+                null,
+                '0'
             );
+            $this->logger->debug("Orders " . implode(", ", $ids) . " queued to retry export.");
         } catch (BulkException $bulkException) {
             $this->logger->error($bulkException->getLogMessage());
         }

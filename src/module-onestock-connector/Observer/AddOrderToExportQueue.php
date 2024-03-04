@@ -61,7 +61,9 @@ class AddOrderToExportQueue implements ObserverInterface
                     [
                         intval($orderId),
                     ],
-                ]
+                ],
+                null,
+                '0'
             );
         } catch (BulkException $bulkException) {
             $this->logger->error($bulkException->getLogMessage());
