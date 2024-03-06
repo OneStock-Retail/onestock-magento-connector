@@ -77,6 +77,10 @@ class Remove
             'reasons' => array_fill_keys(array_keys($qtys), $message),
         ];
 
+        if (!$this->canRefundShippingFees($order, $toRefund)) {
+            $toRefund['shipping_amount'] = 0;
+        }
+
         $creditmemo = $this->creditMemoFactory
             ->createByOrder($order, $toRefund)
             ->setOnestockId($group['id']);
@@ -85,5 +89,27 @@ class Remove
         $this->creditmemoManagement->refund($creditmemo, true);
 
         return $creditmemo;
+    }
+
+    /**
+     * Check if refund will be the last
+     *
+     * @param  Order $order    The order to check for refundability
+     * @param  array $toRefund An array containing the quantity of items to refund
+     * @return bool True if the order item can be refunded, false otherwise
+     */
+    public function canRefundShippingFees(Order $order, array $toRefund): bool
+    {
+        foreach ($order->getItems() as $orderItem) {
+            /** @var Item $orderItem */
+            if ($orderItem->canRefund()) {
+                $qtyToRefund = $toRefund['qtys'][$orderItem->getId()] ?? 0;
+                $qtyLeftToRefund = $orderItem->getQtyToRefund();
+                if ((string) (float) $qtyToRefund != (string) (float) $qtyLeftToRefund) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
