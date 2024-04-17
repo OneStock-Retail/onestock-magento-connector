@@ -53,7 +53,10 @@ class Delivery implements ObserverInterface
 
         $target = $observer->getTarget();
         $target['delivery'] = [
-            'type' => $order->getIncrementId(),
+            'type' => $order->getShippingMethod(),
+            'carrier' => [
+                'name' => $order->getShippingDescription(),
+            ],
             'destination' => [
                 'address' => [
                     'lines' => $address->getStreet(),
