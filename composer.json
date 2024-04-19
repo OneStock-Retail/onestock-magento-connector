@@ -13,7 +13,6 @@
     }
   ],
   "description": "Magento 2 orchestration managed by Onestock",
-  "version": "1.0.0",
   "homepage": "https://github.com/Smile-SA/onestock",
   "keywords": [
     "magento",
