@@ -44,13 +44,6 @@ class Delivery implements ObserverInterface
         /** @var Address $address */
         $address = $order->getShippingAddress();
 
-        $countryLabel = $address->getCountryId();
-        foreach ($this->translate->getOptionCountries() as $country) {
-            if ($country['value'] == $address->getCountryId()) {
-                $countryLabel = $country['label'];
-            }
-        }
-
         $target = $observer->getTarget();
         $target['delivery'] = [
             'type' => $order->getShippingMethod(),
@@ -65,7 +58,7 @@ class Delivery implements ObserverInterface
                     'regions' => [
                         'country' => [
                             'code' => $address->getCountryId(),
-                            'name' => $countryLabel,
+                            'name' => $this->translate->getCountryTranslation($address->getCountryId()),
                         ],
                     ],
                     'contact' => array_filter(
