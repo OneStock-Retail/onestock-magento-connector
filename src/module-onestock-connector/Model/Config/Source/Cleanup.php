@@ -30,8 +30,6 @@ class Cleanup implements ArrayInterface
 {
     /**
      * Options getter
-     *
-     * @return array
      */
     public function toOptionArray(): array
     {
@@ -46,8 +44,6 @@ class Cleanup implements ArrayInterface
 
     /**
      * Get options in "key-value" format
-     *
-     * @return array
      */
     public function toArray(): array
     {
