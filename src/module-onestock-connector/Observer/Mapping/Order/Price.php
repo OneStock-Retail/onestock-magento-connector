@@ -18,14 +18,17 @@ namespace Smile\Onestock\Observer\Mapping\Order;
 use Magento\Framework\DataObject\Copy;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
+use Magento\Framework\Locale\ListsInterface;
 
 /**
  * Part of the mapping handling package value
  */
 class Price implements ObserverInterface
 {
-    public function __construct(protected Copy $objectCopyService)
-    {
+    public function __construct(
+        protected ListsInterface $translate,
+        protected Copy $objectCopyService
+    ) {
     }
 
     /**
@@ -35,14 +38,25 @@ class Price implements ObserverInterface
     {
         $order = $observer->getSource();
         $target = $observer->getTarget();
+        $address = $order->getBillingAddress();
+
         $target['pricing_details'] = [
             'currency' => $order->getOrderCurrencyCode(),
             'address' => [
+                'lines' => $address->getStreet(),
+                'city' => $address->getCity(),
+                'zip_code' => $address->getPostcode(),
+                'regions' => [
+                    'country' => [
+                        'code' => $address->getCountryId(),
+                        'name' => $this->translate->getCountryTranslation($address->getCountryId()),
+                    ],
+                ],
                 'contact' => array_filter(
                     $this->objectCopyService->getDataFromFieldset(
                         'onestock_address_mapping',
                         'to_onestock_contact',
-                        $order->getBillingAddress(),
+                        $address,
                     )
                 ),
             ],
