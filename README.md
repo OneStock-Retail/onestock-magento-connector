@@ -11,7 +11,7 @@ This module was created for Magento **2.4.x** Opensource (CE) / Adobe Commerce (
 
 ##  Installation
 
-```composer require smile/onestock```
+```composer require onestock/onestock-magento-connector```
 
 ##  Documentation
 

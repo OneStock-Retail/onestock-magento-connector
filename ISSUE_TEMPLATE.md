@@ -7,7 +7,7 @@
 Magento Version :
 
 <!-- smile/onestock Version : Which exact version of smile/onestock are you using ? -->
-smile/onestock version :
+onestock/onestock-magento-connector :
 
 <!-- Magento Environment : are you in Developer or Production mode ? -->
 Environment :
