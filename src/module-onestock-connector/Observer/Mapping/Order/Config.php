@@ -55,7 +55,7 @@ class Config implements ObserverInterface
             ));
             foreach ($rulesets as $ruleset) {
                 if ($ruleset['method'] == $order->getShippingMethod()) {
-                    $onestockOrder['original_ruleset_id'] = $ruleset['ruleset'];
+                    $onestockOrder['original_ruleset_chaining_id'] = $ruleset['ruleset'];
                 }
             }
         } catch (Exception $e) {
