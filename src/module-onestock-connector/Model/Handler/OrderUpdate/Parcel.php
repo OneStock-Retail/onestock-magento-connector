@@ -83,6 +83,19 @@ class Parcel
     }
 
     /**
+     * Group item state that can be stored in a shipment
+     *
+     * @return string[]
+     */
+    public function getShipableStates()
+    {
+        return [
+            'fulfilled',
+            'provided',
+       ];
+    }
+
+    /**
      * Create shipment based on group
      *
      * @param string[] $parcel
@@ -98,7 +111,7 @@ class Parcel
         foreach ($onestockOrder['line_item_groups'] as $group) {
             $shipmentItemQty = 0;
             /** @var Item $orderItem */
-            if ($group['state'] == 'fulfilled' && isset($group['parcel_id']) && $group['parcel_id'] == $parcel['id']) {
+            if (in_array($group['state'], $this->getShipableStates()) && isset($group['parcel_id']) && $group['parcel_id'] == $parcel['id']) {
                 foreach ($this->orderItemHelper->getItemBySku($order, $group['item_id']) as $orderItem) {
                     /** @var Item $orderItem */
                     $qtyShipped = min($orderItem->getQtyToShip(), $group['quantity'] - $shipmentItemQty);
