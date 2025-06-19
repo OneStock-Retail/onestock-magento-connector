@@ -46,12 +46,24 @@ class AddOrderToExportQueue implements ObserverInterface
     {
         $orderId = $observer->getOrder()->getId();
 
-        $mode = $this->config->getOrderExportMode();
+        /////Start old code
+        // $mode = $this->config->getOrderExportMode();
+        // $event = $observer->getEvent()->getName();
+        // if ($mode != $event) {
+        //     $this->logger->debug("Order " . $orderId . " not queued during " . $event . " in mode " . $mode);
+        //     return;
+        // }
+        /////End old code
+
+        /////Start new code (temporary fix for paypal)
+        $mode = ["sales_order_invoice_pay", "paypal_checkout_success"];
         $event = $observer->getEvent()->getName();
-        if ($mode != $event) {
+        
+        if (!in_array($event, $mode)) {
             $this->logger->debug("Order " . $orderId . " not queued during " . $event . " in mode " . $mode);
             return;
         }
+        /////End new code (temporary fix for paypal)
 
         $this->logger->debug("Order " . $orderId . " added to queue");
         try {
